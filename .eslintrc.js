@@ -26,7 +26,7 @@ module.exports = {
     'space-before-function-paren': 0,
 
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
-    'no-console': 'error',
+    'no-console': 'error', // error
     'no-alert': 'error',
 
     'no-param-reassign': 'off',
