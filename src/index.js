@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import App from './App';
 
 const firebaseConfig = {

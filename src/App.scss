@@ -1,3 +1,16 @@
-.App {
-  color: green;
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ebebee;
+}
+
+.container {
+  max-width: 762px;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
 }
