@@ -1,12 +1,12 @@
 @import '/src/index.scss';
 
-.signin-form {
+.form {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   padding: 5px;
 
-  &__email, &__password, &__btn {
+  &__email, &__password {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid $basic-color;
@@ -15,16 +15,5 @@
 
   &__email, &__password {
     margin-bottom: 5px;
-  }
-
-  &__email:invalid {
-    border: 1px solid red;
-  }
-
-  &__btn {
-    cursor: pointer;
-    border: none;
-    background-color: $active-color;
-    color: $simple-color;
   }
 }

@@ -13,23 +13,12 @@
 
 $simple-color: #fff;
 $basic-color: #ebebee;
-$active-color: #ff611a;
+$intense-color: #ff611a;
 $durk-color: #1a1a1a;
-$passive-color: #ffc120;
+$bright-color: #ffc120;
 
 body {
   margin: 0;
   font-family: 'Roboto';
 }
 
-.link {
-  position: absolute;
-  top: 20px;
-  left: 0;
-  color: $durk-color;
-  text-decoration: none;
-}
-
-.link:hover {
-  color: $active-color;
-}

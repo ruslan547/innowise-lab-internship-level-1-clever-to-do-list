@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.scss';
+import Register from './components/Register/Register';
 import Signin from './components/Signin/Signin';
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
               <Signin />
             </Route>
             <Route path="/register">
-              <div>Register</div>
+              <Register />
             </Route>
             <Route path="/tassker">
               <div>Tassker</div>

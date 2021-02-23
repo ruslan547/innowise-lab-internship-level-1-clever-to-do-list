@@ -1,3 +1,4 @@
+@import '../../index.scss';
 
 .signin {
   position: relative;
@@ -5,4 +6,19 @@
   height: 100%;
   display: flex;
   align-items: center;
+
+  &__link {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    padding-right: 30px;
+    color: $durk-color;
+    text-decoration: none;
+    background: url(../../img/arrow.svg) no-repeat right
+  }
+
+  &__link:hover {
+    color: $bright-color;
+    background-image: url(../../img/active-arrow.svg);
+  }
 }
