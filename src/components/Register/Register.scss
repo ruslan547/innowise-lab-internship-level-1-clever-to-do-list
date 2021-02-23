@@ -11,29 +11,26 @@
     position: absolute;
     left: 0;
     top: 20px;
-    padding-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: $durk-color;
     text-decoration: none;
-    //background: url(../../img/arrow.svg) no-repeat left
   }
-
-  // &__link::before {
-  //   content: '';
-  //   position: absolute;
-  //   width: 14px;
-  //   height: 14px;
-  //   top: 0;
-  //   left: 0;
-  //   background: url(../../img/arrow.svg);
-  //   transform: rotate(180deg);
-  // }
 
   &__link:hover {
     color: $bright-color;
-    //background-image: url(../../img/active-arrow.svg);
+    .register__arrow {background-color: $bright-color;}
   }
 
-  path {
-    fill: red;
+  &__arrow {
+    width: 14px;
+    height: 14px;
+    margin-right: 20px;
+    transform: rotate(180deg);
+    background-color: $durk-color;
+    mask-image: url(../../img/arrow.svg);
   }
 }
+
+

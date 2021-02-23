@@ -19,6 +19,7 @@ function Signin() {
     <div className="signin">
       <Link className="signin__link" to="/register">
         Register
+        <div className="signin__arrow" />
       </Link>
       <Form onSubmit={handleSubmit}>
         <Button value="Sing in" />

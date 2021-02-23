@@ -11,14 +11,23 @@
     position: absolute;
     right: 0;
     top: 20px;
-    padding-right: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: $durk-color;
     text-decoration: none;
-    background: url(../../img/arrow.svg) no-repeat right
   }
 
   &__link:hover {
     color: $bright-color;
-    background-image: url(../../img/active-arrow.svg);
+    .signin__arrow {background-color: $bright-color}
+  }
+
+  &__arrow {
+    width: 14px;
+    height: 14px;
+    background-color: $durk-color;
+    margin-left: 20px;
+    mask-image: url(../../img/arrow.svg);
   }
 }
