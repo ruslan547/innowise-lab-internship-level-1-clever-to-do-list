@@ -6,15 +6,19 @@
   align-items: flex-end;
   padding: 5px;
 
-  &__text, &__password, &__btn {
+  &__email, &__password, &__btn {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid $basic-color;
     outline: none;
   }
 
-  &__text, &__password {
+  &__email, &__password {
     margin-bottom: 5px;
+  }
+
+  &__email:invalid {
+    border: 1px solid red;
   }
 
   &__btn {
