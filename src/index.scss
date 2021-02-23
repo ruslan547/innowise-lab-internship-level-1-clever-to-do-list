@@ -1,1 +1,35 @@
-body {margin: 0;}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/roboto-v20-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/roboto-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/roboto-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/roboto-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/roboto-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/roboto-v20-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+$simple-color: #fff;
+$basic-color: #ebebee;
+$active-color: #ff611a;
+$durk-color: #1a1a1a;
+$passive-color: #ffc120;
+
+body {
+  margin: 0;
+  font-family: 'Roboto';
+}
+
+.link {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  color: $durk-color;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: $active-color;
+}

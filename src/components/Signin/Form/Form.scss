@@ -1,0 +1,26 @@
+@import '/src/index.scss';
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 5px;
+
+  &__text, &__password, &__btn {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid $basic-color;
+    outline: none;
+  }
+
+  &__text, &__password {
+    margin-bottom: 5px;
+  }
+
+  &__btn {
+    cursor: pointer;
+    border: none;
+    background-color: $active-color;
+    color: $simple-color;
+  }
+}
