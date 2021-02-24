@@ -3,6 +3,7 @@ import './App.scss';
 import PrivateRoute from './components/PrivateRouter';
 import Register from './components/Register/Register';
 import Signin from './components/Signin/Signin';
+import Tassker from './components/Tassker/Tassker';
 import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
@@ -12,8 +13,8 @@ function App() {
         <Router>
           <AuthProvider>
             <Switch>
-              <PrivateRoute exact path="/" component={<div>/</div>} />
-              <PrivateRoute path="/task" component={<div>task</div>} />
+              <PrivateRoute exact path="/" component={Tassker} />
+              <PrivateRoute path="/task" component="Task" />
               <Route path="/signin" component={Signin} />
               <Route path="/register" component={Register} />
             </Switch>
