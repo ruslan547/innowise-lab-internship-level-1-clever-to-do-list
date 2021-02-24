@@ -9,7 +9,7 @@ import { useAuth } from '../../contexts/AuthContext';
 
 function Signin() {
   const { signin } = useAuth();
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -17,7 +17,7 @@ function Signin() {
     event.preventDefault();
 
     try {
-      setError('');
+      setError(null);
       setLoading(true);
       await signin(email, password);
       history.push('/');
@@ -34,7 +34,7 @@ function Signin() {
         Register
         <div className="signin__arrow" />
       </Link>
-      {error ? <Alert value={error} /> : null}
+      <Alert value={error} />
       <Form onSubmit={handleSubmit}>
         <Button disabled={loading} value="Sing in" />
       </Form>

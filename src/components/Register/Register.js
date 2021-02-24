@@ -10,7 +10,7 @@ import PasswordInput from '../UI/PasswordInput/PasswordInput';
 
 function Register() {
   const { register } = useAuth();
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const history = useHistory();
@@ -23,7 +23,7 @@ function Register() {
     }
 
     try {
-      setError('');
+      setError(null);
       setLoading(true);
       await register(email, password);
       history.push('/');
@@ -42,7 +42,7 @@ function Register() {
         <div className="register__arrow" />
         Sign in
       </Link>
-      {error ? <Alert value={error} /> : null}
+      <Alert value={error} />
       <Form onSubmit={handleSubmit}>
         <PasswordInput
           value={confirmPassword}

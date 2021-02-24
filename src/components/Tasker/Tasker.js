@@ -4,16 +4,16 @@ import { useAuth } from '../../contexts/AuthContext';
 import Button from '../UI/Button/Button';
 import Calendar from './Calendar/Calendar';
 import Alert from '../UI/Alert/Alert';
-import './Tassker.scss';
+import './Tasker.scss';
 
-function Tassker() {
-  const [error, setError] = useState('');
+function Tasker() {
+  const [error, setError] = useState(null);
   const { currentUser, signout } = useAuth();
   const history = useHistory();
   console.log(currentUser);
 
   const handleSignout = async () => {
-    setError('');
+    setError(null);
 
     try {
       await signout();
@@ -26,7 +26,7 @@ function Tassker() {
   return (
     <div className="tassker">
       <div className="header">
-        Tassker
+        Tasker
         <button className="signout" type="button" onClick={handleSignout}>
           Sign out
         </button>
@@ -40,4 +40,4 @@ function Tassker() {
   );
 }
 
-export default Tassker;
+export default Tasker;

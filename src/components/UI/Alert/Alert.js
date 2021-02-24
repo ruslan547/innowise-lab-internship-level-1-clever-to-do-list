@@ -1,7 +1,13 @@
 import './Alert.scss';
 
 function Alert(params) {
-  return <div className="alert">{params.value}</div>;
+  const { value } = params;
+
+  if (value) {
+    return <div className="alert">{params.value}</div>;
+  }
+
+  return null;
 }
 
 export default Alert;
