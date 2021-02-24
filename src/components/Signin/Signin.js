@@ -1,18 +1,30 @@
-import { Link } from 'react-router-dom';
-import firebase from 'firebase/app';
+import { Link, useHistory } from 'react-router-dom';
+import { useState } from 'react';
 import 'firebase/auth';
 import Form from '../UI/Form/Form';
 import './Signin.scss';
 import Button from '../UI/Button/Button';
+import { useAuth } from '../../contexts/AuthContext';
 
 function Signin() {
-  const handleSubmit = ({ email, password }, event) => {
+  const { signin } = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  const handleSubmit = async ({ email, password }, event) => {
     event.preventDefault();
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+
+    try {
+      setError('');
+      setLoading(true);
+      await signin(email, password);
+      history.push('/');
+    } catch {
+      setError('Failed to log in');
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -21,8 +33,9 @@ function Signin() {
         Register
         <div className="signin__arrow" />
       </Link>
+      {error ? <span>{error}</span> : null}
       <Form onSubmit={handleSubmit}>
-        <Button value="Sing in" />
+        <Button disabled={loading} value="Sing in" />
       </Form>
     </div>
   );
