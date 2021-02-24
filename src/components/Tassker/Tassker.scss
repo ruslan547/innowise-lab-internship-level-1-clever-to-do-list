@@ -1,12 +1,7 @@
 @import '../../index.scss';
 
-.tassker {
-
-}
-
 .header {
   width: 100%;
-  min-width: 300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,6 +17,4 @@
   background-color: #fff;
 }
 
-.signout:hover {
-  color: $bright-color;
-}
+.signout:hover {color: $bright-color}

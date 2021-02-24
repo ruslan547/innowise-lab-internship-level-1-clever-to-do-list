@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { auth } from '../firebase';
+import Loading from '../components/UI/Loading/Loading';
 
 const AuthContext = React.createContext();
 
@@ -55,7 +56,9 @@ export function AuthProvider({ children }) {
     updatePassword,
   };
 
-  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>{loading ? <Loading /> : children}</AuthContext.Provider>
+  );
 }
 
 AuthProvider.propTypes = {
