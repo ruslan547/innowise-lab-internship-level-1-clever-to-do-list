@@ -1,0 +1,14 @@
+@import '../../../../index.scss';
+
+.task {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid $basic-color;
+  border-radius: 4px;
+  margin-bottom: 5px;
+
+  &__input {
+    margin-right: 10px;
+  }
+}

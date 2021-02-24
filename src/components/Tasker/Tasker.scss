@@ -1,5 +1,25 @@
 @import '../../index.scss';
 
+.tasker {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__btn {
+    cursor: pointer;
+    width: 100%;
+    background-color: $intense-color;
+    color: $simple-color;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid $basic-color;
+    outline: none;
+  }
+
+  &__btn:hover {background-color: $bright-color}
+}
+
 .header {
   width: 100%;
   display: flex;
@@ -18,3 +38,7 @@
 }
 
 .signout:hover {color: $bright-color}
+
+.list-title {
+  margin-bottom: 30px;
+}

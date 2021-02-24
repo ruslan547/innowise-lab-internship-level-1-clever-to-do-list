@@ -1,1 +1,15 @@
 @import '../../../index.scss';
+
+.calendar {
+  width: 100%;
+  display: flex;
+  flex-shrink: 0;
+  overflow-x: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+}
+
+.calendar::-webkit-scrollbar {
+  display: none;
+}

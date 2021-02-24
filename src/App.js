@@ -3,8 +3,8 @@ import './App.scss';
 import PrivateRoute from './components/PrivateRouter';
 import Register from './components/Register/Register';
 import Signin from './components/Signin/Signin';
-import Task from './components/Task/Task';
 import Tasker from './components/Tasker/Tasker';
+import TaskPage from './components/TaskPage/TaskPage';
 import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
           <AuthProvider>
             <Switch>
               <PrivateRoute exact path="/" component={Tasker} />
-              <PrivateRoute path="/task" component={Task} />
+              <PrivateRoute path="/task" component={TaskPage} />
               <Route path="/signin" component={Signin} />
               <Route path="/register" component={Register} />
             </Switch>
