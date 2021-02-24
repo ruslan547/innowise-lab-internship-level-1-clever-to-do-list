@@ -14,7 +14,7 @@ function App() {
           <AuthProvider>
             <Switch>
               <PrivateRoute exact path="/" component={Tassker} />
-              <PrivateRoute path="/task" component="Task" />
+              <PrivateRoute path="/task" component={Tassker} />
               <Route path="/signin" component={Signin} />
               <Route path="/register" component={Register} />
             </Switch>
