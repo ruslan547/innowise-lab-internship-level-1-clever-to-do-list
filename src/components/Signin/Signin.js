@@ -2,6 +2,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import 'firebase/auth';
 import Form from '../UI/Form/Form';
+import Alert from '../UI/Alert/Alert';
 import './Signin.scss';
 import Button from '../UI/Button/Button';
 import { useAuth } from '../../contexts/AuthContext';
@@ -33,7 +34,7 @@ function Signin() {
         Register
         <div className="signin__arrow" />
       </Link>
-      {error ? <span>{error}</span> : null}
+      {error ? <Alert value={error} /> : null}
       <Form onSubmit={handleSubmit}>
         <Button disabled={loading} value="Sing in" />
       </Form>

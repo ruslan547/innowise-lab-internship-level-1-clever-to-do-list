@@ -40,7 +40,7 @@ function Form(props) {
 }
 
 Form.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired || PropTypes.array,
   onSubmit: PropTypes.func,
 };
 

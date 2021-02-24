@@ -5,6 +5,8 @@ import Button from '../UI/Button/Button';
 import Form from '../UI/Form/Form';
 import './Register.scss';
 import { useAuth } from '../../contexts/AuthContext';
+import Alert from '../UI/Alert/Alert';
+import PasswordInput from '../UI/PasswordInput/PasswordInput';
 
 function Register() {
   const { register } = useAuth();
@@ -40,9 +42,13 @@ function Register() {
         <div className="register__arrow" />
         Sign in
       </Link>
-      {error ? <span>{error}</span> : null}
+      {error ? <Alert value={error} /> : null}
       <Form onSubmit={handleSubmit}>
-        <input type="password" value={confirmPassword} onChange={handleChange} />
+        <PasswordInput
+          value={confirmPassword}
+          onChange={handleChange}
+          placeholder="Confirm password"
+        />
         <Button disabled={loading} value="Register" />
       </Form>
     </div>
