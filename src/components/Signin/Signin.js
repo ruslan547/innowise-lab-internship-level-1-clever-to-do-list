@@ -30,10 +30,13 @@ function Signin() {
 
   return (
     <div className="signin">
-      <Link className="signin__link" to="/register">
-        Register
-        <div className="signin__arrow" />
-      </Link>
+      <div className="signin__nav">
+        <Link className="link" to="/register">
+          Register
+          <div className="signin__arrow arrow" />
+        </Link>
+      </div>
+
       <Alert value={error} />
       <Form onSubmit={handleSubmit}>
         <Button disabled={loading} value="Sing in" />

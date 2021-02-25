@@ -25,3 +25,22 @@ body {
   font-family: 'Roboto';
 }
 
+.link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $durk-color;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: $bright-color;
+  .arrow {background-color: $bright-color}
+}
+
+.arrow {
+  width: 14px;
+  height: 14px;
+  background-color: $durk-color;
+}
+

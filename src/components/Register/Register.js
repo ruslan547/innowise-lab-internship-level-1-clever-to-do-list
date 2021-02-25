@@ -38,10 +38,12 @@ function Register() {
 
   return (
     <div className="register">
-      <Link className="register__link" to="/signin">
-        <div className="register__arrow" />
-        Sign in
-      </Link>
+      <div className="register__nav">
+        <Link className="link" to="/signin">
+          <div className="register__arrow arrow" />
+          Sign in
+        </Link>
+      </div>
       <Alert value={error} />
       <Form onSubmit={handleSubmit}>
         <PasswordInput

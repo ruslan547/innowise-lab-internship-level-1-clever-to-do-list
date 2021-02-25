@@ -5,9 +5,9 @@ function TaskPage() {
   return (
     <div className="task-page">
       <div className="task-page__nav">
-        <Link className="signin__link" to="/register">
+        <Link className="link" to="/register">
+          <div className="arrow" />
           Today{"' "}s Task
-          <div className="signin__arrow" />
         </Link>
       </div>
     </div>
