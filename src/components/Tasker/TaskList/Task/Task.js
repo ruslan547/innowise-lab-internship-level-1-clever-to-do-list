@@ -12,7 +12,12 @@ function Task({ task }) {
 
   return (
     <button type="button" className="task" onClick={handleClick}>
-      <input className="task__input" type="checkbox" checked={task.state} />
+      <input
+        className="task__input"
+        type="checkbox"
+        checked={task.state}
+        onChange={() => console.log('checkbox of task')}
+      />
       <span className="task__text">{task.titele}</span>
     </button>
   );

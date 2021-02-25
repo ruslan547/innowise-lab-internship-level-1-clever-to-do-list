@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PropType from 'prop-types';
-import Task from './Task/Task';
 import './TaskPage.scss';
+import EditTask from './EditTask/EditTask';
 import TaskPageCalendar from './Calendar/Calendar';
 
 const fakeTask = {
@@ -20,12 +20,12 @@ function TaskPage({ task }) {
   return (
     <div className="task-page">
       <div className="task-page__nav">
-        <Link className="link" to="/register">
+        <Link className="link" to="/">
           <div className="task-page__arrow arrow" />
           <div className="text_nowrap">Today{"' "}s Task</div>
         </Link>
       </div>
-      <Task task={task} onChange={handChange} />
+      <EditTask task={task} onChange={handChange} />
       <textarea
         className="task-page__description"
         name="dexcription"

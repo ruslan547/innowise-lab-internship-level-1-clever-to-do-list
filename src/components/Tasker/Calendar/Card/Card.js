@@ -14,7 +14,7 @@ function Card(props) {
     <div className="card">
       <div className="card__day">
         <span className="card__text">{getNameDay(day)}</span>
-        <span className="card__number">{day}</span>
+        <span className="card__number">{date.getDate()}</span>
       </div>
       <div className="card__board">
         <div className="card__pending" />
