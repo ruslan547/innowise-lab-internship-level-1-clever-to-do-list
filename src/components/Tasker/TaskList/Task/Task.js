@@ -1,17 +1,11 @@
 import './Task.scss';
 import PropType from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Task({ task }) {
-  const history = useHistory();
-
-  const handleClick = (event) => {
-    console.log(event);
-    history.push('/task');
-  };
-
   return (
-    <button type="button" className="task" onClick={handleClick}>
+    // здесь поменять состояние currentTask
+    <Link className="task" onClick={() => console.log('task')} to="/task">
       <input
         className="task__input"
         type="checkbox"
@@ -19,7 +13,7 @@ function Task({ task }) {
         onChange={() => console.log('checkbox of task')}
       />
       <span className="task__text">{task.titele}</span>
-    </button>
+    </Link>
   );
 }
 

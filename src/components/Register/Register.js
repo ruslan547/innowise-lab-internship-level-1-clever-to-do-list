@@ -1,5 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../UI/Button/Button';
 import Form from '../UI/Form/Form';
@@ -14,6 +14,7 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const history = useHistory();
+  let cleanupFunction = false;
 
   const handleSubmit = async ({ email, password }, event) => {
     event.preventDefault();
@@ -31,10 +32,16 @@ function Register() {
       setError('Failed to create an account');
     }
 
-    setLoading(false);
+    if (!cleanupFunction) {
+      setLoading(false);
+    }
   };
 
   const handleChange = (event) => setConfirmPassword(event.target.value);
+
+  useEffect(() => {
+    cleanupFunction = true;
+  });
 
   return (
     <div className="register">
