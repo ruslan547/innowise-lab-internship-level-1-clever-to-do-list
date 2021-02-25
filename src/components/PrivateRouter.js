@@ -6,15 +6,16 @@ import { useAuth } from '../contexts/AuthContext';
 export default function PrivateRoute({ component: Component }) {
   const { currentUser } = useAuth();
 
-  return (
-    <Route
-      render={() => {
-        return currentUser ? <Component /> : <Redirect to="/signin" />;
-      }}
-    />
-  );
+  const render = () => {
+    const component = <Component />;
+    return currentUser ? component : <Redirect to="/signin" />;
+  };
+
+  return <Route render={render} />;
 }
 
 PrivateRoute.propTypes = {
   component: PropTypes.func,
+  task: PropTypes.object,
+  setTask: PropTypes.func,
 };
