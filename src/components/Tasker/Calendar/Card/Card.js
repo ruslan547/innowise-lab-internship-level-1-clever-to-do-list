@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { useAuth } from '../../../../contexts/AuthContext';
 import { getNameDay } from '../../../../libraries/date';
 
-function Card(props) {
+function Card({ date, currentDate, setCurrentDate, toDay }) {
   const { tasks } = useAuth();
-  const { date } = props;
   const day = date.getDay();
+  console.log(currentDate);
+
+  const handleClick = () => {
+    setCurrentDate(date);
+  };
 
   const checkPendingTasks = () => {
     return tasks.some((item) => {
@@ -20,9 +24,21 @@ function Card(props) {
     });
   };
 
+  const createDayClass = () => {
+    let dayClass = 'card__day';
+    if (toDay.getTime() === date.getTime()) {
+      dayClass += ' card__day_today';
+    }
+
+    if (currentDate.getTime() === date.getTime()) {
+      dayClass += ' card__day_current';
+    }
+    return dayClass;
+  };
+
   return (
-    <div className="card">
-      <div className="card__day">
+    <button type="button" className="card" onClick={handleClick}>
+      <div className={createDayClass()}>
         <span className="card__text">{getNameDay(day)}</span>
         <span className="card__number">{date.getDate()}</span>
       </div>
@@ -30,13 +46,16 @@ function Card(props) {
         {checkPendingTasks() ? <div className="card__pending" /> : null}
         {checkFulfilledTasks() ? <div className="card__fulfilled" /> : null}
       </div>
-    </div>
+    </button>
   );
 }
 
 Card.propTypes = {
   date: PropTypes.object,
   tasks: PropTypes.array,
+  currentDate: PropTypes.object,
+  setCurrentDate: PropTypes.func,
+  toDay: PropTypes.object,
 };
 
 export default Card;

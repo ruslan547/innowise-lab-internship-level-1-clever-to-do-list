@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { useAuth } from '../../contexts/AuthContext';
 import Calendar from './Calendar/Calendar';
 import Alert from '../UI/Alert/Alert';
@@ -15,10 +16,12 @@ const fakeTasks = [
   },
 ];
 
-function Tasker() {
+function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate, toDay }) {
   const [error, setError] = useState(null);
   const { signout, tasks } = useAuth();
   const history = useHistory();
+
+  console.log(toDay);
 
   const handleSignout = async () => {
     setError(null);
@@ -40,14 +43,33 @@ function Tasker() {
         </button>
       </div>
       <Alert value={error} />
-      <Calendar tasks={fakeTasks} />
+      <Calendar
+        tasks={fakeTasks}
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+        toDay={toDay}
+      />
       <div className="list-title">{tasks.length} Tasks Today</div>
-      <TaskList tasks={fakeTasks} />
+      <TaskList
+        tasks={fakeTasks}
+        currentTask={currentTask}
+        setCurrentTask={setCurrentTask}
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+      />
       <Link className="tasker__link" to="/task">
         + Add a New Task
       </Link>
     </div>
   );
 }
+
+Tasker.propTypes = {
+  currentTask: PropTypes.object,
+  setCurrentTask: PropTypes.func,
+  currentDate: PropTypes.object,
+  setCurrentDate: PropTypes.func,
+  toDay: PropTypes.object,
+};
 
 export default Tasker;

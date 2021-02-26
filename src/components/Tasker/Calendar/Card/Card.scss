@@ -1,8 +1,11 @@
 @import '../../../../index.scss';
 
 .card {
-  cursor: pointer;
+  padding: 0;
   margin-right: 10px;
+  border: none;
+  outline: none;
+  background-color: $simple-color;
 
   &__day {
     width: 40px;
@@ -11,8 +14,29 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    border: 1px solid $lite-color;
+    border: 2px solid $lite-color;
     border-radius: 10px;
+  }
+
+  &__day_today {
+    border-color: $intense-color;
+
+    & > span {
+      color: $intense-color;
+    }
+  }
+
+  &__day_current {
+    background-color: $durk-color;
+    border-color: $durk-color;
+
+    & > span {
+      color: $simple-color;
+    }
+  }
+
+  &__day:hover {
+    box-shadow: 0px 0px 6px -2px $durk-color;
   }
 
   &__text {

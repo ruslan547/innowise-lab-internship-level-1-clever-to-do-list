@@ -20,6 +20,7 @@ function TaskPage() {
       title,
       description,
       date,
+      id: Math.random() * 100,
     };
 
     tasks.push(newTask);
