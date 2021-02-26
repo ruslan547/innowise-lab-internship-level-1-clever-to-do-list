@@ -21,8 +21,6 @@ function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate, toDa
   const { signout, tasks } = useAuth();
   const history = useHistory();
 
-  console.log(toDay);
-
   const handleSignout = async () => {
     setError(null);
 

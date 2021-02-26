@@ -10,11 +10,10 @@ import { AuthProvider } from './contexts/AuthContext';
 import { startOfDay } from './libraries/date';
 
 function App() {
-  const [toDay] = useState(startOfDay(new Date()));
+  const toDay = startOfDay(new Date());
   const [currentTask, setCurrentTask] = useState(null);
   const [currentDate, setCurrentDate] = useState(startOfDay(new Date()));
 
-  console.log(toDay);
   return (
     <div className="wrapper">
       <div className="container">
@@ -36,6 +35,7 @@ function App() {
                 currentTask={currentTask}
                 setCurrentTask={setCurrentTask}
                 currentDate={currentDate}
+                toDay={toDay}
               />
               <Route path="/signin" component={Signin} />
               <Route path="/register" component={Register} />

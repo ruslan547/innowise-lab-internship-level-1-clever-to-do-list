@@ -6,7 +6,6 @@ import { getNameDay } from '../../../../libraries/date';
 function Card({ date, currentDate, setCurrentDate, toDay }) {
   const { tasks } = useAuth();
   const day = date.getDay();
-  console.log(currentDate);
 
   const handleClick = () => {
     setCurrentDate(date);

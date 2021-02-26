@@ -3,11 +3,26 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function PrivateRoute({ component: Component, currentTask, setCurrentTask }) {
+export default function PrivateRoute({
+  component: Component,
+  currentTask,
+  setCurrentTask,
+  currentDate,
+  setCurrentDate,
+  toDay,
+}) {
   const { currentUser } = useAuth();
 
   const render = () => {
-    const component = <Component currentTask={currentTask} setCurrentTask={setCurrentTask} />;
+    const component = (
+      <Component
+        currentTask={currentTask}
+        setCurrentTask={setCurrentTask}
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+        toDay={toDay}
+      />
+    );
     return currentUser ? component : <Redirect to="/signin" />;
   };
 
@@ -18,4 +33,7 @@ PrivateRoute.propTypes = {
   component: PropTypes.func,
   currentTask: PropTypes.object,
   setCurrentTask: PropTypes.func,
+  currentDate: PropTypes.object,
+  setCurrentDate: PropTypes.func,
+  toDay: PropTypes.object,
 };

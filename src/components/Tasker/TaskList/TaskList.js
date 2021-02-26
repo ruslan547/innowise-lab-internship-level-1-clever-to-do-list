@@ -20,7 +20,7 @@ function TaskList({ setCurrentTask, currentDate }) {
 TaskList.propTypes = {
   currantTask: PropTypes.object,
   setCurrentTask: PropTypes.func,
-  currentDate: PropTypes.func,
+  currentDate: PropTypes.object,
 };
 
 export default TaskList;
