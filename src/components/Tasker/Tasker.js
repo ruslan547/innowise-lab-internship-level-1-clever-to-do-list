@@ -18,7 +18,7 @@ const fakeTasks = [
 
 function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate, toDay }) {
   const [error, setError] = useState(null);
-  const { signout, tasks } = useAuth();
+  const { signout } = useAuth();
   const history = useHistory();
 
   const handleSignout = async () => {
@@ -47,7 +47,6 @@ function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate, toDa
         setCurrentDate={setCurrentDate}
         toDay={toDay}
       />
-      <div className="list-title">{tasks.length} Tasks Today</div>
       <TaskList
         tasks={fakeTasks}
         currentTask={currentTask}

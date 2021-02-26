@@ -6,7 +6,26 @@ export function startOfDay(date) {
   return date;
 }
 
-export function getNameDay(data) {
-  const days = ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'];
-  return days[data];
+export function getNameDay(date) {
+  const days = ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat'];
+  return days[date.getDay()];
+}
+
+export function getNameMonth(date) {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  return months[date.getMonth()];
 }

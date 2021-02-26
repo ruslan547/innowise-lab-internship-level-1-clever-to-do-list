@@ -1,0 +1,9 @@
+@import '../../../index.scss';
+
+.datepicker {
+  width: 330px;
+  height: 280px;
+  background-color: $basic-color;
+}
+
+tr > th {width: 1%}

@@ -3,7 +3,9 @@
 .task-list {
   width: 100%;
   overflow-y: auto;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
+
+.task-count {margin-bottom: 30px}
 
 .task-list::-webkit-scrollbar {display: none}

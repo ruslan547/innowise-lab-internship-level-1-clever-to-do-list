@@ -5,7 +5,6 @@ import { getNameDay } from '../../../../libraries/date';
 
 function Card({ date, currentDate, setCurrentDate, toDay }) {
   const { tasks } = useAuth();
-  const day = date.getDay();
 
   const handleClick = () => {
     setCurrentDate(date);
@@ -38,7 +37,7 @@ function Card({ date, currentDate, setCurrentDate, toDay }) {
   return (
     <button type="button" className="card" onClick={handleClick}>
       <div className={createDayClass()}>
-        <span className="card__text">{getNameDay(day)}</span>
+        <span className="card__text">{getNameDay(date)}</span>
         <span className="card__number">{date.getDate()}</span>
       </div>
       <div className="card__board">

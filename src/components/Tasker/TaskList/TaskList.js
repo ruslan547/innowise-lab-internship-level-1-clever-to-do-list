@@ -14,7 +14,10 @@ function TaskList({ setCurrentTask, currentDate }) {
     }
   });
 
-  return <ul className="task-list">{taskList}</ul>;
+  return [
+    <div className="task-count">{taskList.length} Tasks Today</div>,
+    <ul className="task-list">{taskList}</ul>,
+  ];
 }
 
 TaskList.propTypes = {

@@ -3,28 +3,34 @@ import { useState } from 'react';
 import PropType from 'prop-types';
 import './TaskPage.scss';
 import EditTask from './EditTask/EditTask';
-import TaskPageCalendar from './Calendar/Calendar';
+import Datepicker from '../UI/Datepicker/Datepicker';
 import { useAuth } from '../../contexts/AuthContext';
 import { startOfDay } from '../../libraries/date';
 
-function TaskPage() {
+function TaskPage({ currentTask }) {
   const { tasks, setTasks } = useAuth();
   const [state, setState] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [date, setDate] = useState(startOfDay(new Date()));
 
   const handleClick = () => {
     const newTask = {
       state,
       title,
       description,
-      date,
+      date: new Date(),
       id: Math.random() * 100,
     };
 
     tasks.push(newTask);
     setTasks(tasks.slice());
+  };
+
+  const handleChange = (event) => {
+    console.log(event);
+    setState();
+    setTitle();
+    setDescription();
   };
 
   return (
@@ -35,14 +41,14 @@ function TaskPage() {
           <div className="text_nowrap">Today{"' "}s Task</div>
         </Link>
       </div>
-      <EditTask state={state} setState={setState} title={title} setTitle={setTitle} />
+      <EditTask state={state} title={title} onChange={handleChange} />
       <textarea
         className="task-page__description"
         name="dexcription"
-        value={description}
-        onChange={(event) => setDescription(event.target.value)}
+        value={currentTask ? currentTask.description : description}
+        onChange={handleChange}
       />
-      <TaskPageCalendar date={date} setDate={setDate} />
+      <Datepicker data={startOfDay(new Date())} />
       <div className="actions">
         <button type="button">Delete</button>
         <button type="button" onClick={handleClick}>
@@ -54,7 +60,7 @@ function TaskPage() {
 }
 
 TaskPage.propTypes = {
-  task: PropType.object,
+  currentTask: PropType.object,
 };
 
 export default TaskPage;
