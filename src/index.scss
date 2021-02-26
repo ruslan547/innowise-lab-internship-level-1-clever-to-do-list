@@ -23,14 +23,15 @@ $alert-color: #f5c2c7;
 body {
   margin: 0;
   font-family: 'Roboto';
+  color: $durk-color;
 }
 
 .link {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: $durk-color;
   text-decoration: none;
+  color: $durk-color;
 }
 
 .link:hover {

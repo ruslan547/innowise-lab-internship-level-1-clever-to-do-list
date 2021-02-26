@@ -6,18 +6,21 @@
   display: flex;
   flex-direction: column;
 
-  &__btn {
-    cursor: pointer;
+  &__link {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: $durk-color;
     background-color: $intense-color;
     color: $simple-color;
     padding: 15px;
-    border-radius: 5px;
-    border: 1px solid $basic-color;
-    outline: none;
+    border-radius: 10px;
+    box-sizing: border-box;
   }
 
-  &__btn:hover {background-color: $bright-color}
+  &__link:hover {background-color: $bright-color}
 }
 
 .header {

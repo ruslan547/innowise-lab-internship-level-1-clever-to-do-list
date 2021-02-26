@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import PrivateRoute from './components/PrivateRouter';
@@ -8,7 +9,7 @@ import TaskPage from './components/TaskPage/TaskPage';
 import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
-  // const [currentTask, setCurrentTask] = useState(null);
+  const [currentTask, setCurrentTask] = useState(null);
 
   return (
     <div className="wrapper">
@@ -17,7 +18,12 @@ function App() {
           <AuthProvider>
             <Switch>
               <PrivateRoute exact path="/" component={Tasker} />
-              <PrivateRoute path="/task" component={TaskPage} />
+              <PrivateRoute
+                path="/task"
+                component={TaskPage}
+                currentTask={currentTask}
+                setCurrentTask={setCurrentTask}
+              />
               <Route path="/signin" component={Signin} />
               <Route path="/register" component={Register} />
             </Switch>

@@ -17,7 +17,7 @@ const fakeTasks = [
 
 function Tasker() {
   const [error, setError] = useState(null);
-  const { signout } = useAuth();
+  const { signout, tasks } = useAuth();
   const history = useHistory();
 
   const handleSignout = async () => {
@@ -41,11 +41,11 @@ function Tasker() {
       </div>
       <Alert value={error} />
       <Calendar tasks={fakeTasks} />
-      <div className="list-title">{23} Tasks Today</div>
+      <div className="list-title">{tasks.length} Tasks Today</div>
       <TaskList tasks={fakeTasks} />
-      <Link className="tasder__btn" to="/task" value="+ Add a New Task" />
-      {/* <button className="tasker__btn" type="button">
-      </button> */}
+      <Link className="tasker__link" to="/task">
+        + Add a New Task
+      </Link>
     </div>
   );
 }

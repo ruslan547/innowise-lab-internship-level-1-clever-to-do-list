@@ -1,29 +1,31 @@
 import './EditTask.scss';
 import PropType from 'prop-types';
 
-function EditTask({ task, onChange }) {
+function EditTask({ state, setState, title, setTitle }) {
   return (
     <div className="task">
       <input
         className="task__checkbox"
         type="checkbox"
-        checked={task ? task.state : null}
-        onChange={onChange}
+        checked={state}
+        onChange={() => setState(!state)}
       />
       <input
         className="task__text"
         type="text"
-        value={task ? task.title : null}
+        value={title}
         name="title"
-        onChange={onChange}
+        onChange={(event) => setTitle(event.target.value)}
       />
     </div>
   );
 }
 
 EditTask.propTypes = {
-  task: PropType.object,
-  onChange: PropType.func,
+  state: PropType.bool,
+  setState: PropType.func,
+  title: PropType.string,
+  setTitle: PropType.func,
 };
 
 export default EditTask;

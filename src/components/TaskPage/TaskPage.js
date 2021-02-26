@@ -1,20 +1,28 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import PropType from 'prop-types';
 import './TaskPage.scss';
 import EditTask from './EditTask/EditTask';
 import TaskPageCalendar from './Calendar/Calendar';
+import { useAuth } from '../../contexts/AuthContext';
 
-const fakeTask = {
-  date: new Date('2019-01-26'),
-  state: false,
-  title: 'JS',
-  text: 'sadldfdsgre',
-};
+function TaskPage() {
+  const { tasks, setTasks } = useAuth();
+  const [state, setState] = useState(false);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState(new Date());
 
-function TaskPage({ task }) {
-  task = fakeTask;
-  const handChange = (event) => {
-    console.log(event);
+  const handleClick = () => {
+    const newTask = {
+      state,
+      title,
+      description,
+      date: date.toJSON(),
+    };
+
+    tasks.push(newTask);
+    setTasks(tasks.slice());
   };
 
   return (
@@ -25,17 +33,19 @@ function TaskPage({ task }) {
           <div className="text_nowrap">Today{"' "}s Task</div>
         </Link>
       </div>
-      <EditTask task={task} onChange={handChange} />
+      <EditTask state={state} setState={setState} title={title} setTitle={setTitle} />
       <textarea
         className="task-page__description"
         name="dexcription"
-        value={task.text}
-        onChange={handChange}
+        value={description}
+        onChange={(event) => setDescription(event.target.value)}
       />
-      <TaskPageCalendar date={task.date} />
+      <TaskPageCalendar date={date} setDate={setDate} />
       <div className="actions">
         <button type="button">Delete</button>
-        <button type="button">Update</button>
+        <button type="button" onClick={handleClick}>
+          Update
+        </button>
       </div>
     </div>
   );

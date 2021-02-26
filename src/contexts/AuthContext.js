@@ -11,7 +11,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [tasks, setTasks] = useState();
+  const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
   function register(email, password) {
@@ -35,6 +35,7 @@ export function AuthProvider({ children }) {
         const response = snapshot.val();
         if (response instanceof Object) {
           if (response.tasks) {
+            // const parsedDate = JSON.parse(response.tasks);
             setTasks(response.tasks);
             console.log('respons=', response.tasks);
           }
@@ -68,6 +69,7 @@ export function AuthProvider({ children }) {
   const value = {
     tasks,
     currentUser,
+    setTasks,
     signin,
     register,
     signout,
