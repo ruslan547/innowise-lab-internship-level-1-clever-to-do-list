@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { auth } from '../firebase';
+import { auth, database } from '../firebase';
 import Loader from '../components/UI/Loader/Loader';
 
 const AuthContext = React.createContext();
@@ -11,6 +11,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  const [tasks, setTasks] = useState();
   const [loading, setLoading] = useState(true);
 
   function register(email, password) {
@@ -25,6 +26,36 @@ export function AuthProvider({ children }) {
     return auth.signOut();
   }
 
+  function readUserData() {
+    const { uid } = currentUser;
+
+    database.ref('users/'.concat(uid)).on(
+      'value',
+      (snapshot) => {
+        const response = snapshot.val();
+        if (response instanceof Object) {
+          if (response.tasks) {
+            setTasks(response.tasks);
+            console.log('respons=', response.tasks);
+          }
+        }
+      },
+      (error) => console.log('Error: '.concat(error.code)),
+    );
+  }
+
+  function writeUserData() {
+    const { uid } = currentUser;
+    console.log('send=', { tasks });
+    database.ref('users/'.concat(uid)).set({ tasks });
+  }
+
+  useEffect(() => {
+    if (currentUser) {
+      readUserData();
+    }
+  }, [currentUser]);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -35,10 +66,13 @@ export function AuthProvider({ children }) {
   }, []);
 
   const value = {
+    tasks,
     currentUser,
     signin,
     register,
     signout,
+    readUserData,
+    writeUserData,
   };
 
   return (
