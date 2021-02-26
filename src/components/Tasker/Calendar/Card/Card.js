@@ -1,13 +1,23 @@
 import './Card.scss';
 import PropTypes from 'prop-types';
+import { useAuth } from '../../../../contexts/AuthContext';
+import { getNameDay } from '../../../../libraries/date';
 
 function Card(props) {
+  const { tasks } = useAuth();
   const { date } = props;
-  const day = date.getDay() + 1;
+  const day = date.getDay();
 
-  const getNameDay = (data) => {
-    const days = ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'];
-    return days[data];
+  const checkPendingTasks = () => {
+    return tasks.some((item) => {
+      return item.date.getTime() === date.getTime() && !item.state;
+    });
+  };
+
+  const checkFulfilledTasks = () => {
+    return tasks.some((item) => {
+      return item.date.getTime() === date.getTime() && item.state;
+    });
   };
 
   return (
@@ -17,8 +27,8 @@ function Card(props) {
         <span className="card__number">{date.getDate()}</span>
       </div>
       <div className="card__board">
-        <div className="card__pending" />
-        <div className="card__fulfilled" />
+        {checkPendingTasks() ? <div className="card__pending" /> : null}
+        {checkFulfilledTasks() ? <div className="card__fulfilled" /> : null}
       </div>
     </div>
   );

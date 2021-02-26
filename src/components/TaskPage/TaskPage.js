@@ -5,20 +5,21 @@ import './TaskPage.scss';
 import EditTask from './EditTask/EditTask';
 import TaskPageCalendar from './Calendar/Calendar';
 import { useAuth } from '../../contexts/AuthContext';
+import { startOfDay } from '../../libraries/date';
 
 function TaskPage() {
   const { tasks, setTasks } = useAuth();
   const [state, setState] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(startOfDay(new Date()));
 
   const handleClick = () => {
     const newTask = {
       state,
       title,
       description,
-      date: date.toJSON(),
+      date,
     };
 
     tasks.push(newTask);

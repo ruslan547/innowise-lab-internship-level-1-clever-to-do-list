@@ -2,17 +2,10 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Calendar.scss';
 import Card from './Card/Card';
-
-const roundDate = (date) => {
-  date.setHours(0);
-  date.setMinutes(0);
-  date.setSeconds(0);
-  date.setMilliseconds(0);
-  return date;
-};
+import { startOfDay } from '../../../libraries/date';
 
 function Calendar() {
-  let date = roundDate(new Date());
+  let date = startOfDay(new Date());
   const stopDay = date.getDate();
   const cards = [];
 
