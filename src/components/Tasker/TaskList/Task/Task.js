@@ -10,8 +10,9 @@ function Task({ task, setCurrentTask }) {
   const delay = 200;
 
   const handleChange = () => {
-    task.state = !task.state;
-    setTasks([...tasks]);
+    const newTasks = tasks.filter((item) => item !== task);
+    task.checked = !task.checked;
+    setTasks([...newTasks, task]);
   };
 
   const handleClick = () => {
@@ -21,7 +22,7 @@ function Task({ task, setCurrentTask }) {
   };
 
   const handleDoubleClick = () => {
-    const pulledTask = tasks.filter((item) => item === task);
+    const pulledTask = tasks.find((item) => item === task);
     const newTasks = tasks.filter((item) => item !== task);
 
     setCurrentTask(pulledTask);
@@ -32,7 +33,12 @@ function Task({ task, setCurrentTask }) {
 
   return (
     <button type="button" className="task" onClick={handleClick} onDoubleClick={handleDoubleClick}>
-      <input className="task__input" type="checkbox" checked={task.state} onChange={handleChange} />
+      <input
+        className="task__input"
+        type="checkbox"
+        checked={task.checked}
+        onChange={handleChange}
+      />
       {task.title}
     </button>
   );

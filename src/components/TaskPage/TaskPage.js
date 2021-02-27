@@ -7,38 +7,38 @@ import Datepicker from '../UI/Datepicker/Datepicker';
 import { useAuth } from '../../contexts/AuthContext';
 import { startOfDay } from '../../libraries/date';
 
-function TaskPage({ currentTask, setCurrentTask }) {
-  const { tasks, setTasks } = useAuth();
-  const [task, setTask] = useState();
-  const history = useHistory();
-  const textContent = "Today's Task";
-  const btnName = currentTask ? 'Update' : 'Save';
-  let initTask = {
+function TaskPage({ currentTask, setCurrentTask, currentDate }) {
+  const initTask = {
     checked: false,
     title: 'Title of your task',
     description: 'there is description your task',
-    date: startOfDay(new Date()),
+    date: startOfDay(currentDate),
     id: Math.random() * 100,
   };
 
-  if (currentTask) {
-    initTask = currentTask;
-  }
-
-  setTask(initTask);
+  const { tasks, setTasks } = useAuth();
+  const [task, setTask] = useState(currentTask || initTask);
+  const history = useHistory();
+  const textContent = "Today's Task";
+  const btnName = currentTask ? 'Update' : 'Save';
 
   const handleClick = ({ target: { name } }) => {
-    if (!name === 'delete') {
-      tasks.push(task);
-      setTasks(tasks.slice());
+    console.log('1log=', tasks);
+    if (name !== 'delete') {
+      console.log('there');
+      setTasks([...tasks, task]);
     }
+    console.log('2log=', tasks);
     setCurrentTask(null);
+    console.log('3log=', tasks);
     history.push('/');
   };
 
   const handleChange = ({ target: { name, value, checked } }) => {
     if (name === 'checkbox') {
+      console.log(checked);
       setTask({ ...task, checked });
+      console.log(task.checked);
     } else {
       setTask({ ...task, [name]: value });
     }
@@ -55,7 +55,7 @@ function TaskPage({ currentTask, setCurrentTask }) {
       <EditTask checked={task.checked} title={task.title} onChange={handleChange} />
       <textarea
         className="task-page__description"
-        name="dexcription"
+        name="description"
         value={task.description}
         onChange={handleChange}
       />
@@ -75,6 +75,7 @@ function TaskPage({ currentTask, setCurrentTask }) {
 TaskPage.propTypes = {
   currentTask: PropTypes.object,
   setCurrentTask: PropTypes.func,
+  currentDate: PropTypes.object,
 };
 
 export default TaskPage;

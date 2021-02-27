@@ -10,7 +10,7 @@ import TaskList from './TaskList/TaskList';
 const fakeTasks = [
   {
     date: new Date('2018-01-26'),
-    state: true,
+    checked: true,
     title: 'task1',
     text: 'dhvhvdavdhvh',
   },
