@@ -21,7 +21,11 @@ function Task({ task, setCurrentTask }) {
   };
 
   const handleDoubleClick = () => {
-    setCurrentTask(task);
+    const pulledTask = tasks.filter((item) => item === task);
+    const newTasks = tasks.filter((item) => item !== task);
+
+    setCurrentTask(pulledTask);
+    setTasks(newTasks);
     history.push('/task');
     clearTimeout(timer);
   };
