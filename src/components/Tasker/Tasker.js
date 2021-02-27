@@ -7,15 +7,6 @@ import Alert from '../UI/Alert/Alert';
 import './Tasker.scss';
 import TaskList from './TaskList/TaskList';
 
-const fakeTasks = [
-  {
-    date: new Date('2018-01-26'),
-    checked: true,
-    title: 'task1',
-    text: 'dhvhvdavdhvh',
-  },
-];
-
 function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate, toDay }) {
   const [error, setError] = useState(null);
   const { signout } = useAuth();
@@ -41,14 +32,8 @@ function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate, toDa
         </button>
       </div>
       <Alert value={error} />
-      <Calendar
-        tasks={fakeTasks}
-        currentDate={currentDate}
-        setCurrentDate={setCurrentDate}
-        toDay={toDay}
-      />
+      <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} toDay={toDay} />
       <TaskList
-        tasks={fakeTasks}
         currentTask={currentTask}
         setCurrentTask={setCurrentTask}
         currentDate={currentDate}

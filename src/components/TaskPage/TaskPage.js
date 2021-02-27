@@ -1,5 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './TaskPage.scss';
 import EditTask from './EditTask/EditTask';
@@ -13,36 +13,36 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
     title: 'Title of your task',
     description: 'there is description your task',
     date: startOfDay(currentDate),
-    id: Math.random() * 100,
+    id: Math.random(),
   };
 
-  const { tasks, setTasks } = useAuth();
+  const { tasks, setTasks, writeUserData } = useAuth();
   const [task, setTask] = useState(currentTask || initTask);
   const history = useHistory();
   const textContent = "Today's Task";
   const btnName = currentTask ? 'Update' : 'Save';
 
-  const handleClick = ({ target: { name } }) => {
-    console.log('1log=', tasks);
+  const handleClick = async ({ target: { name } }) => {
     if (name !== 'delete') {
-      console.log('there');
-      setTasks([...tasks, task]);
+      setTasks(() => [...tasks, { ...task }]);
     }
-    console.log('2log=', tasks);
     setCurrentTask(null);
-    console.log('3log=', tasks);
+    writeUserData();
     history.push('/');
   };
 
   const handleChange = ({ target: { name, value, checked } }) => {
     if (name === 'checkbox') {
-      console.log(checked);
       setTask({ ...task, checked });
       console.log(task.checked);
     } else {
       setTask({ ...task, [name]: value });
     }
   };
+
+  useEffect(() => {
+    console.log('task=', task);
+  });
 
   return (
     <div className="task-page">

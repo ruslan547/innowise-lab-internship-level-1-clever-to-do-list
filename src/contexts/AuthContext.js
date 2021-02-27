@@ -35,9 +35,11 @@ export function AuthProvider({ children }) {
         const response = snapshot.val();
         if (response instanceof Object) {
           if (response.tasks) {
-            // const parsedDate = JSON.parse(response.tasks);
-            setTasks(response.tasks);
-            console.log('respons=', response.tasks);
+            const parsedData = JSON.parse(response.tasks, (key, value) => {
+              if (key === 'date') return new Date(value);
+              return value;
+            });
+            setTasks(parsedData);
           }
         }
       },
@@ -47,8 +49,8 @@ export function AuthProvider({ children }) {
 
   function writeUserData() {
     const { uid } = currentUser;
-    console.log('send=', { tasks });
-    database.ref('users/'.concat(uid)).set({ tasks });
+    const jsonString = JSON.stringify(tasks);
+    database.ref('users/'.concat(uid)).set({ tasks: jsonString });
   }
 
   useEffect(() => {

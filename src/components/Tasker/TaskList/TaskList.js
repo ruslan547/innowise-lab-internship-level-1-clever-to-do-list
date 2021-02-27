@@ -15,8 +15,12 @@ function TaskList({ setCurrentTask, currentDate }) {
   });
 
   return [
-    <div className="task-count">{taskList.length} Tasks Today</div>,
-    <ul className="task-list">{taskList}</ul>,
+    <div className="task-count" key={1}>
+      {taskList.length} Tasks Today
+    </div>,
+    <ul className="task-list" key={2}>
+      {taskList}
+    </ul>,
   ];
 }
 

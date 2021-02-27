@@ -12,13 +12,13 @@ function Card({ date, currentDate, setCurrentDate, toDay }) {
 
   const checkPendingTasks = () => {
     return tasks.some((item) => {
-      return item.date.getTime() === date.getTime() && !item.state;
+      return item.date.getTime() === date.getTime() && !item.checked;
     });
   };
 
   const checkFulfilledTasks = () => {
     return tasks.some((item) => {
-      return item.date.getTime() === date.getTime() && item.state;
+      return item.date.getTime() === date.getTime() && item.checked;
     });
   };
 
@@ -50,7 +50,6 @@ function Card({ date, currentDate, setCurrentDate, toDay }) {
 
 Card.propTypes = {
   date: PropTypes.object,
-  tasks: PropTypes.array,
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
   toDay: PropTypes.object,

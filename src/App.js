@@ -11,7 +11,7 @@ import { startOfDay } from './libraries/date';
 
 function App() {
   const toDay = startOfDay(new Date());
-  const [currentTask, setCurrentTask] = useState(null);
+  const [currentTask, setCurrentTask] = useState();
   const [currentDate, setCurrentDate] = useState(startOfDay(new Date()));
 
   return (
