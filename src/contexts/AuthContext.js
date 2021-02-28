@@ -26,10 +26,11 @@ export function AuthProvider({ children }) {
     return auth.signOut();
   }
 
-  function readUserData() {
-    const { uid } = currentUser;
-
-    database.ref('users/'.concat(uid)).once(
+  function readUserData(user) {
+    if (!user) {
+      return;
+    }
+    database.ref('users/'.concat(user.uid)).once(
       'value',
       (snapshot) => {
         const response = snapshot.val();
@@ -49,20 +50,15 @@ export function AuthProvider({ children }) {
 
   function writeUserData() {
     const { uid } = currentUser;
+    console.log(uid);
     const jsonString = JSON.stringify(tasks);
     database.ref('users/'.concat(uid)).set({ tasks: jsonString });
   }
 
   useEffect(() => {
-    if (currentUser) {
-      readUserData();
-      console.log('read');
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      readUserData(user);
       setLoading(false);
     });
 

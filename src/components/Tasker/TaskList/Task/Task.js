@@ -1,11 +1,12 @@
 import './Task.scss';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useAuth } from '../../../../contexts/AuthContext';
 
 function Task({ task, setCurrentTask }) {
   const history = useHistory();
-  const { tasks, setTasks } = useAuth();
+  const { tasks, setTasks, writeUserData } = useAuth();
   let timer = 0;
   const delay = 200;
 
@@ -29,6 +30,10 @@ function Task({ task, setCurrentTask }) {
     history.push('/task');
     clearTimeout(timer);
   };
+
+  useEffect(() => {
+    return () => writeUserData();
+  }, []);
 
   return (
     <button type="button" className="task" onClick={handleClick} onDoubleClick={handleDoubleClick}>

@@ -60,11 +60,11 @@
     width: 5px;
     height: 5px;
     border-radius: 50%;
+    margin: 1px;
   }
 
   &__pending {
     background-color: $bright-color;
-    margin-right: 3px;
   }
 
   &__fulfilled {

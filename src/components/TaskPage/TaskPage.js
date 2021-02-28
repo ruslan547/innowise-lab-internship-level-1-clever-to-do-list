@@ -5,7 +5,7 @@ import './TaskPage.scss';
 import EditTask from './EditTask/EditTask';
 import Datepicker from '../UI/Datepicker/Datepicker';
 import { useAuth } from '../../contexts/AuthContext';
-import { startOfDay } from '../../libraries/date';
+import { addZero, startOfDay } from '../../libraries/date';
 
 function TaskPage({ currentTask, setCurrentTask, currentDate }) {
   const initTask = {
@@ -17,15 +17,18 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
 
   const { tasks, setTasks, writeUserData } = useAuth();
   const [task, setTask] = useState(currentTask || initTask);
-  const saveForBack = { ...task };
   const history = useHistory();
+  const [datepickerDisplay, setDatepickerDisplay] = useState({ display: 'none' });
   const textContent = "Today's Task";
   const btnName = currentTask ? 'Update' : 'Save';
   const { date } = task;
+  const dateInfoContent = `${addZero(date.getMonth() + 1)}/${addZero(
+    date.getDate(),
+  )}/${date.getFullYear()}`;
 
-  const handleClick = async ({ target: { name } }) => {
+  const handleClick = ({ target: { name } }) => {
     if (name !== 'delete') {
-      await setTasks(() => [...tasks, { ...task }]);
+      setTasks(() => [...tasks, { ...task }]);
     }
 
     setCurrentTask(null);
@@ -40,39 +43,59 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
     }
   };
 
+  const handleBackBtnClick = () => {
+    if (currentTask) {
+      setTasks([...tasks, { ...currentTask }]);
+      setCurrentTask(null);
+    }
+
+    history.push('/');
+  };
+
+  const toggleDatepickerState = () => {
+    const currentDisplay = datepickerDisplay.display;
+    const display = currentDisplay === 'none' ? 'block' : 'none';
+    setDatepickerDisplay({ display });
+  };
+
   useEffect(() => {
     return () => writeUserData();
   });
 
-  const back = () => {
-    setTasks([...tasks, { ...saveForBack }]);
-    setCurrentTask(null);
-    history.push('/');
-  };
-
-  const showDatepicker = () => {
-    const datepicer = document.querySelector('#datepicker');
-    datepicer.style.display = 'block';
-  };
-
   return (
-    <div className="task-page">
-      <div className="task-page__nav">
-        <button type="button" className="task-page__back" onClick={back}>
-          <div className="task-page__arrow arrow" />
-          <div className="text_nowrap">{textContent}</div>
-        </button>
+    <die className="task-page">
+      <div className="task-page__container">
+        <div className="task-page__nav">
+          <button
+            type="button"
+            name="back"
+            className="task-page__back"
+            onClick={handleBackBtnClick}
+          >
+            <div className="task-page__arrow arrow" />
+            <div className="text_nowrap">{textContent}</div>
+          </button>
+        </div>
+        <EditTask checked={task.checked} title={task.title} onChange={handleChange} />
+        <textarea
+          className="task-page__description"
+          name="description"
+          value={task.description}
+          onChange={handleChange}
+        />
+        <div className="date-control">
+          <div className="date-control__info" type="text">
+            {dateInfoContent}
+          </div>
+          <input type="button" value="date" onClick={toggleDatepickerState} />
+        </div>
+        <Datepicker
+          display={datepickerDisplay}
+          name="date"
+          data={task.date}
+          onChange={handleChange}
+        />
       </div>
-      <EditTask checked={task.checked} title={task.title} onChange={handleChange} />
-      <textarea
-        className="task-page__description"
-        name="description"
-        value={task.description}
-        onChange={handleChange}
-      />
-      <input type="text" value={`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`} />
-      <input type="button" value="date" onClick={showDatepicker} />
-      <Datepicker name="date" data={task.date} onChange={handleChange} />
       <div className="actions">
         <button className="delete-btn btn" type="button" name="delete" onClick={handleClick}>
           Delete
@@ -81,7 +104,7 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
           {btnName}
         </button>
       </div>
-    </div>
+    </die>
   );
 }
 

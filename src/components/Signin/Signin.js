@@ -1,5 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import 'firebase/auth';
 import Form from '../UI/Form/Form';
 import Alert from '../UI/Alert/Alert';
@@ -12,7 +12,6 @@ function Signin() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  let cleanupFunction = false;
 
   const handleSubmit = async ({ email, password }, event) => {
     event.preventDefault();
@@ -22,20 +21,11 @@ function Signin() {
       setLoading(true);
       await signin(email, password);
       history.push('/');
-    } catch {
-      setError('Failed to log in');
-    }
-
-    if (!cleanupFunction) {
+    } catch (err) {
+      setError(err.message);
       setLoading(null);
     }
   };
-
-  useEffect(() => {
-    return () => {
-      cleanupFunction = true;
-    };
-  });
 
   return (
     <div className="signin">

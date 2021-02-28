@@ -4,11 +4,11 @@ import { useState } from 'react';
 import Header from './Header/Header';
 import Table from './Table/Table';
 
-function Datepicker({ data, onChange }) {
+function Datepicker({ data, onChange, display }) {
   const [date, setDate] = useState(new Date(data));
 
   return (
-    <div className="datepicker" id="datepicker">
+    <div style={display} className="datepicker" id="datepicker">
       <Header date={date} setDate={setDate} />
       <table>
         <thead>
@@ -33,6 +33,7 @@ Datepicker.propTypes = {
   data: PropTypes.object,
   onChange: PropTypes.func,
   currentDate: PropTypes.object,
+  display: PropTypes.object,
 };
 
 export default Datepicker;

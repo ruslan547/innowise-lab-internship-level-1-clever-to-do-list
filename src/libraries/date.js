@@ -29,3 +29,7 @@ export function getNameMonth(date) {
 
   return months[date.getMonth()];
 }
+
+export function addZero(date) {
+  return date < 10 ? `0${date}` : date;
+}
