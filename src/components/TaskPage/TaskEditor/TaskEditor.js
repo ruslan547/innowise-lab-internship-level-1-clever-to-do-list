@@ -1,7 +1,7 @@
-import './EditTask.scss';
+import './TaskEditor.scss';
 import PropTypes from 'prop-types';
 
-function EditTask({ checked, title, onChange }) {
+function TaskEditor({ checked, title, onChange }) {
   return (
     <div className="task">
       <input
@@ -16,10 +16,10 @@ function EditTask({ checked, title, onChange }) {
   );
 }
 
-EditTask.propTypes = {
+TaskEditor.propTypes = {
   checked: PropTypes.bool,
   title: PropTypes.string,
   onChange: PropTypes.func,
 };
 
-export default EditTask;
+export default TaskEditor;

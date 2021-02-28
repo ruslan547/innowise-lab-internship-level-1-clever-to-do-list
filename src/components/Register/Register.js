@@ -10,7 +10,7 @@ import PasswordInput from '../UI/PasswordInput/PasswordInput';
 
 function Register() {
   const { register } = useAuth();
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const history = useHistory();
@@ -23,7 +23,7 @@ function Register() {
     }
 
     try {
-      setError(null);
+      setError('');
       setLoading(true);
       await register(email, password);
       history.push('/');

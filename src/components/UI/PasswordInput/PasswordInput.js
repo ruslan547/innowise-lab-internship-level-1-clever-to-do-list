@@ -1,8 +1,7 @@
 import './PasswordInput.scss';
+import PropTypes from 'prop-types';
 
-function PasswordInput(params) {
-  const { value, placeholder, onChange } = params;
-
+function PasswordInput({ value, placeholder, onChange }) {
   return (
     <input
       className="password-input"
@@ -13,5 +12,11 @@ function PasswordInput(params) {
     />
   );
 }
+
+PasswordInput.propTypes = {
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func,
+};
 
 export default PasswordInput;

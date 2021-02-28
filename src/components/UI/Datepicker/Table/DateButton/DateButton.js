@@ -1,15 +1,14 @@
 import './DateButton.scss';
 import PropTypes from 'prop-types';
-import { startOfDay } from '../../../../../libraries/date';
+import { startOfDay } from '../../../../../date/date';
 
 function DateButton({ date, onClick, checkedDate }) {
   const toDay = startOfDay(new Date());
-
   let className = 'date-btn';
 
-  if (date.getTime() === checkedDate.getTime()) {
+  if (+date === +checkedDate) {
     className += ' date-btn__checked';
-  } else if (toDay.getTime() === date.getTime()) {
+  } else if (+toDay === +date) {
     className += ' date-btn__today';
   }
 

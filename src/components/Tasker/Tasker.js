@@ -7,19 +7,19 @@ import Alert from '../UI/Alert/Alert';
 import './Tasker.scss';
 import TaskList from './TaskList/TaskList';
 
-function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate, toDay }) {
-  const [error, setError] = useState(null);
+function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate }) {
+  const [error, setError] = useState('');
   const { signout } = useAuth();
   const history = useHistory();
 
   const handleSignout = async () => {
-    setError(null);
+    setError('');
 
     try {
       await signout();
       history.push('/signin');
-    } catch {
-      setError('Failed to log out');
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -32,7 +32,7 @@ function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate, toDa
         </button>
       </div>
       <Alert value={error} />
-      <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} toDay={toDay} />
+      <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
       <TaskList
         currentTask={currentTask}
         setCurrentTask={setCurrentTask}
@@ -51,7 +51,6 @@ Tasker.propTypes = {
   setCurrentTask: PropTypes.func,
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
-  toDay: PropTypes.object,
 };
 
 export default Tasker;

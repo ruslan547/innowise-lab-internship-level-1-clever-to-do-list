@@ -50,9 +50,8 @@ export function AuthProvider({ children }) {
 
   function writeUserData() {
     const { uid } = currentUser;
-    console.log(uid);
-    const jsonString = JSON.stringify(tasks);
-    database.ref('users/'.concat(uid)).set({ tasks: jsonString });
+    const jsonStr = JSON.stringify(tasks);
+    database.ref('users/'.concat(uid)).set({ tasks: jsonStr });
   }
 
   useEffect(() => {

@@ -7,10 +7,9 @@ import Signin from './components/Signin/Signin';
 import Tasker from './components/Tasker/Tasker';
 import TaskPage from './components/TaskPage/TaskPage';
 import { AuthProvider } from './contexts/AuthContext';
-import { startOfDay } from './libraries/date';
+import { startOfDay } from './date/date';
 
 function App() {
-  const toDay = startOfDay(new Date());
   const [currentTask, setCurrentTask] = useState();
   const [currentDate, setCurrentDate] = useState(startOfDay(new Date()));
 
@@ -27,7 +26,6 @@ function App() {
                 setCurrentTask={setCurrentTask}
                 currentDate={currentDate}
                 setCurrentDate={setCurrentDate}
-                toDay={toDay}
               />
               <PrivateRoute
                 path="/task"
@@ -35,7 +33,6 @@ function App() {
                 currentTask={currentTask}
                 setCurrentTask={setCurrentTask}
                 currentDate={currentDate}
-                toDay={toDay}
               />
               <Route path="/signin" component={Signin} />
               <Route path="/register" component={Register} />

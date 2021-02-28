@@ -7,7 +7,7 @@ import { useAuth } from '../../../../contexts/AuthContext';
 function Task({ task, setCurrentTask }) {
   const history = useHistory();
   const { tasks, setTasks, writeUserData } = useAuth();
-  let timer = 0;
+  let timeoutId;
   const delay = 200;
 
   const handleChange = () => {
@@ -16,8 +16,9 @@ function Task({ task, setCurrentTask }) {
   };
 
   const handleClick = () => {
-    timer = setTimeout(() => {
-      return 0;
+    timeoutId = setTimeout(() => {
+      // eslint-disable-next-line no-useless-return
+      return;
     }, delay);
   };
 
@@ -28,7 +29,7 @@ function Task({ task, setCurrentTask }) {
     setCurrentTask(pulledTask);
     setTasks(newTasks);
     history.push('/task');
-    clearTimeout(timer);
+    clearTimeout(timeoutId);
   };
 
   useEffect(() => {

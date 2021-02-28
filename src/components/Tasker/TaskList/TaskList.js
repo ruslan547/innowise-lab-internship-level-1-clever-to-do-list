@@ -8,7 +8,7 @@ function TaskList({ setCurrentTask, currentDate }) {
   const taskList = [];
 
   tasks.forEach((item, i) => {
-    if (item.date.getTime() === currentDate.getTime()) {
+    if (+item.date === +currentDate) {
       const task = <Task key={i.toString()} task={item} setCurrentTask={setCurrentTask} />;
       taskList.push(task);
     }
@@ -25,7 +25,6 @@ function TaskList({ setCurrentTask, currentDate }) {
 }
 
 TaskList.propTypes = {
-  currantTask: PropTypes.object,
   setCurrentTask: PropTypes.func,
   currentDate: PropTypes.object,
 };

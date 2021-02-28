@@ -9,7 +9,7 @@ import { useAuth } from '../../contexts/AuthContext';
 
 function Signin() {
   const { signin } = useAuth();
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -17,7 +17,7 @@ function Signin() {
     event.preventDefault();
 
     try {
-      setError(null);
+      setError('');
       setLoading(true);
       await signin(email, password);
       history.push('/');

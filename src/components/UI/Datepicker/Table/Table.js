@@ -11,9 +11,9 @@ const MONTH_FIRST_NUMBER = 1;
 function Table({ date, onChange }) {
   const calendarDate = new Date(date);
   const [checkedDate, setCheckedDate] = useState(new Date(date));
-  const D1last = new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, 0).getDate();
-  const D1Nlast = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), D1last).getDay();
-  const D1Nfirst = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1).getDay();
+  const lastDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, 0).getDate();
+  const lastDay = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), lastDate).getDay();
+  const firstDay = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1).getDay();
   const calendar = [];
   let week = [];
 
@@ -26,32 +26,42 @@ function Table({ date, onChange }) {
     return Math.random();
   };
 
-  if (D1Nfirst !== SUN) {
-    for (let i = 0; i < D1Nfirst; i++) week.push(<td key={generateNumber()} />);
-  } else {
-    for (let i = 0; i < SUN; i++) week.push(<td key={generateNumber()} />);
-  }
-
-  for (let i = MONTH_FIRST_NUMBER; i <= D1last; i++) {
-    const tmpDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), i);
-
-    week.push(
-      <td key={generateNumber()}>
-        <DateButton date={tmpDate} checkedDate={checkedDate} onClick={handleClick} />
-      </td>,
-    );
-
-    if (tmpDate.getDay() === SAT) {
-      calendar.push(<tr key={generateNumber()}>{week.slice()}</tr>);
-      week = [];
+  const fillStartMonthByEmpty = () => {
+    if (firstDay !== SUN) {
+      for (let i = 0; i < firstDay; i++) week.push(<td key={generateNumber()} />);
+    } else {
+      for (let i = 0; i < SUN; i++) week.push(<td key={generateNumber()} />);
     }
-  }
+  };
 
-  if (D1Nlast !== SUN) {
-    for (let i = D1Nlast; i < WEEK_DAYS; i++) week.push(<td key={generateNumber()} />);
-  }
+  const fillMonthByDate = () => {
+    for (let i = MONTH_FIRST_NUMBER; i <= lastDate; i++) {
+      const tmpDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), i);
 
+      week.push(
+        <td key={generateNumber()}>
+          <DateButton date={tmpDate} checkedDate={checkedDate} onClick={handleClick} />
+        </td>,
+      );
+
+      if (tmpDate.getDay() === SAT) {
+        calendar.push(<tr key={generateNumber()}>{week.slice()}</tr>);
+        week = [];
+      }
+    }
+  };
+
+  const fillEndMonthByEmpty = () => {
+    if (lastDay !== SUN) {
+      for (let i = lastDay; i < WEEK_DAYS; i++) week.push(<td key={generateNumber()} />);
+    }
+  };
+
+  fillStartMonthByEmpty();
+  fillMonthByDate();
+  fillEndMonthByEmpty();
   calendar.push(<tr key={generateNumber()}>{week}</tr>);
+
   return <tbody>{calendar}</tbody>;
 }
 

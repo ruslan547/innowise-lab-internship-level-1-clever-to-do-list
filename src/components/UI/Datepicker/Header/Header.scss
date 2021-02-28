@@ -9,13 +9,7 @@
   padding: 3px;
   box-sizing: border-box;
 
-  &__btn {
-    background-color: none;
-    border: none;
-    outline: none;
-  }
+  &__btn {background-color: none}
 
-  &__arrow_right {
-    transform: rotate(180deg);
-  }
+  &__arrow_right {transform: rotate(180deg)}
 }

@@ -1,10 +1,11 @@
 import './Card.scss';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../../../contexts/AuthContext';
-import { getNameDay } from '../../../../libraries/date';
+import { getNameDay, startOfDay } from '../../../../date/date';
 
-function Card({ date, currentDate, setCurrentDate, toDay }) {
+function Card({ date, currentDate, setCurrentDate }) {
   const { tasks } = useAuth();
+  const toDay = startOfDay(new Date());
 
   const handleClick = () => {
     setCurrentDate(date);
@@ -24,20 +25,19 @@ function Card({ date, currentDate, setCurrentDate, toDay }) {
 
   const createDayClass = () => {
     let dayClass = 'card__day';
-    // console.log(toDay, date);
-    if (toDay.getTime() === date.getTime()) {
+    if (+toDay === +date) {
       dayClass += ' card__day_today';
     }
 
-    if (currentDate.getTime() === date.getTime()) {
+    if (+currentDate === +date) {
       dayClass += ' card__day_current';
     }
     return dayClass;
   };
 
   return (
-    <button type="button" className="card" onClick={handleClick}>
-      <div className={createDayClass()} id={currentDate.getTime() === date.getTime() ? 'cur' : ''}>
+    <button type="button" className="card btn" onClick={handleClick}>
+      <div className={createDayClass()}>
         <span className="card__text">{getNameDay(date)}</span>
         <span className="card__number">{date.getDate()}</span>
       </div>
@@ -53,9 +53,6 @@ Card.propTypes = {
   date: PropTypes.object,
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
-  toDay: PropTypes.object,
-  setCalendar: PropTypes.func,
-  calendar: PropTypes.object,
 };
 
 export default Card;

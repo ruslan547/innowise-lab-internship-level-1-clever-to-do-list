@@ -2,8 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Form.scss';
 
-function Form(props) {
-  const { children, onSubmit } = props;
+function Form({ children, onSubmit }) {
   const [user, setUser] = useState({
     email: '',
     password: '',
