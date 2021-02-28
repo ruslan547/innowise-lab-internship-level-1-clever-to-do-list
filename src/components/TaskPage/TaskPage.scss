@@ -14,10 +14,29 @@
     margin-bottom: 30px;
   }
 
+  &__back {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: $durk-color;
+  }
+
+  &__back:hover {
+    cursor: pointer;
+    color: $bright-color;
+    .arrow {background-color: $bright-color}
+  }
+
   &__arrow {
     margin-right: 20px;
     transform: rotate(180deg);
     mask-image: url(../../img/arrow.svg);
+    width: 14px;
+    height: 14px;
+    background-color: $durk-color;
   }
 
   &__description {

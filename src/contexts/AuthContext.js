@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
   function readUserData() {
     const { uid } = currentUser;
 
-    database.ref('users/'.concat(uid)).on(
+    database.ref('users/'.concat(uid)).once(
       'value',
       (snapshot) => {
         const response = snapshot.val();
@@ -56,6 +56,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (currentUser) {
       readUserData();
+      console.log('read');
     }
   }, [currentUser]);
 

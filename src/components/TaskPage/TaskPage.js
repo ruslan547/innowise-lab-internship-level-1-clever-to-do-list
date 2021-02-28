@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './TaskPage.scss';
@@ -13,7 +13,6 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
     title: 'Title of your task',
     description: 'there is description your task',
     date: startOfDay(currentDate),
-    id: Math.random(),
   };
 
   const { tasks, setTasks, writeUserData } = useAuth();
@@ -24,33 +23,38 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
 
   const handleClick = async ({ target: { name } }) => {
     if (name !== 'delete') {
-      setTasks(() => [...tasks, { ...task }]);
+      await setTasks(() => [...tasks, { ...task }]);
     }
+
     setCurrentTask(null);
-    writeUserData();
     history.push('/');
   };
 
   const handleChange = ({ target: { name, value, checked } }) => {
     if (name === 'checkbox') {
       setTask({ ...task, checked });
-      console.log(task.checked);
     } else {
       setTask({ ...task, [name]: value });
     }
   };
 
   useEffect(() => {
-    console.log('task=', task);
+    return () => writeUserData();
   });
+
+  const back = () => {
+    setTasks([...tasks, { ...currentTask }]);
+    setCurrentTask(null);
+    history.push('/');
+  };
 
   return (
     <div className="task-page">
       <div className="task-page__nav">
-        <Link className="link" to="/">
+        <button type="button" className="task-page__back" onClick={back}>
           <div className="task-page__arrow arrow" />
           <div className="text_nowrap">{textContent}</div>
-        </Link>
+        </button>
       </div>
       <EditTask checked={task.checked} title={task.title} onChange={handleChange} />
       <textarea

@@ -10,9 +10,8 @@ function Task({ task, setCurrentTask }) {
   const delay = 200;
 
   const handleChange = () => {
-    const newTasks = tasks.filter((item) => item !== task);
     task.checked = !task.checked;
-    setTasks([...newTasks, task]);
+    setTasks([...tasks]);
   };
 
   const handleClick = () => {

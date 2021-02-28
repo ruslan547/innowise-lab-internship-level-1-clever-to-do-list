@@ -7,18 +7,18 @@ function TaskList({ setCurrentTask, currentDate }) {
   const { tasks } = useAuth();
   const taskList = [];
 
-  tasks.forEach((item) => {
+  tasks.forEach((item, i) => {
     if (item.date.getTime() === currentDate.getTime()) {
-      const task = <Task key={item.id} task={item} setCurrentTask={setCurrentTask} />;
+      const task = <Task key={i.toString()} task={item} setCurrentTask={setCurrentTask} />;
       taskList.push(task);
     }
   });
 
   return [
-    <div className="task-count" key={1}>
+    <div className="task-count" key={22}>
       {taskList.length} Tasks Today
     </div>,
-    <ul className="task-list" key={2}>
+    <ul className="task-list" key={11}>
       {taskList}
     </ul>,
   ];

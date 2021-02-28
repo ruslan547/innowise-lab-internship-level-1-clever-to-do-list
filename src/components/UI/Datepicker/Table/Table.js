@@ -10,7 +10,7 @@ const MONTH_FIRST_NUMBER = 1;
 
 function Table({ date, onChange }) {
   const calendarDate = new Date(date);
-  const [checkedDate, setCheckedDate] = useState(date);
+  const [checkedDate, setCheckedDate] = useState(new Date(date));
   const D1last = new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, 0).getDate();
   const D1Nlast = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), D1last).getDay();
   const D1Nfirst = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1).getDay();
