@@ -24,6 +24,7 @@ function Card({ date, currentDate, setCurrentDate, toDay }) {
 
   const createDayClass = () => {
     let dayClass = 'card__day';
+    // console.log(toDay, date);
     if (toDay.getTime() === date.getTime()) {
       dayClass += ' card__day_today';
     }
@@ -36,7 +37,7 @@ function Card({ date, currentDate, setCurrentDate, toDay }) {
 
   return (
     <button type="button" className="card" onClick={handleClick}>
-      <div className={createDayClass()}>
+      <div className={createDayClass()} id={currentDate.getTime() === date.getTime() ? 'cur' : ''}>
         <span className="card__text">{getNameDay(date)}</span>
         <span className="card__number">{date.getDate()}</span>
       </div>
@@ -53,6 +54,8 @@ Card.propTypes = {
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
   toDay: PropTypes.object,
+  setCalendar: PropTypes.func,
+  calendar: PropTypes.object,
 };
 
 export default Card;

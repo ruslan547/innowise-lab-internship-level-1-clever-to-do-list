@@ -63,7 +63,7 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
   });
 
   return (
-    <die className="task-page">
+    <div className="task-page">
       <div className="task-page__container">
         <div className="task-page__nav">
           <button
@@ -104,7 +104,7 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
           {btnName}
         </button>
       </div>
-    </die>
+    </div>
   );
 }
 
