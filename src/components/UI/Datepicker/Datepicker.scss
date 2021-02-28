@@ -1,8 +1,9 @@
 @import '../../../index.scss';
 
 .datepicker {
+  display: none;
   width: 330px;
-  height: 280px;
+  height: 235px;
   background-color: $basic-color;
 }
 

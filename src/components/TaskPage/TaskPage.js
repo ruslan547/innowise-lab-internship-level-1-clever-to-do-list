@@ -17,9 +17,11 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
 
   const { tasks, setTasks, writeUserData } = useAuth();
   const [task, setTask] = useState(currentTask || initTask);
+  const saveForBack = { ...task };
   const history = useHistory();
   const textContent = "Today's Task";
   const btnName = currentTask ? 'Update' : 'Save';
+  const { date } = task;
 
   const handleClick = async ({ target: { name } }) => {
     if (name !== 'delete') {
@@ -43,9 +45,14 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
   });
 
   const back = () => {
-    setTasks([...tasks, { ...currentTask }]);
+    setTasks([...tasks, { ...saveForBack }]);
     setCurrentTask(null);
     history.push('/');
+  };
+
+  const showDatepicker = () => {
+    const datepicer = document.querySelector('#datepicker');
+    datepicer.style.display = 'block';
   };
 
   return (
@@ -63,12 +70,14 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
         value={task.description}
         onChange={handleChange}
       />
+      <input type="text" value={`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`} />
+      <input type="button" value="date" onClick={showDatepicker} />
       <Datepicker name="date" data={task.date} onChange={handleChange} />
       <div className="actions">
-        <button type="button" name="delete" onClick={handleClick}>
+        <button className="delete-btn btn" type="button" name="delete" onClick={handleClick}>
           Delete
         </button>
-        <button type="button" name={btnName} onClick={handleClick}>
+        <button className="save-btn btn" type="button" name={btnName} onClick={handleClick}>
           {btnName}
         </button>
       </div>

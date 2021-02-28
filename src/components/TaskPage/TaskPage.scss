@@ -22,6 +22,7 @@
     border: none;
     outline: none;
     color: $durk-color;
+    font-weight: bold;
   }
 
   &__back:hover {
@@ -40,9 +41,13 @@
   }
 
   &__description {
-    width: 99%;
+    width: 100%;
+    height: 300px;
+    background-color: #ebebee;
+    border-radius: 5px;
     border: none;
     outline: none;
+    opacity: .5;
   }
 }
 
@@ -57,4 +62,22 @@
 
 .text_nowrap {
   white-space: nowrap;
+}
+
+.delete-btn, .save-btn {
+  width: 80px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+}
+
+.delete-btn {
+  background-color: #f5c2c7;
+  font-weight: bold;
+}
+
+.save-btn {
+  background-color: #ff611a;
+  color: $simple-color;
 }
