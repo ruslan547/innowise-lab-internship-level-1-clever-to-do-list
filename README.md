@@ -77,3 +77,5 @@ You will now have app running on localhost via port 3000  http://localhost:3000
 ## Contribute
 
 [Source Code](https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list)
+
+[Deploy](https://ruslan547.github.io/tasker)
