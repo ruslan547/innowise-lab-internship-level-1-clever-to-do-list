@@ -16,7 +16,7 @@
 
 `$ npm install`
 
-4. add the .env.local file with firebase config
+4. add the .env.local file with the firebase config
 
 5. Run the app
 
