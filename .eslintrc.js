@@ -26,11 +26,11 @@ module.exports = {
     'space-before-function-paren': 0,
 
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
-    'no-console': 'off', // error
+    'no-console': 'error',
     'no-alert': 'error',
 
     'no-param-reassign': 'off',
-    radix: 'off', // parseInt, parseFloat и radix выключены. Мне это не нравится.
+    radix: 'off',
 
     'react/require-default-props': 'off',
     'react/forbid-prop-types': 'off',
@@ -43,7 +43,7 @@ module.exports = {
     'react/no-did-mount-set-state': 'off',
     'react/no-unused-prop-types': 'off',
     'react/jsx-one-expression-per-line': 'off',
-    // 'react/jsx-props-no-spreading': 'off',
+    'react/jsx-props-no-spreading': 'off',
 
     'jsx-a11y/anchor-is-valid': ['error', { components: ['Link'], specialLink: ['to'] }],
     'jsx-a11y/label-has-for': [2, { required: { every: ['id'] } }],

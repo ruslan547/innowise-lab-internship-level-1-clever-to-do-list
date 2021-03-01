@@ -30,22 +30,18 @@ export function AuthProvider({ children }) {
     if (!user) {
       return;
     }
-    database.ref('users/'.concat(user.uid)).once(
-      'value',
-      (snapshot) => {
-        const response = snapshot.val();
-        if (response instanceof Object) {
-          if (response.tasks) {
-            const parsedData = JSON.parse(response.tasks, (key, value) => {
-              if (key === 'date') return new Date(value);
-              return value;
-            });
-            setTasks(parsedData);
-          }
+    database.ref('users/'.concat(user.uid)).once('value', (snapshot) => {
+      const response = snapshot.val();
+      if (response instanceof Object) {
+        if (response.tasks) {
+          const parsedData = JSON.parse(response.tasks, (key, value) => {
+            if (key === 'date') return new Date(value);
+            return value;
+          });
+          setTasks(parsedData);
         }
-      },
-      (error) => console.log('Error: '.concat(error.code)),
-    );
+      }
+    });
   }
 
   function writeUserData() {

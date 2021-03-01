@@ -6,13 +6,13 @@ import EditTask from './TaskEditor/TaskEditor';
 import { useAuth } from '../../contexts/AuthContext';
 import DateEditor from './DateEditor/DateEditor';
 import { startOfDay } from '../../date/date';
-import Actions from './actions/Actions';
+import Actions from './Actions/Actions';
 
 function TaskPage({ currentTask, setCurrentTask, currentDate }) {
   const initTask = {
     checked: false,
-    title: 'Title of your task',
-    description: 'there is description your task',
+    title: 'Title',
+    description: 'description',
     date: startOfDay(currentDate),
   };
 

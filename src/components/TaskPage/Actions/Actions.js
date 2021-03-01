@@ -12,7 +12,7 @@ function Actions({ currentTask, setCurrentTask, task }) {
     if (name !== 'delete') {
       setTasks(() => [...tasks, { ...task }]);
     }
-    console.log(setCurrentTask);
+
     setCurrentTask(null);
     history.push('/');
   };
