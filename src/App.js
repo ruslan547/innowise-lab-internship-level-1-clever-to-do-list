@@ -21,7 +21,7 @@ function App() {
             <Switch>
               <PrivateRoute
                 exact
-                path="/"
+                path="/tasker"
                 component={Tasker}
                 setCurrentTask={setCurrentTask}
                 currentDate={currentDate}

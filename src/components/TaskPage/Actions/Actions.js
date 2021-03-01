@@ -14,7 +14,7 @@ function Actions({ currentTask, setCurrentTask, task }) {
     }
 
     setCurrentTask(null);
-    history.push('/');
+    history.push('/tasker');
   };
 
   return (
