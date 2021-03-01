@@ -16,7 +16,7 @@
 
 `$ npm install`
 
-4. add the .env.local file with firebase config
+4. add the .env.local file with the firebase config
 
 5. Run the app
 
@@ -82,3 +82,13 @@ You will now have app running on localhost via port 3000  http://localhost:3000
 [Source Code](https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list)
 
 [Deploy](https://ruslan547.github.io/innowise-lab-internship-level-1-clever-to-do-list/#/signin)
+
+## How to use it
+
+The calendar is scrolled by the mouse wheel or arrows.
+Select a day with a mouse click and add a new task with the button '+ Add New Task'
+You can edit a task by double clicking on it.
+You can edit status, title, discription and date.
+Click the button 'date' to edit date.
+Then click 'Save' or 'Update'.
+If you want to delete task to click button 'Delete'.
