@@ -9,7 +9,6 @@ export default function PrivateRoute({
   setCurrentTask,
   currentDate,
   setCurrentDate,
-  toDay,
 }) {
   const { currentUser } = useAuth();
 
@@ -20,7 +19,6 @@ export default function PrivateRoute({
         setCurrentTask={setCurrentTask}
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
-        toDay={toDay}
       />
     );
     return currentUser ? component : <Redirect to="/signin" />;
@@ -35,5 +33,4 @@ PrivateRoute.propTypes = {
   setCurrentTask: PropTypes.func,
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
-  toDay: PropTypes.object,
 };

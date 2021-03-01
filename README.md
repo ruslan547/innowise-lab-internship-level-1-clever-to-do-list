@@ -4,9 +4,9 @@
 
 ## How to run the app
 
-1. Clone the repository.
+1. Clone the develop branch.
 
-`$ git clone https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list`
+`$ git clone https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list -b develop`
 
 2. Go to the directory
 
@@ -16,9 +16,12 @@
 
 `$ npm install`
 
-4. Run the app
+4. add the .env.local file with firebase config
+
+5. Run the app
 
 `$ npm run start`
+
 
 You will now have app running on localhost via port 3000  http://localhost:3000
 
@@ -78,4 +81,4 @@ You will now have app running on localhost via port 3000  http://localhost:3000
 
 [Source Code](https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list)
 
-[Deploy](https://ruslan547.github.io/tasker)
+[Deploy](https://ruslan547.github.io/innowise-lab-internship-level-1-clever-to-do-list/#/signin)

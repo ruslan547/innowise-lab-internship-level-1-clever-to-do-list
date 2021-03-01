@@ -35,7 +35,7 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
       setCurrentTask(null);
     }
 
-    history.push('/tasker');
+    history.push('/');
   };
 
   useEffect(() => {

@@ -20,7 +20,7 @@ function Signin() {
       setError('');
       setLoading(true);
       await signin(email, password);
-      history.push('/tasker');
+      history.push('/');
     } catch (err) {
       setError(err.message);
       setLoading(null);

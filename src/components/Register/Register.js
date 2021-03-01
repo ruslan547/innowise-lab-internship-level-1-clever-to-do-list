@@ -26,7 +26,7 @@ function Register() {
       setError('');
       setLoading(true);
       await register(email, password);
-      history.push('/tasker');
+      history.push('/');
     } catch (err) {
       setError(err.message);
       setLoading(false);

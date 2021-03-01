@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import PrivateRoute from './components/PrivateRouter';
 import Register from './components/Register/Register';
@@ -16,12 +16,12 @@ function App() {
   return (
     <div className="wrapper">
       <div className="container">
-        <Router>
+        <HashRouter basename="/">
           <AuthProvider>
             <Switch>
               <PrivateRoute
                 exact
-                path="/tasker"
+                path="/"
                 component={Tasker}
                 setCurrentTask={setCurrentTask}
                 currentDate={currentDate}
@@ -38,7 +38,7 @@ function App() {
               <Route path="/register" component={Register} />
             </Switch>
           </AuthProvider>
-        </Router>
+        </HashRouter>
       </div>
     </div>
   );
