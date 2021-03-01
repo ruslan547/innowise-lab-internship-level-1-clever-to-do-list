@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/innowise-lab-internship-level-1-clever-to-do-list/static/css/main.2609c0c9.chunk.css",
-    "main.js": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/main.1456cbae.chunk.js",
-    "main.js.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/main.1456cbae.chunk.js.map",
-    "runtime-main.js": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/runtime-main.e274bf53.js",
-    "runtime-main.js.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/runtime-main.e274bf53.js.map",
-    "static/js/2.9920d2c2.chunk.js": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/2.9920d2c2.chunk.js",
-    "static/js/2.9920d2c2.chunk.js.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/2.9920d2c2.chunk.js.map",
-    "index.html": "/innowise-lab-internship-level-1-clever-to-do-list/index.html",
-    "static/css/main.2609c0c9.chunk.css.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/css/main.2609c0c9.chunk.css.map",
-    "static/js/2.9920d2c2.chunk.js.LICENSE.txt": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/2.9920d2c2.chunk.js.LICENSE.txt",
-    "static/media/TaskPage.scss": "/innowise-lab-internship-level-1-clever-to-do-list/static/media/arrow.23e24faa.svg",
-    "static/media/Actions.scss": "/innowise-lab-internship-level-1-clever-to-do-list/static/media/roboto-v20-latin-regular.e464241b.eot"
+    "main.css": "/tasker/static/css/main.06447c3e.chunk.css",
+    "main.js": "/tasker/static/js/main.1a16c0e5.chunk.js",
+    "main.js.map": "/tasker/static/js/main.1a16c0e5.chunk.js.map",
+    "runtime-main.js": "/tasker/static/js/runtime-main.bbde1a72.js",
+    "runtime-main.js.map": "/tasker/static/js/runtime-main.bbde1a72.js.map",
+    "static/js/2.0c29effb.chunk.js": "/tasker/static/js/2.0c29effb.chunk.js",
+    "static/js/2.0c29effb.chunk.js.map": "/tasker/static/js/2.0c29effb.chunk.js.map",
+    "index.html": "/tasker/index.html",
+    "static/css/main.06447c3e.chunk.css.map": "/tasker/static/css/main.06447c3e.chunk.css.map",
+    "static/js/2.0c29effb.chunk.js.LICENSE.txt": "/tasker/static/js/2.0c29effb.chunk.js.LICENSE.txt",
+    "static/media/TaskPage.scss": "/tasker/static/media/arrow.23e24faa.svg",
+    "static/media/Actions.scss": "/tasker/static/media/roboto-v20-latin-regular.e464241b.eot"
   },
   "entrypoints": [
-    "static/js/runtime-main.e274bf53.js",
-    "static/js/2.9920d2c2.chunk.js",
-    "static/css/main.2609c0c9.chunk.css",
-    "static/js/main.1456cbae.chunk.js"
+    "static/js/runtime-main.bbde1a72.js",
+    "static/js/2.0c29effb.chunk.js",
+    "static/css/main.06447c3e.chunk.css",
+    "static/js/main.1a16c0e5.chunk.js"
   ]
 }
