@@ -1,15 +1,22 @@
 import './TaskList.scss';
 import PropTypes from 'prop-types';
 import Task from '../Task/Task';
-import { useAuth } from '../../contexts/AuthContext';
 
-function TaskList({ setCurrentTask, currentDate }) {
-  const { tasks } = useAuth();
+function TaskList({ setCurrentTask, currentDate, tasks, setTasks, currentUser }) {
   const taskList = [];
 
   tasks.forEach((item, i) => {
     if (+item.date === +currentDate) {
-      const task = <Task key={i.toString()} task={item} setCurrentTask={setCurrentTask} />;
+      const task = (
+        <Task
+          key={i.toString()}
+          task={item}
+          setCurrentTask={setCurrentTask}
+          tasks={tasks}
+          setTasks={setTasks}
+          currentUser={currentUser}
+        />
+      );
       taskList.push(task);
     }
   });
@@ -27,6 +34,9 @@ function TaskList({ setCurrentTask, currentDate }) {
 TaskList.propTypes = {
   setCurrentTask: PropTypes.func,
   currentDate: PropTypes.object,
+  tasks: PropTypes.array,
+  setTasks: PropTypes.func,
+  currentUser: PropTypes.object,
 };
 
 export default TaskList;

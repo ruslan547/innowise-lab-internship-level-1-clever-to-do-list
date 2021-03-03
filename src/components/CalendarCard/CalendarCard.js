@@ -1,10 +1,8 @@
 import './CalendarCard.scss';
 import PropTypes from 'prop-types';
-import { useAuth } from '../../contexts/AuthContext';
 import { getNameDay, startOfDay } from '../../shared/date/date';
 
-function CalendarCard({ date, currentDate, setCurrentDate }) {
-  const { tasks } = useAuth();
+function CalendarCard({ date, currentDate, setCurrentDate, tasks }) {
   const toDay = startOfDay(new Date());
 
   const handleClick = () => {
@@ -53,6 +51,7 @@ CalendarCard.propTypes = {
   date: PropTypes.object,
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
+  tasks: PropTypes.array,
 };
 
 export default CalendarCard;

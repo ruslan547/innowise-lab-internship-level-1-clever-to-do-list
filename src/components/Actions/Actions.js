@@ -1,21 +1,21 @@
 import './Actions.scss';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
 import routeConstants from '../../shared/constants/routeConstants';
+import { writeUserData } from '../../services/firebaseService';
 
 const { TASKER } = routeConstants;
 
-function Actions({ currentTask, setCurrentTask, task }) {
-  const { tasks, setTasks } = useAuth();
+function Actions({ currentTask, setCurrentTask, task, tasks, setTasks, currentUser }) {
   const history = useHistory();
   const btnName = currentTask ? 'Update' : 'Save';
 
-  const handleClick = ({ target: { name } }) => {
+  const handleClick = async ({ target: { name } }) => {
     if (name !== 'delete') {
-      setTasks(() => [...tasks, { ...task }]);
+      await setTasks(() => [...tasks, { ...task }]);
     }
 
+    writeUserData(currentUser, tasks);
     setCurrentTask(null);
     history.push(TASKER);
   };
@@ -36,6 +36,9 @@ Actions.propTypes = {
   currentTask: PropTypes.object,
   setCurrentTask: PropTypes.func,
   task: PropTypes.object,
+  tasks: PropTypes.array,
+  setTasks: PropTypes.func,
+  currentUser: PropTypes.object,
 };
 
 export default Actions;

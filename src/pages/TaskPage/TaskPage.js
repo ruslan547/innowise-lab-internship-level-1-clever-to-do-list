@@ -1,9 +1,9 @@
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { writeUserData } from '../../services/firebaseService';
 import './TaskPage.scss';
 import EditTask from '../../components/TaskEditor/TaskEditor';
-import { useAuth } from '../../contexts/AuthContext';
 import DateEditor from '../../components/DateEditor/DateEditor';
 import { startOfDay } from '../../shared/date/date';
 import Actions from '../../components/Actions/Actions';
@@ -11,7 +11,7 @@ import routeConstants from '../../shared/constants/routeConstants';
 
 const { TASKER } = routeConstants;
 
-function TaskPage({ currentTask, setCurrentTask, currentDate }) {
+function TaskPage({ currentTask, setCurrentTask, currentDate, tasks, setTasks, currentUser }) {
   const initTask = {
     checked: false,
     title: 'Title',
@@ -19,7 +19,6 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
     date: startOfDay(currentDate),
   };
 
-  const { tasks, setTasks, writeUserData } = useAuth();
   const [task, setTask] = useState(currentTask || initTask);
   const history = useHistory();
   const textContent = "Today's Task";
@@ -42,8 +41,8 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
   };
 
   useEffect(() => {
-    return () => writeUserData();
-  });
+    return () => writeUserData(currentUser, tasks);
+  }, [currentUser, tasks]);
 
   return (
     <div className="task-page">
@@ -63,7 +62,14 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
         />
         <DateEditor task={task} handleChange={handleChange} />
       </div>
-      <Actions currentTask={currentTask} setCurrentTask={setCurrentTask} task={task} />
+      <Actions
+        currentTask={currentTask}
+        setCurrentTask={setCurrentTask}
+        task={task}
+        tasks={tasks}
+        setTasks={setTasks}
+        currentUser={currentUser}
+      />
     </div>
   );
 }
@@ -72,6 +78,9 @@ TaskPage.propTypes = {
   currentTask: PropTypes.object,
   setCurrentTask: PropTypes.func,
   currentDate: PropTypes.object,
+  tasks: PropTypes.array,
+  setTasks: PropTypes.func,
+  currentUser: PropTypes.object,
 };
 
 export default TaskPage;

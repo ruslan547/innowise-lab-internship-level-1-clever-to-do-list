@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Calendar.scss';
-import Card from '../CalendarCard/CalendarCard';
+import CalendarCard from '../CalendarCard/CalendarCard';
 import { startOfDay } from '../../shared/date/date';
 
 const INITIAL_SCALE = 0;
@@ -18,13 +18,19 @@ function createDates(date) {
   return result;
 }
 
-function Calendar({ currentDate, setCurrentDate }) {
+function Calendar({ currentDate, setCurrentDate, tasks }) {
   const initDate = startOfDay(new Date());
   const [dates, setDates] = useState(createDates(initDate));
 
   const cards = dates.map((item) => {
     return (
-      <Card key={item} date={item} currentDate={currentDate} setCurrentDate={setCurrentDate} />
+      <CalendarCard
+        key={item}
+        date={item}
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+        tasks={tasks}
+      />
     );
   });
 

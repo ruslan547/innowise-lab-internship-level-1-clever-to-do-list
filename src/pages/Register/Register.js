@@ -4,15 +4,14 @@ import PropTypes from 'prop-types';
 import Button from '../../components/Button/Button';
 import Form from '../../components/Form/Form';
 import './Register.scss';
-import { useAuth } from '../../contexts/AuthContext';
 import Alert from '../../components/Alert/Alert';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
+import { register } from '../../services/firebaseService';
 import routeConstants from '../../shared/constants/routeConstants';
 
-const { TASKER } = routeConstants;
+const { TASKER, SIGNIN } = routeConstants;
 
 function Register() {
-  const { register } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -41,7 +40,7 @@ function Register() {
   return (
     <div className="register">
       <div className="register__nav">
-        <Link className="link" to="/signin">
+        <Link className="link" to={SIGNIN}>
           <div className="register__arrow arrow" />
           Sign in
         </Link>
@@ -60,7 +59,7 @@ function Register() {
 }
 
 Register.propTypes = {
-  setUser: PropTypes.func,
+  setCurrentUser: PropTypes.func,
 };
 
 export default Register;

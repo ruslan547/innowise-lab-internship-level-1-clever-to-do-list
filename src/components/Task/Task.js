@@ -2,14 +2,13 @@ import './Task.scss';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { writeUserData } from '../../services/firebaseService';
 import routeConstants from '../../shared/constants/routeConstants';
 
 const { TASK } = routeConstants;
 
-function Task({ task, setCurrentTask }) {
+function Task({ task, setCurrentTask, tasks, setTasks, currentUser }) {
   const history = useHistory();
-  const { tasks, setTasks, writeUserData } = useAuth();
   let timeoutId;
   const delay = 200;
 
@@ -36,8 +35,8 @@ function Task({ task, setCurrentTask }) {
   };
 
   useEffect(() => {
-    return () => writeUserData();
-  }, []);
+    return () => writeUserData(currentUser, tasks);
+  }, [currentUser, tasks]);
 
   return (
     <button type="button" className="task" onClick={handleClick} onDoubleClick={handleDoubleClick}>
@@ -55,6 +54,9 @@ function Task({ task, setCurrentTask }) {
 Task.propTypes = {
   task: PropTypes.object,
   setCurrentTask: PropTypes.func,
+  tasks: PropTypes.array,
+  setTasks: PropTypes.func,
+  currentUser: PropTypes.object,
 };
 
 export default Task;

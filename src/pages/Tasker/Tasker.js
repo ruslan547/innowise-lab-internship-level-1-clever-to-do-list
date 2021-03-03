@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useAuth } from '../../contexts/AuthContext';
+import { signout } from '../../services/firebaseService';
 import Calendar from '../../components/Calendar/Calendar';
 import Alert from '../../components/Alert/Alert';
 import './Tasker.scss';
@@ -10,9 +10,16 @@ import routeConstants from '../../shared/constants/routeConstants';
 
 const { SIGNIN, TASK } = routeConstants;
 
-function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate }) {
+function Tasker({
+  currentTask,
+  setCurrentTask,
+  currentDate,
+  setCurrentDate,
+  tasks,
+  setTasks,
+  currentUser,
+}) {
   const [error, setError] = useState('');
-  const { signout } = useAuth();
   const history = useHistory();
 
   const handleSignout = async () => {
@@ -35,12 +42,15 @@ function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate }) {
         </button>
       </div>
       <Alert value={error} />
-      <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
+      <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} tasks={tasks} />
       <TaskList
         currentTask={currentTask}
         setCurrentTask={setCurrentTask}
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
+        tasks={tasks}
+        setTasks={setTasks}
+        currentUser={currentUser}
       />
       <Link className="tasker__link" to={TASK}>
         + Add a New Task
@@ -54,6 +64,9 @@ Tasker.propTypes = {
   setCurrentTask: PropTypes.func,
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
+  tasks: PropTypes.array,
+  setTasks: PropTypes.func,
+  currentUser: PropTypes.object,
 };
 
 export default Tasker;

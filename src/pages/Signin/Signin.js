@@ -1,17 +1,17 @@
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import 'firebase/auth';
 import Form from '../../components/Form/Form';
 import Alert from '../../components/Alert/Alert';
 import './Signin.scss';
 import Button from '../../components/Button/Button';
-import { useAuth } from '../../contexts/AuthContext';
+import { signin } from '../../services/firebaseService';
 import routeConstants from '../../shared/constants/routeConstants';
 
 const { TASKER } = routeConstants;
 
 function Signin() {
-  const { signin } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -46,5 +46,10 @@ function Signin() {
     </div>
   );
 }
+
+Signin.propTypes = {
+  setCurrentUser: PropTypes.func,
+  setTasks: PropTypes.func,
+};
 
 export default Signin;
