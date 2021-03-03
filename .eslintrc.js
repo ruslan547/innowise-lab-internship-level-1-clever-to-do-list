@@ -4,7 +4,7 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: ['airbnb', 'plugin:jest/recommended', 'jest-enzyme'],
+  extends: ['airbnb', 'plugin:jest/recommended', 'jest-enzyme', 'plugin:react-hooks/recommended'],
   plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier'],
   parser: 'babel-eslint',
   parserOptions: {
@@ -49,5 +49,8 @@ module.exports = {
     'jsx-a11y/label-has-for': [2, { required: { every: ['id'] } }],
 
     'prettier/prettier': ['error'],
+
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 };

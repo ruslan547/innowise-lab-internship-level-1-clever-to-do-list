@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
-export function PrivateRoute({
+function PrivateRoute({
   component: Component,
   currentTask,
   setCurrentTask,
