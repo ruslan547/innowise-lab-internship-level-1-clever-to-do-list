@@ -1,13 +1,16 @@
 import './Alert.scss';
+import PropTypes from 'prop-types';
 
-function Alert(params) {
-  const { value } = params;
-
+function Alert({ value }) {
   if (value) {
-    return <div className="alert">{params.value}</div>;
+    return <div className="alert">{value}</div>;
   }
 
   return null;
 }
+
+Alert.propTypes = {
+  value: PropTypes.string,
+};
 
 export default Alert;

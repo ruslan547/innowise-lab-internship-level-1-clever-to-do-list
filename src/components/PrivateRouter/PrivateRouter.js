@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
-export default function PrivateRoute({
+export function PrivateRoute({
   component: Component,
   currentTask,
   setCurrentTask,
@@ -34,3 +34,5 @@ PrivateRoute.propTypes = {
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
 };
+
+export default PrivateRoute;

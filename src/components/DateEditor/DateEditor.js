@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import { addZero } from '../../date/date';
 import Datepicker from '../Datepicker/Datepicker';
 
-function DateEditor({ task, handleChange }) {
+function DateEditor({ task: { date }, handleChange }) {
   const [datepickerDisplay, setDatepickerDisplay] = useState(false);
-  const { date } = task;
   const dateInfoContent = `${addZero(date.getMonth() + 1)}/${addZero(
     date.getDate(),
   )}/${date.getFullYear()}`;
@@ -25,9 +24,7 @@ function DateEditor({ task, handleChange }) {
           }}
         />
       </div>
-      {datepickerDisplay ? (
-        <Datepicker name="date" data={task.date} onChange={handleChange} />
-      ) : null}
+      {datepickerDisplay ? <Datepicker name="date" data={date} onChange={handleChange} /> : null}
     </div>
   );
 }

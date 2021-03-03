@@ -21,8 +21,8 @@ function Signin() {
       setLoading(true);
       await signin(email, password);
       history.push('/');
-    } catch (err) {
-      setError(err.message);
+    } catch ({ message }) {
+      setError(message);
       setLoading(null);
     }
   };

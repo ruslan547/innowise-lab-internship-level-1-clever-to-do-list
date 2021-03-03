@@ -8,8 +8,7 @@ function Form({ children, onSubmit }) {
     password: '',
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, ...{ [name]: value } });
   };
 

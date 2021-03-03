@@ -18,8 +18,8 @@ function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate }) {
     try {
       await signout();
       history.push('/signin');
-    } catch (err) {
-      setError(err.message);
+    } catch ({ message }) {
+      setError(message);
     }
   };
 

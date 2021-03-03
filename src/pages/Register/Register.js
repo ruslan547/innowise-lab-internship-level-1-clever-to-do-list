@@ -27,8 +27,8 @@ function Register() {
       setLoading(true);
       await register(email, password);
       history.push('/');
-    } catch (err) {
-      setError(err.message);
+    } catch ({ message }) {
+      setError(message);
       setLoading(false);
     }
   };

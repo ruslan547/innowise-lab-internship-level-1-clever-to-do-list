@@ -19,7 +19,7 @@ function CalendarCard({ date, currentDate, setCurrentDate }) {
 
   const checkFulfilledTasks = () => {
     return tasks.some((item) => {
-      return item.date.getTime() === date.getTime() && item.checked;
+      return +item.date === +date && item.checked;
     });
   };
 
