@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { auth, database } from '../firebase';
-import Loader from '../components/UI/Loader/Loader';
+import Loader from '../components/Loader/Loader';
 
 const AuthContext = React.createContext();
 

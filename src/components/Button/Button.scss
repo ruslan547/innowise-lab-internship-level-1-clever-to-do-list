@@ -1,0 +1,15 @@
+@import '../../index.scss';
+
+.button {
+  cursor: pointer;
+  background-color: $intense-color;
+  color: $simple-color;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid $basic-color;
+  outline: none;
+}
+
+.button:hover {
+  background-color: $bright-color;
+}
