@@ -1,6 +1,6 @@
 import './DatepickerTableButton.scss';
 import PropTypes from 'prop-types';
-import { startOfDay } from '../../date/date';
+import { startOfDay } from '../../shared/date/date';
 
 function DatepickerTableButton({ date, onClick, checkedDate }) {
   const toDay = startOfDay(new Date());

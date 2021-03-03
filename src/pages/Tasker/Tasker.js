@@ -6,6 +6,9 @@ import Calendar from '../../components/Calendar/Calendar';
 import Alert from '../../components/Alert/Alert';
 import './Tasker.scss';
 import TaskList from '../../components/TaskList/TaskList';
+import routeConstants from '../../shared/constants/routeConstants';
+
+const { SIGNIN, TASK } = routeConstants;
 
 function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate }) {
   const [error, setError] = useState('');
@@ -17,7 +20,7 @@ function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate }) {
 
     try {
       await signout();
-      history.push('/signin');
+      history.push(SIGNIN);
     } catch ({ message }) {
       setError(message);
     }
@@ -39,7 +42,7 @@ function Tasker({ currentTask, setCurrentTask, currentDate, setCurrentDate }) {
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
       />
-      <Link className="tasker__link" to="/task">
+      <Link className="tasker__link" to={TASK}>
         + Add a New Task
       </Link>
     </div>

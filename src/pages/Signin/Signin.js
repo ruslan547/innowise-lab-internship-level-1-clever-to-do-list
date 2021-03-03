@@ -6,6 +6,9 @@ import Alert from '../../components/Alert/Alert';
 import './Signin.scss';
 import Button from '../../components/Button/Button';
 import { useAuth } from '../../contexts/AuthContext';
+import routeConstants from '../../shared/constants/routeConstants';
+
+const { TASKER } = routeConstants;
 
 function Signin() {
   const { signin } = useAuth();
@@ -20,7 +23,7 @@ function Signin() {
       setError('');
       setLoading(true);
       await signin(email, password);
-      history.push('/');
+      history.push(TASKER);
     } catch ({ message }) {
       setError(message);
       setLoading(null);

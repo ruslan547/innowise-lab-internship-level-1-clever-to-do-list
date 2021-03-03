@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Calendar.scss';
 import Card from '../CalendarCard/CalendarCard';
-import { startOfDay } from '../../date/date';
+import { startOfDay } from '../../shared/date/date';
 
 const INITIAL_SCALE = 0;
 const INCREMENT = 1;

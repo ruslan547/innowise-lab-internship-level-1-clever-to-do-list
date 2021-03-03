@@ -2,6 +2,9 @@ import './Actions.scss';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import routeConstants from '../../shared/constants/routeConstants';
+
+const { TASKER } = routeConstants;
 
 function Actions({ currentTask, setCurrentTask, task }) {
   const { tasks, setTasks } = useAuth();
@@ -14,7 +17,7 @@ function Actions({ currentTask, setCurrentTask, task }) {
     }
 
     setCurrentTask(null);
-    history.push('/');
+    history.push(TASKER);
   };
 
   return (

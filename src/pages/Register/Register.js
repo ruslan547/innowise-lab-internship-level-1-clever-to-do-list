@@ -7,6 +7,9 @@ import './Register.scss';
 import { useAuth } from '../../contexts/AuthContext';
 import Alert from '../../components/Alert/Alert';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
+import routeConstants from '../../shared/constants/routeConstants';
+
+const { TASKER } = routeConstants;
 
 function Register() {
   const { register } = useAuth();
@@ -26,7 +29,7 @@ function Register() {
       setError('');
       setLoading(true);
       await register(email, password);
-      history.push('/');
+      history.push(TASKER);
     } catch ({ message }) {
       setError(message);
       setLoading(false);

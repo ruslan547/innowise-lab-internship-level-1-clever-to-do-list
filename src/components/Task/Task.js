@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import routeConstants from '../../shared/constants/routeConstants';
+
+const { TASK } = routeConstants;
 
 function Task({ task, setCurrentTask }) {
   const history = useHistory();
@@ -28,7 +31,7 @@ function Task({ task, setCurrentTask }) {
 
     setCurrentTask(pulledTask);
     setTasks(newTasks);
-    history.push('/task');
+    history.push(TASK);
     clearTimeout(timeoutId);
   };
 

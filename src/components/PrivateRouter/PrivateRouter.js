@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import routeConstants from '../../shared/constants/routeConstants';
+
+const { SIGNIN } = routeConstants;
 
 function PrivateRoute({
   component: Component,
@@ -21,7 +24,7 @@ function PrivateRoute({
         setCurrentDate={setCurrentDate}
       />
     );
-    return currentUser ? component : <Redirect to="/signin" />;
+    return currentUser ? component : <Redirect to={SIGNIN} />;
   };
 
   return <Route render={render} />;

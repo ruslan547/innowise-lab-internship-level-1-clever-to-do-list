@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './DatepickerHeader.scss';
 import arrow from '../../img/arrow.svg';
-import { getNameMonth } from '../../date/date';
+import { getNameMonth } from '../../shared/date/date';
 
 function DatepickerHeader({ date, setDate }) {
   const nextMonth = () => {

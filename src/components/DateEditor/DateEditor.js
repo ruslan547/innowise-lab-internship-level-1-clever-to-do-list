@@ -1,7 +1,7 @@
 import './DateEditor.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addZero } from '../../date/date';
+import { addZero } from '../../shared/date/date';
 import Datepicker from '../Datepicker/Datepicker';
 
 function DateEditor({ task: { date }, handleChange }) {

@@ -5,8 +5,11 @@ import './TaskPage.scss';
 import EditTask from '../../components/TaskEditor/TaskEditor';
 import { useAuth } from '../../contexts/AuthContext';
 import DateEditor from '../../components/DateEditor/DateEditor';
-import { startOfDay } from '../../date/date';
+import { startOfDay } from '../../shared/date/date';
 import Actions from '../../components/Actions/Actions';
+import routeConstants from '../../shared/constants/routeConstants';
+
+const { TASKER } = routeConstants;
 
 function TaskPage({ currentTask, setCurrentTask, currentDate }) {
   const initTask = {
@@ -35,7 +38,7 @@ function TaskPage({ currentTask, setCurrentTask, currentDate }) {
       setCurrentTask(null);
     }
 
-    history.push('/');
+    history.push(TASKER);
   };
 
   useEffect(() => {

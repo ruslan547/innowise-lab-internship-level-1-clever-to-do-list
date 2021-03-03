@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import PrivateRoute from './components/PrivateRouter/PrivateRouter';
 import Register from './pages/Register/Register';
@@ -7,7 +7,10 @@ import Signin from './pages/Signin/Signin';
 import Tasker from './pages/Tasker/Tasker';
 import TaskPage from './pages/TaskPage/TaskPage';
 import { AuthProvider } from './contexts/AuthContext';
-import { startOfDay } from './date/date';
+import { startOfDay } from './shared/date/date';
+import routerConstants from './shared/constants/routeConstants';
+
+const { SIGNIN, REGISTER, TASKER, TASK } = routerConstants;
 
 function App() {
   const [currentTask, setCurrentTask] = useState();
@@ -16,29 +19,29 @@ function App() {
   return (
     <div className="wrapper">
       <div className="container">
-        <HashRouter basename="/">
+        <Router basename={TASKER}>
           <AuthProvider>
             <Switch>
               <PrivateRoute
                 exact
-                path="/"
+                path={TASKER}
                 component={Tasker}
                 setCurrentTask={setCurrentTask}
                 currentDate={currentDate}
                 setCurrentDate={setCurrentDate}
               />
               <PrivateRoute
-                path="/task"
+                path={TASK}
                 component={TaskPage}
                 currentTask={currentTask}
                 setCurrentTask={setCurrentTask}
                 currentDate={currentDate}
               />
-              <Route path="/signin" component={Signin} />
-              <Route path="/register" component={Register} />
+              <Route path={SIGNIN} component={Signin} />
+              <Route path={REGISTER} component={Register} />
             </Switch>
           </AuthProvider>
-        </HashRouter>
+        </Router>
       </div>
     </div>
   );

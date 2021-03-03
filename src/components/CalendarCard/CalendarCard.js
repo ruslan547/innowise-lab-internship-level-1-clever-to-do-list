@@ -1,7 +1,7 @@
 import './CalendarCard.scss';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../contexts/AuthContext';
-import { getNameDay, startOfDay } from '../../date/date';
+import { getNameDay, startOfDay } from '../../shared/date/date';
 
 function CalendarCard({ date, currentDate, setCurrentDate }) {
   const { tasks } = useAuth();
