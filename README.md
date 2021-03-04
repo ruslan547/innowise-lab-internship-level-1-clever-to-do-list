@@ -52,30 +52,35 @@ You will now have app running on localhost via port 3000  http://localhost:3000
 * public
 * src
 	* components
+    * Actions
+    * Alert
+    * Button
+    * Calendar
+    * CalendarCard
+    * DateEditor
+    * Datepicker
+    * DatepickerHeader
+    * DatepickerTable
+    * DatepickerTableButton
+    * Form
+    * Loader
+    * LodingRoute
+    * PasswordInput
+    * PrivateRouter
+    * Task
+    * TaskEditor
+    * TaskList
+  * fonts
+  * img
+  * pages
 		* Register
 		* Signin
 		* Tasker
-			* Calendar
-				* Card
-			* TaskList
-				* Task
 		* TaskPage
-			* Actions
-			* DateEditor
-			* TaskEditor
-		* UI
-			* Alert
-            * Button
-            * Datepicker
-            	* Header
-            	* Table
-            * Form
-            * Loader
-            * PasswordInput
-    * contexts
+  * shared
+    * constants
     * date
-    * fonts
-    * img
+
 
 ## Contribute
 
