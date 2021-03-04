@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/innowise-lab-internship-level-1-clever-to-do-list/static/css/main.2609c0c9.chunk.css",
-    "main.js": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/main.91419317.chunk.js",
-    "main.js.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/main.91419317.chunk.js.map",
+    "main.css": "/innowise-lab-internship-level-1-clever-to-do-list/static/css/main.c7796766.chunk.css",
+    "main.js": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/main.2c375463.chunk.js",
+    "main.js.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/main.2c375463.chunk.js.map",
     "runtime-main.js": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/runtime-main.e274bf53.js",
     "runtime-main.js.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/runtime-main.e274bf53.js.map",
-    "static/js/2.589970eb.chunk.js": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/2.589970eb.chunk.js",
-    "static/js/2.589970eb.chunk.js.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/2.589970eb.chunk.js.map",
+    "static/js/2.3cc43653.chunk.js": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/2.3cc43653.chunk.js",
+    "static/js/2.3cc43653.chunk.js.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/2.3cc43653.chunk.js.map",
     "index.html": "/innowise-lab-internship-level-1-clever-to-do-list/index.html",
-    "static/css/main.2609c0c9.chunk.css.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/css/main.2609c0c9.chunk.css.map",
-    "static/js/2.589970eb.chunk.js.LICENSE.txt": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/2.589970eb.chunk.js.LICENSE.txt",
+    "static/css/main.c7796766.chunk.css.map": "/innowise-lab-internship-level-1-clever-to-do-list/static/css/main.c7796766.chunk.css.map",
+    "static/js/2.3cc43653.chunk.js.LICENSE.txt": "/innowise-lab-internship-level-1-clever-to-do-list/static/js/2.3cc43653.chunk.js.LICENSE.txt",
     "static/media/TaskPage.scss": "/innowise-lab-internship-level-1-clever-to-do-list/static/media/arrow.23e24faa.svg",
-    "static/media/Actions.scss": "/innowise-lab-internship-level-1-clever-to-do-list/static/media/roboto-v20-latin-regular.e464241b.eot"
+    "static/media/Loader.scss": "/innowise-lab-internship-level-1-clever-to-do-list/static/media/roboto-v20-latin-regular.e464241b.eot"
   },
   "entrypoints": [
     "static/js/runtime-main.e274bf53.js",
-    "static/js/2.589970eb.chunk.js",
-    "static/css/main.2609c0c9.chunk.css",
-    "static/js/main.91419317.chunk.js"
+    "static/js/2.3cc43653.chunk.js",
+    "static/css/main.c7796766.chunk.css",
+    "static/js/main.2c375463.chunk.js"
   ]
 }
