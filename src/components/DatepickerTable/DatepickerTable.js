@@ -1,6 +1,6 @@
 import './DatepickerTable.scss';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import DatepickerTableButton from '../DatepickerTableButton/DatepickerTableButton';
 
 const WEEK_DAYS = 7;
@@ -17,10 +17,10 @@ function DatepickerTable({ date, onChange }) {
   const calendar = [];
   let week = [];
 
-  const handleClick = (btnDate) => {
+  const handleClick = useCallback((btnDate) => {
     setCheckedDate(new Date(btnDate));
     onChange({ target: { name: 'date', value: btnDate } });
-  };
+  }, []);
 
   const generateNumber = () => {
     return Math.random();
@@ -55,12 +55,13 @@ function DatepickerTable({ date, onChange }) {
     if (lastDay !== SUN) {
       for (let i = lastDay; i < WEEK_DAYS; i++) week.push(<td key={generateNumber()} />);
     }
+
+    calendar.push(<tr key={generateNumber()}>{week}</tr>);
   };
 
   fillStartMonthByEmpty();
   fillMonthByDate();
   fillEndMonthByEmpty();
-  calendar.push(<tr key={generateNumber()}>{week}</tr>);
 
   return <tbody>{calendar}</tbody>;
 }

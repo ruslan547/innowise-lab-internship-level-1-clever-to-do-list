@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { addZero } from '../../shared/date/date';
 import Datepicker from '../Datepicker/Datepicker';
 
-function DateEditor({ task: { date }, handleChange }) {
+function DateEditor({ task: { date }, onChange }) {
   const [datepickerDisplay, setDatepickerDisplay] = useState(false);
   const dateInfoContent = `${addZero(date.getMonth() + 1)}/${addZero(
     date.getDate(),
@@ -24,14 +24,14 @@ function DateEditor({ task: { date }, handleChange }) {
           }}
         />
       </div>
-      {datepickerDisplay ? <Datepicker name="date" data={date} onChange={handleChange} /> : null}
+      {datepickerDisplay ? <Datepicker name="date" data={date} onChange={onChange} /> : null}
     </div>
   );
 }
 
 DateEditor.propTypes = {
   task: PropTypes.object,
-  handleChange: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 export default DateEditor;

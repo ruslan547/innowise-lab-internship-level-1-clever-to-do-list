@@ -1,9 +1,47 @@
 import './TaskList.scss';
 import PropTypes from 'prop-types';
+import { useCallback, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import Task from '../Task/Task';
+import routeConstants from '../../shared/constants/routeConstants';
+import { writeUserData } from '../../services/firebaseService';
+
+const { TASK } = routeConstants;
 
 function TaskList({ setCurrentTask, currentDate, tasks, setTasks, currentUser }) {
+  const history = useHistory();
   const taskList = [];
+  const timeoutId = useRef();
+  const delay = 200;
+
+  const handleClick = useCallback(() => {
+    timeoutId.current = setTimeout(() => {
+      // eslint-disable-next-line no-useless-return
+      return;
+    }, delay);
+  }, []);
+
+  const handleDoubleClick = useCallback(
+    (task) => {
+      const pulledTask = tasks.find((item) => item === task);
+      const newTasks = tasks.filter((item) => item !== task);
+
+      setCurrentTask(pulledTask);
+      setTasks(newTasks);
+      history.push(TASK);
+      clearTimeout(timeoutId.current);
+    },
+    [tasks],
+  );
+
+  const handleChange = useCallback(
+    async (task) => {
+      task.checked = !task.checked;
+      await setTasks([...tasks]);
+      writeUserData(currentUser, tasks);
+    },
+    [tasks, currentUser],
+  );
 
   tasks.forEach((item, i) => {
     if (+item.date === +currentDate) {
@@ -11,10 +49,10 @@ function TaskList({ setCurrentTask, currentDate, tasks, setTasks, currentUser })
         <Task
           key={i.toString()}
           task={item}
-          setCurrentTask={setCurrentTask}
-          tasks={tasks}
-          setTasks={setTasks}
           currentUser={currentUser}
+          onClick={handleClick}
+          onDoubleClick={handleDoubleClick}
+          onChange={handleChange}
         />
       );
       taskList.push(task);

@@ -1,26 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Calendar.scss';
 import CalendarCard from '../CalendarCard/CalendarCard';
 import { startOfDay } from '../../shared/date/date';
-
-const INITIAL_SCALE = 0;
-const INCREMENT = 1;
-
-function createDates(date) {
-  const stopDay = date.getDate();
-  const result = [];
-  do {
-    result.push(new Date(date));
-    date.setDate(date.getDate() + INCREMENT);
-  } while (date.getDate() !== stopDay);
-
-  return result;
-}
+import enableScroll from './enableScroll';
+import { addDates, createDates } from './endlessScrolling';
 
 function Calendar({ currentDate, setCurrentDate, tasks }) {
   const initDate = startOfDay(new Date());
   const [dates, setDates] = useState(createDates(initDate));
+
+  const handleClick = useCallback((date) => {
+    setCurrentDate(date);
+  }, []);
+
+  const checkFulfilledTasks = useCallback(
+    (date) => {
+      return tasks.some((item) => +item.date === +date && item.checked);
+    },
+    [tasks],
+  );
+
+  const checkPendingTasks = useCallback(
+    (date) => {
+      return tasks.some((item) => +item.date === +date && !item.checked);
+    },
+    [tasks],
+  );
+
+  const createDayClass = useCallback(
+    (date) => {
+      const toDay = startOfDay(new Date());
+      let dayClass = 'card__day';
+
+      if (+toDay === +date) {
+        dayClass += ' card__day_today';
+      }
+
+      if (+currentDate === +date) {
+        dayClass += ' card__day_current';
+      }
+      return dayClass;
+    },
+    [currentDate],
+  );
 
   const cards = dates.map((item) => {
     return (
@@ -28,39 +51,18 @@ function Calendar({ currentDate, setCurrentDate, tasks }) {
         key={item}
         date={item}
         currentDate={currentDate}
-        setCurrentDate={setCurrentDate}
-        tasks={tasks}
+        onClick={handleClick}
+        checkPendingTasks={checkPendingTasks}
+        checkFulfilledTasks={checkFulfilledTasks}
+        createDayClass={createDayClass}
       />
     );
   });
 
-  const addDates = () => {
-    const target = document.querySelector('.calendar');
-    const maxScrollLeft = target.scrollWidth - target.clientWidth;
-    if (target.scrollLeft === maxScrollLeft) {
-      const lastDate = dates[dates.length - 1];
-      const lastDageCopy = new Date(lastDate);
-      lastDageCopy.setDate(lastDageCopy.getDate() + INCREMENT);
-      const newDates = createDates(lastDageCopy);
-      setDates([...dates, ...newDates]);
-    }
-  };
-
-  const enableScroll = (event) => {
-    const target = document.querySelector('.calendar');
-    const toLeft = event.deltaY < INITIAL_SCALE && target.scrollLeft > INITIAL_SCALE;
-    const hiddenWidth = target.scrollWidth - target.clientWidth;
-    const toRight = event.deltaY > INITIAL_SCALE && target.scrollLeft < hiddenWidth;
-
-    if (toLeft || toRight) {
-      event.preventDefault();
-      target.scrollLeft += event.deltaY;
-    }
-  };
-
   const handleWheel = (event) => {
-    enableScroll(event);
-    addDates();
+    const target = document.querySelector('.calendar');
+    enableScroll(event, target);
+    addDates(dates, setDates);
   };
 
   useEffect(() => {

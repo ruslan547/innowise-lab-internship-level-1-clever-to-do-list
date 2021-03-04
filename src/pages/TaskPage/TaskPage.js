@@ -31,9 +31,9 @@ function TaskPage({ currentTask, setCurrentTask, currentDate, tasks, setTasks, c
     }
   };
 
-  const handleBackBtn = () => {
+  const handleBackBtn = async () => {
     if (currentTask) {
-      setTasks([...tasks, { ...currentTask }]);
+      await setTasks(() => [...tasks, { ...currentTask }]);
       setCurrentTask(null);
     }
 
@@ -60,7 +60,7 @@ function TaskPage({ currentTask, setCurrentTask, currentDate, tasks, setTasks, c
           value={task.description}
           onChange={handleChange}
         />
-        <DateEditor task={task} handleChange={handleChange} />
+        <DateEditor task={task} onChange={handleChange} />
       </div>
       <Actions
         currentTask={currentTask}
