@@ -1,5 +1,7 @@
 import { auth, database } from '../../firebase';
 
+console.log(auth);
+
 export function register(email, password) {
   return auth.createUserWithEmailAndPassword(email, password);
 }
@@ -10,23 +12,6 @@ export function signin(email, password) {
 
 export function signout() {
   return auth.signOut();
-}
-
-export async function readUserData(user, setTasks) {
-  if (!user) {
-    return;
-  }
-  database.ref(`users/${user.uid}`).on('value', (snapshot) => {
-    const response = snapshot.val();
-    if (response instanceof Object) {
-      if (response.tasks) {
-        Object.values(response.tasks).forEach((item) => {
-          item.date = new Date(item.date);
-        });
-        setTasks(response.tasks);
-      }
-    }
-  });
 }
 
 export function writeUserData({ uid }, tasks) {
@@ -47,6 +32,22 @@ export function updateUserData({ uid }, task) {
   database.ref(`users/${uid}`).child('tasks').update(task);
 }
 
-export function unsubscribe(callback) {
-  return auth.onAuthStateChanged(callback);
+export function readUserData(user) {
+  return new Promise((resolve) => {
+    database.ref(`users/${user.uid}`).on('value', (snapshot) => {
+      const response = snapshot.val();
+      if (response instanceof Object) {
+        if (response.tasks) {
+          Object.values(response.tasks).forEach((item) => {
+            item.date = new Date(item.date);
+          });
+          resolve(response.tasks);
+        }
+      }
+    });
+  });
+}
+
+export function offCallback({ uid }) {
+  database.ref(`users/${uid}`).off();
 }

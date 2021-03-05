@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { signout } from '../../core/services/firebaseService';
+import { offCallback, readUserData, signout } from '../../core/services/firebaseService';
 import Calendar from './components/Calendar/Calendar';
 import Alert from '../../core/components/Alert/Alert';
 import './Tasker.scss';
@@ -37,6 +37,7 @@ function Tasker({
 
     try {
       await signout();
+      offCallback(currentUser);
       history.push(SIGNIN);
     } catch ({ message }) {
       setError(message);
@@ -48,6 +49,10 @@ function Tasker({
     setCurrentTask(initTask);
     history.push(TASK);
   };
+
+  useEffect(() => {
+    readUserData(currentUser).then((data) => setTasks(data));
+  }, []);
 
   return (
     <div className="tasker">

@@ -4,7 +4,7 @@ import { useCallback, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import Task from '../Task/Task';
 import routeConstants from '../../../../core/constants/routeConstants';
-import { updateUserData } from '../../../../core/services/firebaseService';
+import { readUserData, updateUserData } from '../../../../core/services/firebaseService';
 
 const { TASK } = routeConstants;
 
@@ -13,6 +13,7 @@ function TaskList({
   setCurrentTaskId,
   currentDate,
   tasks,
+  setTasks,
   currentUser,
   setAction,
 }) {
@@ -39,6 +40,7 @@ function TaskList({
   const handleChange = useCallback(async (taskId, task) => {
     task.checked = !task.checked;
     updateUserData(currentUser, { [taskId]: { ...task } });
+    readUserData(currentUser).then((data) => setTasks(data));
   }, []);
 
   Object.entries(tasks).forEach(([taskId, task], i) => {

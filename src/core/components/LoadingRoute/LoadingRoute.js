@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../Loader/Loader';
-import { readUserData, unsubscribe } from '../../services/firebaseService';
+import { auth } from '../../../firebase';
 
-function LoadingRoute({ children, setTasks, setCurrentUser }) {
+function LoadingRoute({ children, setCurrentUser }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    return unsubscribe(async (user) => {
-      await setCurrentUser(user);
-      await readUserData(user, setTasks);
+    return auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setCurrentUser(user);
+      }
       setLoading(false);
     });
   }, []);
