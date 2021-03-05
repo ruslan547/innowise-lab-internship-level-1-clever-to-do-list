@@ -16,7 +16,7 @@ export function readUserData(user, setTasks) {
   if (!user) {
     return;
   }
-  database.ref('users/'.concat(user.uid)).once('value', (snapshot) => {
+  database.ref(`users/${user.uid}`).once('value', (snapshot) => {
     const response = snapshot.val();
     if (response instanceof Object) {
       if (response.tasks) {
@@ -30,9 +30,9 @@ export function readUserData(user, setTasks) {
   });
 }
 
-export function writeUserData(user, tasks) {
+export function writeUserData({ uid }, tasks) {
   const jsonStr = JSON.stringify(tasks);
-  database.ref('users/'.concat(user.uid)).set({ tasks: jsonStr });
+  database.ref(`users/${uid}`).set({ tasks: jsonStr });
 }
 
 export function unsubscribe(callback) {
