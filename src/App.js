@@ -13,16 +13,22 @@ import LoadingRoute from './core/components/LoadingRoute/LoadingRoute';
 const { SIGNIN, REGISTER, TASKER, TASK } = routerConstants;
 
 function App() {
-  const [currentTask, setCurrentTask] = useState();
+  const [currentTask, setCurrentTask] = useState(null);
+  const [currentTaskId, setCurrentTaskId] = useState();
   const [currentDate, setCurrentDate] = useState(startOfDay(new Date()));
   const [currentUser, setCurrentUser] = useState();
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState({});
+  const [action, setAction] = useState();
 
   return (
     <div className="wrapper">
       <div className="container">
         <Router basename={TASKER}>
-          <LoadingRoute setTasks={setTasks} setCurrentUser={setCurrentUser}>
+          <LoadingRoute
+            setTasks={setTasks}
+            setCurrentUser={setCurrentUser}
+            currentUser={currentUser}
+          >
             <Switch>
               <PrivateRoute
                 exact
@@ -30,22 +36,28 @@ function App() {
                 component={Tasker}
                 currentTask={currentTask}
                 setCurrentTask={setCurrentTask}
+                currentTaskId={currentTaskId}
+                setCurrentTaskId={setCurrentTaskId}
                 currentDate={currentDate}
                 setCurrentDate={setCurrentDate}
                 currentUser={currentUser}
                 tasks={tasks}
                 setTasks={setTasks}
+                setAction={setAction}
               />
               <PrivateRoute
                 path={TASK}
                 component={TaskPage}
                 currentTask={currentTask}
                 setCurrentTask={setCurrentTask}
+                currentTaskId={currentTaskId}
+                setCurrentTaskId={setCurrentTaskId}
                 currentDate={currentDate}
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
                 tasks={tasks}
                 setTasks={setTasks}
+                action={action}
               />
               <Route path={SIGNIN} component={Signin} />
               <Route path={REGISTER} component={Register} />

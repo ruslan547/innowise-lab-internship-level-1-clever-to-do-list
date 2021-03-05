@@ -12,27 +12,39 @@ export function signout() {
   return auth.signOut();
 }
 
-export function readUserData(user, setTasks) {
+export async function readUserData(user, setTasks) {
   if (!user) {
     return;
   }
-  database.ref(`users/${user.uid}`).once('value', (snapshot) => {
+  database.ref(`users/${user.uid}`).on('value', (snapshot) => {
     const response = snapshot.val();
     if (response instanceof Object) {
       if (response.tasks) {
-        const parsedData = JSON.parse(response.tasks, (key, value) => {
-          if (key === 'date') return new Date(value);
-          return value;
+        Object.values(response.tasks).forEach((item) => {
+          item.date = new Date(item.date);
         });
-        setTasks(parsedData);
+        setTasks(response.tasks);
       }
     }
   });
 }
 
 export function writeUserData({ uid }, tasks) {
-  const jsonStr = JSON.stringify(tasks);
-  database.ref(`users/${uid}`).set({ tasks: jsonStr });
+  Object.values(tasks).forEach((item) => {
+    item.date = +item.date;
+  });
+  database.ref(`users/${uid}`).set({ tasks });
+}
+
+export function pushUserData({ uid }, task) {
+  task.date = +task.date;
+  database.ref(`users/${uid}`).child('tasks').push(task);
+}
+
+export function updateUserData({ uid }, task) {
+  const [key] = Object.keys(task);
+  task[key].date = +task[key].date;
+  database.ref(`users/${uid}`).child('tasks').update(task);
 }
 
 export function unsubscribe(callback) {

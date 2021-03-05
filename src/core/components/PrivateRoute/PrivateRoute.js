@@ -14,6 +14,10 @@ function PrivateRoute({
   currentUser,
   tasks,
   setTasks,
+  currentTaskId,
+  setCurrentTaskId,
+  setAction,
+  action,
 }) {
   const render = () => {
     const component = (
@@ -22,9 +26,13 @@ function PrivateRoute({
         setCurrentTask={setCurrentTask}
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
+        currentTaskId={currentTaskId}
+        setCurrentTaskId={setCurrentTaskId}
         currentUser={currentUser}
         tasks={tasks}
         setTasks={setTasks}
+        action={action}
+        setAction={setAction}
       />
     );
 
@@ -41,8 +49,12 @@ PrivateRoute.propTypes = {
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
   currentUser: PropTypes.object,
-  tasks: PropTypes.array,
+  tasks: PropTypes.object,
   setTasks: PropTypes.func,
+  currentTaskId: PropTypes.string,
+  setCurrentTaskId: PropTypes.func,
+  action: PropTypes.string,
+  setAction: PropTypes.func,
 };
 
 export default PrivateRoute;

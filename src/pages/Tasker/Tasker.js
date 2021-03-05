@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { signout } from '../../core/services/firebaseService';
 import Calendar from './components/Calendar/Calendar';
@@ -7,6 +7,7 @@ import Alert from '../../core/components/Alert/Alert';
 import './Tasker.scss';
 import TaskList from './components/TaskList/TaskList';
 import routeConstants from '../../core/constants/routeConstants';
+import { startOfDay } from '../../core/date/date';
 
 const { SIGNIN, TASK } = routeConstants;
 
@@ -15,12 +16,21 @@ function Tasker({
   setCurrentTask,
   currentDate,
   setCurrentDate,
+  currentTaskId,
+  setCurrentTaskId,
   tasks,
   setTasks,
   currentUser,
+  setAction,
 }) {
   const [error, setError] = useState('');
   const history = useHistory();
+  const initTask = {
+    checked: false,
+    title: 'Title',
+    description: 'description',
+    date: startOfDay(currentDate),
+  };
 
   const handleSignout = async () => {
     setError('');
@@ -31,6 +41,12 @@ function Tasker({
     } catch ({ message }) {
       setError(message);
     }
+  };
+
+  const handleClick = () => {
+    setAction('Save');
+    setCurrentTask(initTask);
+    history.push(TASK);
   };
 
   return (
@@ -48,13 +64,16 @@ function Tasker({
         setCurrentTask={setCurrentTask}
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
+        currentTaskId={currentTaskId}
+        setCurrentTaskId={setCurrentTaskId}
         tasks={tasks}
         setTasks={setTasks}
         currentUser={currentUser}
+        setAction={setAction}
       />
-      <Link className="tasker__link" to={TASK}>
+      <button type="button" className="tasker__btn btn" onClick={handleClick}>
         + Add a New Task
-      </Link>
+      </button>
     </div>
   );
 }
@@ -64,9 +83,12 @@ Tasker.propTypes = {
   setCurrentTask: PropTypes.func,
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
-  tasks: PropTypes.array,
+  tasks: PropTypes.object,
   setTasks: PropTypes.func,
   currentUser: PropTypes.object,
+  currentTaskId: PropTypes.string,
+  setCurrentTaskId: PropTypes.func,
+  setAction: PropTypes.func,
 };
 
 export default Tasker;

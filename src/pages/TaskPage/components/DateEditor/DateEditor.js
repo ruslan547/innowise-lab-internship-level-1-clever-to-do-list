@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { addZero } from '../../../../core/date/date';
 import Datepicker from '../Datepicker/Datepicker';
 
-function DateEditor({ task: { date }, onChange }) {
+function DateEditor({ currentTask: { date }, onChange }) {
   const [datepickerDisplay, setDatepickerDisplay] = useState(false);
   const dateInfoContent = `${addZero(date.getMonth() + 1)}/${addZero(
     date.getDate(),
@@ -30,7 +30,7 @@ function DateEditor({ task: { date }, onChange }) {
 }
 
 DateEditor.propTypes = {
-  task: PropTypes.object,
+  currentTask: PropTypes.object,
   onChange: PropTypes.func,
 };
 

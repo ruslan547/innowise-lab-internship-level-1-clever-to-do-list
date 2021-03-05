@@ -1,75 +1,59 @@
 import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { writeUserData } from '../../core/services/firebaseService';
 import './TaskPage.scss';
 import EditTask from './components/TaskEditor/TaskEditor';
 import DateEditor from './components/DateEditor/DateEditor';
-import { startOfDay } from '../../core/date/date';
 import Actions from './components/Actions/Actions';
 import routeConstants from '../../core/constants/routeConstants';
+import { pushUserData, updateUserData, writeUserData } from '../../core/services/firebaseService';
 
 const { TASKER } = routeConstants;
 
-function TaskPage({ currentTask, setCurrentTask, currentDate, tasks, setTasks, currentUser }) {
-  const initTask = {
-    checked: false,
-    title: 'Title',
-    description: 'description',
-    date: startOfDay(currentDate),
-  };
-
-  const [task, setTask] = useState(currentTask || initTask);
+function TaskPage({ currentTask, setCurrentTask, currentTaskId, tasks, currentUser, action }) {
   const history = useHistory();
   const textContent = "Today's Task";
 
   const handleChange = ({ target: { name, value, checked } }) => {
     if (name === 'checkbox') {
-      setTask({ ...task, checked });
+      setCurrentTask({ ...currentTask, checked });
     } else {
-      setTask({ ...task, [name]: value });
+      setCurrentTask({ ...currentTask, [name]: value });
     }
   };
 
-  const handleBackBtn = async () => {
-    if (currentTask) {
-      await setTasks(() => [...tasks, { ...currentTask }]);
-      setCurrentTask(null);
+  const handleClick = ({ target: { name } }) => {
+    if (name === 'Save') {
+      pushUserData(currentUser, currentTask);
+    } else if (name === 'Update') {
+      updateUserData(currentUser, { [currentTaskId]: currentTask });
+    } else if (name === 'delete') {
+      delete tasks[currentTaskId];
+      writeUserData(currentUser, tasks);
     }
 
+    setCurrentTask(null);
     history.push(TASKER);
   };
-
-  useEffect(() => {
-    return () => writeUserData(currentUser, tasks);
-  }, [currentUser, tasks]);
 
   return (
     <div className="task-page">
       <div className="task-page__container">
         <div className="task-page__nav">
-          <button type="button" name="back" className="task-page__back" onClick={handleBackBtn}>
+          <button type="button" name="back" className="task-page__back" onClick={handleClick}>
             <div className="task-page__arrow arrow" />
             <div className="text_nowrap">{textContent}</div>
           </button>
         </div>
-        <EditTask checked={task.checked} title={task.title} onChange={handleChange} />
+        <EditTask checked={currentTask.checked} title={currentTask.title} onChange={handleChange} />
         <textarea
           className="task-page__description"
           name="description"
-          value={task.description}
+          value={currentTask.description}
           onChange={handleChange}
         />
-        <DateEditor task={task} onChange={handleChange} />
+        <DateEditor currentTask={currentTask} onChange={handleChange} />
       </div>
-      <Actions
-        currentTask={currentTask}
-        setCurrentTask={setCurrentTask}
-        task={task}
-        tasks={tasks}
-        setTasks={setTasks}
-        currentUser={currentUser}
-      />
+      <Actions onClick={handleClick} action={action} />
     </div>
   );
 }
@@ -77,10 +61,10 @@ function TaskPage({ currentTask, setCurrentTask, currentDate, tasks, setTasks, c
 TaskPage.propTypes = {
   currentTask: PropTypes.object,
   setCurrentTask: PropTypes.func,
-  currentDate: PropTypes.object,
-  tasks: PropTypes.array,
-  setTasks: PropTypes.func,
+  tasks: PropTypes.object,
   currentUser: PropTypes.object,
+  currentTaskId: PropTypes.string,
+  action: PropTypes.string,
 };
 
 export default TaskPage;

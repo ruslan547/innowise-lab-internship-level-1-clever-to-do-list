@@ -4,11 +4,18 @@ import { useCallback, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import Task from '../Task/Task';
 import routeConstants from '../../../../core/constants/routeConstants';
-import { writeUserData } from '../../../../core/services/firebaseService';
+import { updateUserData } from '../../../../core/services/firebaseService';
 
 const { TASK } = routeConstants;
 
-function TaskList({ setCurrentTask, currentDate, tasks, setTasks, currentUser }) {
+function TaskList({
+  setCurrentTask,
+  setCurrentTaskId,
+  currentDate,
+  tasks,
+  currentUser,
+  setAction,
+}) {
   const history = useHistory();
   const taskList = [];
   const timeoutId = useRef();
@@ -21,41 +28,32 @@ function TaskList({ setCurrentTask, currentDate, tasks, setTasks, currentUser })
     }, delay);
   }, []);
 
-  const handleDoubleClick = useCallback(
-    (task) => {
-      const pulledTask = tasks.find((item) => item === task);
-      const newTasks = tasks.filter((item) => item !== task);
+  const handleDoubleClick = useCallback((taskId, task) => {
+    setCurrentTask(task);
+    setCurrentTaskId(taskId);
+    setAction('Update');
+    history.push(TASK);
+    clearTimeout(timeoutId.current);
+  }, []);
 
-      setCurrentTask(pulledTask);
-      setTasks(newTasks);
-      history.push(TASK);
-      clearTimeout(timeoutId.current);
-    },
-    [tasks],
-  );
+  const handleChange = useCallback(async (taskId, task) => {
+    task.checked = !task.checked;
+    updateUserData(currentUser, { [taskId]: { ...task } });
+  }, []);
 
-  const handleChange = useCallback(
-    async (task) => {
-      task.checked = !task.checked;
-      await setTasks([...tasks]);
-      writeUserData(currentUser, tasks);
-    },
-    [tasks, currentUser],
-  );
-
-  tasks.forEach((item, i) => {
-    if (+item.date === +currentDate) {
-      const task = (
+  Object.entries(tasks).forEach(([taskId, task], i) => {
+    if (+task.date === +currentDate) {
+      const taskCompanent = (
         <Task
           key={i.toString()}
-          task={item}
-          currentUser={currentUser}
+          task={task}
+          taskId={taskId}
           onClick={handleClick}
           onDoubleClick={handleDoubleClick}
           onChange={handleChange}
         />
       );
-      taskList.push(task);
+      taskList.push(taskCompanent);
     }
   });
 
@@ -72,9 +70,10 @@ function TaskList({ setCurrentTask, currentDate, tasks, setTasks, currentUser })
 TaskList.propTypes = {
   setCurrentTask: PropTypes.func,
   currentDate: PropTypes.object,
-  tasks: PropTypes.array,
+  tasks: PropTypes.object,
   setTasks: PropTypes.func,
   currentUser: PropTypes.object,
+  setAction: PropTypes.func,
 };
 
 export default TaskList;

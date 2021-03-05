@@ -1,19 +1,19 @@
 import './Task.scss';
 import PropTypes from 'prop-types';
 
-function Task({ task, onClick, onDoubleClick, onChange }) {
+function Task({ task, taskId, onClick, onDoubleClick, onChange }) {
   return (
     <button
       type="button"
       className="task"
       onClick={onClick}
-      onDoubleClick={() => onDoubleClick(task)}
+      onDoubleClick={() => onDoubleClick(taskId, task)}
     >
       <input
         className="task__input"
         type="checkbox"
         checked={task.checked}
-        onChange={() => onChange(task)}
+        onChange={() => onChange(taskId, task)}
       />
       {task.title}
     </button>
@@ -22,10 +22,7 @@ function Task({ task, onClick, onDoubleClick, onChange }) {
 
 Task.propTypes = {
   task: PropTypes.object,
-  setCurrentTask: PropTypes.func,
-  tasks: PropTypes.array,
-  setTasks: PropTypes.func,
-  currentUser: PropTypes.object,
+  taskId: PropTypes.string,
   onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
   onChange: PropTypes.func,

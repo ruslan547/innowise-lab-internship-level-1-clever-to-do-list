@@ -16,14 +16,14 @@ function Calendar({ currentDate, setCurrentDate, tasks }) {
 
   const checkFulfilledTasks = useCallback(
     (date) => {
-      return tasks.some((item) => +item.date === +date && item.checked);
+      return Object.values(tasks).some((item) => +item.date === +date && item.checked);
     },
     [tasks],
   );
 
   const checkPendingTasks = useCallback(
     (date) => {
-      return tasks.some((item) => +item.date === +date && !item.checked);
+      return Object.values(tasks).some((item) => +item.date === +date && !item.checked);
     },
     [tasks],
   );
@@ -74,7 +74,7 @@ function Calendar({ currentDate, setCurrentDate, tasks }) {
 }
 
 Calendar.propTypes = {
-  tasks: PropTypes.array,
+  tasks: PropTypes.object,
   currentDate: PropTypes.object,
   setCurrentDate: PropTypes.func,
 };
