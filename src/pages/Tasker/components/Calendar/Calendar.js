@@ -1,43 +1,50 @@
 import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Calendar.scss';
+import { startOfDay, isToday, isEqual, addMonths, eachDayOfInterval, addDays } from 'date-fns';
 import CalendarCard from '../CalendarCard/CalendarCard';
-import { startOfDay } from '../../../../core/date/date';
 import enableScroll from './enableScroll';
-import { addDates, createDates } from './endlessScrolling';
+
+const INCREMENT = 1;
+
+const createDates = (date) => {
+  return eachDayOfInterval({
+    start: date,
+    end: addMonths(date, INCREMENT),
+  });
+};
 
 function Calendar({ currentDate, setCurrentDate, tasks }) {
   const initDate = startOfDay(new Date());
   const [dates, setDates] = useState(createDates(initDate));
 
   const handleClick = useCallback((date) => {
-    setCurrentDate(date);
+    setCurrentDate(new Date(date));
   }, []);
 
   const checkFulfilledTasks = useCallback(
     (date) => {
-      return Object.values(tasks).some((item) => +item.date === +date && item.checked);
+      return Object.values(tasks).some((item) => isEqual(item.date, date) && item.checked);
     },
     [tasks],
   );
 
   const checkPendingTasks = useCallback(
     (date) => {
-      return Object.values(tasks).some((item) => +item.date === +date && !item.checked);
+      return Object.values(tasks).some((item) => isEqual(item.date, date) && !item.checked);
     },
     [tasks],
   );
 
   const createDayClass = useCallback(
     (date) => {
-      const toDay = startOfDay(new Date());
       let dayClass = 'card__day';
 
-      if (+toDay === +date) {
+      if (isToday(date)) {
         dayClass += ' card__day_today';
       }
 
-      if (+currentDate === +date) {
+      if (isEqual(currentDate, date)) {
         dayClass += ' card__day_current';
       }
       return dayClass;
@@ -50,7 +57,6 @@ function Calendar({ currentDate, setCurrentDate, tasks }) {
       <CalendarCard
         key={item}
         date={item}
-        currentDate={currentDate}
         onClick={handleClick}
         checkPendingTasks={checkPendingTasks}
         checkFulfilledTasks={checkFulfilledTasks}
@@ -59,10 +65,22 @@ function Calendar({ currentDate, setCurrentDate, tasks }) {
     );
   });
 
+  const addDates = (data) => {
+    return new Promise((resolve) => {
+      const target = document.querySelector('.calendar');
+      const maxScrollLeft = target.scrollWidth - target.clientWidth;
+      if (target.scrollLeft === maxScrollLeft) {
+        const lastDate = data[data.length - 1];
+        const newDates = createDates(addDays(new Date(lastDate), INCREMENT));
+        resolve(newDates);
+      }
+    });
+  };
+
   const handleWheel = (event) => {
     const target = document.querySelector('.calendar');
     enableScroll(event, target);
-    addDates(dates, setDates);
+    addDates(dates).then((response) => setDates([...dates, ...response]));
   };
 
   useEffect(() => {

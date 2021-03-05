@@ -1,7 +1,5 @@
 import { auth, database } from '../../firebase';
 
-console.log(auth);
-
 export function register(email, password) {
   return auth.createUserWithEmailAndPassword(email, password);
 }

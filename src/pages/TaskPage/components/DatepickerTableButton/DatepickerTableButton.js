@@ -1,14 +1,13 @@
 import './DatepickerTableButton.scss';
 import PropTypes from 'prop-types';
-import { startOfDay } from '../../../../core/date/date';
+import { isToday, isEqual } from 'date-fns';
 
 function DatepickerTableButton({ date, onClick, checkedDate }) {
-  const toDay = startOfDay(new Date());
   let className = 'date-btn';
 
-  if (+date === +checkedDate) {
+  if (isEqual(date, checkedDate)) {
     className += ' date-btn__checked';
-  } else if (+toDay === +date) {
+  } else if (isToday(date)) {
     className += ' date-btn__today';
   }
 

@@ -7,7 +7,6 @@ import Alert from '../../core/components/Alert/Alert';
 import './Tasker.scss';
 import TaskList from './components/TaskList/TaskList';
 import routeConstants from '../../core/constants/routeConstants';
-import { startOfDay } from '../../core/date/date';
 
 const { SIGNIN, TASK } = routeConstants;
 
@@ -29,7 +28,7 @@ function Tasker({
     checked: false,
     title: 'Title',
     description: 'description',
-    date: startOfDay(currentDate),
+    date: currentDate,
   };
 
   const handleSignout = async () => {

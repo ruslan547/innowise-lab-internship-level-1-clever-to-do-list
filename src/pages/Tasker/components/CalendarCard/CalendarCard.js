@@ -1,12 +1,12 @@
 import './CalendarCard.scss';
 import PropTypes from 'prop-types';
-import { getNameDay } from '../../../../core/date/date';
+import { format } from 'date-fns';
 
 function CalendarCard({ date, onClick, checkPendingTasks, checkFulfilledTasks, createDayClass }) {
   return (
     <button type="button" className="card btn" onClick={() => onClick(date)}>
       <div className={createDayClass(date)}>
-        <span className="card__text">{getNameDay(date)}</span>
+        <span className="card__text">{format(date, 'eee')}</span>
         <span className="card__number">{date.getDate()}</span>
       </div>
       <div className="card__board">

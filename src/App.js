@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.scss';
+import { startOfDay } from 'date-fns';
 import PrivateRoute from './core/components/PrivateRoute/PrivateRoute';
 import Register from './pages/Register/Register';
 import Signin from './pages/Signin/Signin';
 import Tasker from './pages/Tasker/Tasker';
 import TaskPage from './pages/TaskPage/TaskPage';
-import { startOfDay } from './core/date/date';
 import routerConstants from './core/constants/routeConstants';
 import LoadingRoute from './core/components/LoadingRoute/LoadingRoute';
 

@@ -2,6 +2,7 @@ import './TaskList.scss';
 import PropTypes from 'prop-types';
 import { useCallback, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import { isEqual } from 'date-fns';
 import Task from '../Task/Task';
 import routeConstants from '../../../../core/constants/routeConstants';
 import { readUserData, updateUserData } from '../../../../core/services/firebaseService';
@@ -44,7 +45,7 @@ function TaskList({
   }, []);
 
   Object.entries(tasks).forEach(([taskId, task], i) => {
-    if (+task.date === +currentDate) {
+    if (isEqual(task.date, currentDate)) {
       const taskCompanent = (
         <Task
           key={i.toString()}

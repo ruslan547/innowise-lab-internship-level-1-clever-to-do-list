@@ -1,20 +1,17 @@
 import './DateEditor.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addZero } from '../../../../core/date/date';
+import { format } from 'date-fns';
 import Datepicker from '../Datepicker/Datepicker';
 
 function DateEditor({ currentTask: { date }, onChange }) {
   const [datepickerDisplay, setDatepickerDisplay] = useState(false);
-  const dateInfoContent = `${addZero(date.getMonth() + 1)}/${addZero(
-    date.getDate(),
-  )}/${date.getFullYear()}`;
 
   return (
     <div>
       <div className="date-control">
         <div className="date-control__info" type="text">
-          {dateInfoContent}
+          {format(date, 'P')}
         </div>
         <input
           type="button"

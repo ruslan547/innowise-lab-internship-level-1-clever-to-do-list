@@ -1,5 +1,6 @@
 import './DatepickerTable.scss';
 import PropTypes from 'prop-types';
+import { endOfMonth, startOfMonth } from 'date-fns';
 import { useCallback, useState } from 'react';
 import DatepickerTableButton from '../DatepickerTableButton/DatepickerTableButton';
 
@@ -11,9 +12,9 @@ const MONTH_FIRST_NUMBER = 1;
 function DatepickerTable({ date, onChange }) {
   const calendarDate = new Date(date);
   const [checkedDate, setCheckedDate] = useState(new Date(date));
-  const lastDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, 0).getDate();
-  const lastDay = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), lastDate).getDay();
-  const firstDay = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1).getDay();
+  const lastDate = endOfMonth(calendarDate).getDate();
+  const lastDay = endOfMonth(calendarDate).getDay();
+  const firstDay = startOfMonth(calendarDate).getDay();
   const calendar = [];
   let week = [];
 
