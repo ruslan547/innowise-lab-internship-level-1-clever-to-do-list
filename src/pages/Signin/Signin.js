@@ -2,12 +2,12 @@ import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import 'firebase/auth';
-import Form from '../../components/Form/Form';
-import Alert from '../../components/Alert/Alert';
+import Form from '../../core/components/Form/Form';
+import Alert from '../../core/components/Alert/Alert';
 import './Signin.scss';
-import Button from '../../components/Button/Button';
-import { signin } from '../../services/firebaseService';
-import routeConstants from '../../shared/constants/routeConstants';
+import Button from '../../core/components/Button/Button';
+import { signin } from '../../core/services/firebaseService';
+import routeConstants from '../../core/constants/routeConstants';
 
 const { TASKER } = routeConstants;
 

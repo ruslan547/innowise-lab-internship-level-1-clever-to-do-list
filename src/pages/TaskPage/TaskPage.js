@@ -1,13 +1,13 @@
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { writeUserData } from '../../services/firebaseService';
+import { writeUserData } from '../../core/services/firebaseService';
 import './TaskPage.scss';
-import EditTask from '../../components/TaskEditor/TaskEditor';
-import DateEditor from '../../components/DateEditor/DateEditor';
-import { startOfDay } from '../../shared/date/date';
-import Actions from '../../components/Actions/Actions';
-import routeConstants from '../../shared/constants/routeConstants';
+import EditTask from './components/TaskEditor/TaskEditor';
+import DateEditor from './components/DateEditor/DateEditor';
+import { startOfDay } from '../../core/date/date';
+import Actions from './components/Actions/Actions';
+import routeConstants from '../../core/constants/routeConstants';
 
 const { TASKER } = routeConstants;
 

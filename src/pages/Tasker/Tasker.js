@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { signout } from '../../services/firebaseService';
-import Calendar from '../../components/Calendar/Calendar';
-import Alert from '../../components/Alert/Alert';
+import { signout } from '../../core/services/firebaseService';
+import Calendar from './components/Calendar/Calendar';
+import Alert from '../../core/components/Alert/Alert';
 import './Tasker.scss';
-import TaskList from '../../components/TaskList/TaskList';
-import routeConstants from '../../shared/constants/routeConstants';
+import TaskList from './components/TaskList/TaskList';
+import routeConstants from '../../core/constants/routeConstants';
 
 const { SIGNIN, TASK } = routeConstants;
 

@@ -1,13 +1,13 @@
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../components/Button/Button';
-import Form from '../../components/Form/Form';
+import Button from '../../core/components/Button/Button';
+import Form from '../../core/components/Form/Form';
 import './Register.scss';
-import Alert from '../../components/Alert/Alert';
-import PasswordInput from '../../components/PasswordInput/PasswordInput';
-import { register } from '../../services/firebaseService';
-import routeConstants from '../../shared/constants/routeConstants';
+import Alert from '../../core/components/Alert/Alert';
+import PasswordInput from './components/PasswordInput/PasswordInput';
+import { register } from '../../core/services/firebaseService';
+import routeConstants from '../../core/constants/routeConstants';
 
 const { TASKER, SIGNIN } = routeConstants;
 
