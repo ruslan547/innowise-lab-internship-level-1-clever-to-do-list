@@ -1,22 +1,14 @@
 import './DatepickerTable.scss';
 import PropTypes from 'prop-types';
-import { endOfMonth, startOfMonth } from 'date-fns';
+import { startOfMonth, isSunday, getWeeksInMonth, addDays, getMonth } from 'date-fns';
 import { useCallback, useState } from 'react';
 import DatepickerTableButton from '../DatepickerTableButton/DatepickerTableButton';
 
 const WEEK_DAYS = 7;
-const SUN = 0;
-const SAT = 6;
-const MONTH_FIRST_NUMBER = 1;
+const INCREMENT = 1;
 
 function DatepickerTable({ date, onChange }) {
-  const calendarDate = new Date(date);
   const [checkedDate, setCheckedDate] = useState(new Date(date));
-  const lastDate = endOfMonth(calendarDate).getDate();
-  const lastDay = endOfMonth(calendarDate).getDay();
-  const firstDay = startOfMonth(calendarDate).getDay();
-  const calendar = [];
-  let week = [];
 
   const handleClick = useCallback((btnDate) => {
     setCheckedDate(new Date(btnDate));
@@ -27,44 +19,39 @@ function DatepickerTable({ date, onChange }) {
     return Math.random();
   };
 
-  const fillStartMonthByEmpty = () => {
-    if (firstDay !== SUN) {
-      for (let i = 0; i < firstDay; i++) week.push(<td key={generateNumber()} />);
-    } else {
-      for (let i = 0; i < SUN; i++) week.push(<td key={generateNumber()} />);
-    }
+  const generateCalendar = () => {
+    let calendarDate = startOfMonth(date);
+    const firstDay = startOfMonth(calendarDate).getDay();
+    const weekCount = getWeeksInMonth(date);
+    const calendar = new Array(weekCount).fill(null);
+
+    return calendar.map((week, calendarI) => {
+      week = new Array(WEEK_DAYS).fill(null);
+      week.forEach((_, weekI) => {
+        if (
+          // eslint-disable-next-line operator-linebreak
+          (!calendarI && !isSunday(firstDay) && weekI >= firstDay) ||
+          (calendarI && getMonth(calendarDate) === getMonth(date))
+        ) {
+          week[weekI] = (
+            <td key={generateNumber()}>
+              <DatepickerTableButton
+                date={new Date(calendarDate)}
+                checkedDate={checkedDate}
+                onClick={handleClick}
+              />
+            </td>
+          );
+          calendarDate = addDays(calendarDate, INCREMENT);
+        } else {
+          week[weekI] = <td key={generateNumber()} />;
+        }
+      });
+      return <tr key={generateNumber()}>{week}</tr>;
+    });
   };
 
-  const fillMonthByDate = () => {
-    for (let i = MONTH_FIRST_NUMBER; i <= lastDate; i++) {
-      const tmpDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), i);
-
-      week.push(
-        <td key={generateNumber()}>
-          <DatepickerTableButton date={tmpDate} checkedDate={checkedDate} onClick={handleClick} />
-        </td>,
-      );
-
-      if (tmpDate.getDay() === SAT) {
-        calendar.push(<tr key={generateNumber()}>{week.slice()}</tr>);
-        week = [];
-      }
-    }
-  };
-
-  const fillEndMonthByEmpty = () => {
-    if (lastDay !== SUN) {
-      for (let i = lastDay; i < WEEK_DAYS; i++) week.push(<td key={generateNumber()} />);
-    }
-
-    calendar.push(<tr key={generateNumber()}>{week}</tr>);
-  };
-
-  fillStartMonthByEmpty();
-  fillMonthByDate();
-  fillEndMonthByEmpty();
-
-  return <tbody>{calendar}</tbody>;
+  return <tbody>{generateCalendar()}</tbody>;
 }
 
 DatepickerTable.propTypes = {
