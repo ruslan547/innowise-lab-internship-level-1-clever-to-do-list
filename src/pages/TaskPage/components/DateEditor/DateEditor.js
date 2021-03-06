@@ -27,7 +27,7 @@ function DateEditor({ date, setDate }) {
 }
 
 DateEditor.propTypes = {
-  date: PropTypes.object,
+  date: PropTypes.number,
   setDate: PropTypes.func,
 };
 

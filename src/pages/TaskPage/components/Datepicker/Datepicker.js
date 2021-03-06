@@ -30,7 +30,7 @@ function Datepicker({ data, onChange }) {
 }
 
 Datepicker.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.number,
   onChange: PropTypes.func,
 };
 

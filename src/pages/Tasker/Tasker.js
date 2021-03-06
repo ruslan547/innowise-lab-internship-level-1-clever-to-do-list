@@ -1,17 +1,20 @@
-import { useState } from 'react';
+/* eslint-disable prettier/prettier */
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { signout } from '../../core/services/firebaseService';
+import { offUserDate, onUserData, signout } from '../../core/services/firebaseService';
 import Calendar from './components/Calendar/Calendar';
 import Alert from '../../core/components/Alert/Alert';
 import './Tasker.scss';
 import TaskList from './components/TaskList/TaskList';
 import routeConstants from '../../core/constants/routeConstants';
 import { useApp } from '../../core/components/AppProvider/AppProvider';
+import Loader from '../../core/components/Loader/Loader';
 
 const { SIGNIN, TASK } = routeConstants;
 
 function Tasker() {
-  const { setAction } = useApp();
+  const { setAction, currentUser, setTasks } = useApp();
+  const [loading, setLoading] = useState(true);
 
   const [error, setError] = useState('');
   const history = useHistory();
@@ -33,10 +36,19 @@ function Tasker() {
     history.push(TASK);
   };
 
-  // useEffect(() => {
-  //   readUserData(currentUser).then((data) => setTasks(data));
-  //   return () => offCallback(currentUser);
-  // }, []);
+  useEffect(() => {
+    onUserData(currentUser)
+      .then((response) => {
+        setTasks(response);
+        setLoading(false);
+      });
+
+    return () => offUserDate(currentUser);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="tasker">

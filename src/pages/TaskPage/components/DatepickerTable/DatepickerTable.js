@@ -1,6 +1,6 @@
 import './DatepickerTable.scss';
 import PropTypes from 'prop-types';
-import { startOfMonth, isSunday, getWeeksInMonth, addDays, getMonth } from 'date-fns';
+import { startOfMonth, isSunday, getWeeksInMonth, addDays, getMonth, getTime } from 'date-fns';
 import { useCallback, useState } from 'react';
 import DatepickerTableButton from '../DatepickerTableButton/DatepickerTableButton';
 
@@ -12,7 +12,7 @@ function DatepickerTable({ date, onChange }) {
 
   const handleClick = useCallback((btnDate) => {
     setCheckedDate(new Date(btnDate));
-    onChange(btnDate);
+    onChange(getTime(btnDate));
   }, []);
 
   const generateNumber = () => {

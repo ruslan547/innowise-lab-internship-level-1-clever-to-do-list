@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { startOfDay } from 'date-fns';
 import Loader from '../Loader/Loader';
 import { auth } from '../../../firebase';
-import { readUserData } from '../../services/firebaseService';
+// import { offUserDate, onUserData } from '../../services/firebaseService';
 
 const AppContext = React.createContext();
 
@@ -19,14 +19,12 @@ export function AppProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [tasks, setTasks] = useState({});
   const [action, setAction] = useState('Save');
+  console.log('appProvider');
 
   useEffect(() => {
-    return auth.onAuthStateChanged(async (user) => {
+    return auth.onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
-        await readUserData(user).then((data) => setTasks(data));
-        console.log(tasks);
-        console.log(currentUser);
       }
       setLoading(false);
     });

@@ -1,7 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './Calendar.scss';
-import { startOfDay, isToday, isEqual, addMonths, eachDayOfInterval, addDays } from 'date-fns';
+import {
+  startOfDay,
+  isToday,
+  isEqual,
+  addMonths,
+  eachDayOfInterval,
+  addDays,
+  getTime,
+} from 'date-fns';
 import CalendarCard from '../CalendarCard/CalendarCard';
 import enableScroll from './enableScroll';
 import { useApp } from '../../../../core/components/AppProvider/AppProvider';
@@ -16,28 +24,17 @@ const createDates = (date) => {
 };
 
 function Calendar() {
-  const { tasks, currentDate, setCurrentDate } = useApp();
+  const { currentDate, setCurrentDate } = useApp();
   const initDate = startOfDay(new Date());
-  const [dates, setDates] = useState(useMemo(() => createDates(initDate)), []);
+  const [dates, setDates] = useState(
+    useMemo(() => createDates(initDate)),
+    [],
+  );
   console.log('calendar');
 
   const handleClick = useCallback((date) => {
-    setCurrentDate(new Date(date));
+    setCurrentDate(getTime(date));
   }, []);
-
-  const checkFulfilledTasks = useCallback(
-    (date) => {
-      return Object.values(tasks).some((item) => isEqual(item.date, date) && item.checked);
-    },
-    [tasks],
-  );
-
-  const checkPendingTasks = useCallback(
-    (date) => {
-      return Object.values(tasks).some((item) => isEqual(item.date, date) && !item.checked);
-    },
-    [tasks],
-  );
 
   const createDayClass = useCallback(
     (date) => {
@@ -55,18 +52,17 @@ function Calendar() {
     [currentDate],
   );
 
-  const cards = dates.map((item) => {
-    return (
-      <CalendarCard
-        key={item}
-        date={item}
-        onClick={handleClick}
-        checkPendingTasks={checkPendingTasks}
-        checkFulfilledTasks={checkFulfilledTasks}
-        createDayClass={createDayClass}
-      />
-    );
-  });
+  const cards = useMemo(
+    () => dates.map((item) => {
+      return (
+        <CalendarCard
+          key={item}
+          date={item}
+          onClick={handleClick}
+          createDayClass={createDayClass}
+        />
+      );
+    }), [currentDate]);
 
   const addDates = (data) => {
     return new Promise((resolve) => {
@@ -89,7 +85,7 @@ function Calendar() {
   useEffect(() => {
     const target = document.querySelector('.calendar');
     target.addEventListener('wheel', handleWheel);
-  });
+  }, []);
 
   return <ul className="calendar">{cards}</ul>;
 }

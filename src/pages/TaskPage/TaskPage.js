@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import './TaskPage.scss';
 import { useState } from 'react';
+import { getTime } from 'date-fns';
 import EditTask from './components/TaskEditor/TaskEditor';
 import DateEditor from './components/DateEditor/DateEditor';
 import Actions from './components/Actions/Actions';
@@ -23,7 +24,7 @@ function TaskPage() {
   const [checked, setChecked] = useState(currentTask ? currentTask.checked : false);
   const [title, setTitle] = useState(currentTask ? currentTask.title : '');
   const [description, setDescription] = useState(currentTask ? currentTask.description : '');
-  const [date, setDate] = useState(currentTask ? currentTask.date : new Date(currentDate));
+  const [date, setDate] = useState(currentTask ? currentTask.date : getTime(currentDate));
   const history = useHistory();
   const textContent = "Today's Task";
 
