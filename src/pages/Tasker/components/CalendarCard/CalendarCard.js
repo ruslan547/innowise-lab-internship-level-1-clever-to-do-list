@@ -1,8 +1,10 @@
 import './CalendarCard.scss';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
+import React from 'react';
 
 function CalendarCard({ date, onClick, checkPendingTasks, checkFulfilledTasks, createDayClass }) {
+  console.log('calendar card');
   return (
     <button type="button" className="card btn" onClick={() => onClick(date)}>
       <div className={createDayClass(date)}>
@@ -25,4 +27,4 @@ CalendarCard.propTypes = {
   createDayClass: PropTypes.func,
 };
 
-export default CalendarCard;
+export default React.memo(CalendarCard);

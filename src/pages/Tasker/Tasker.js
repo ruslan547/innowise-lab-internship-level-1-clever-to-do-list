@@ -24,19 +24,12 @@ function Tasker({
 }) {
   const [error, setError] = useState('');
   const history = useHistory();
-  const initTask = {
-    checked: false,
-    title: 'Title',
-    description: 'description',
-    date: currentDate,
-  };
 
   const handleSignout = async () => {
     setError('');
 
     try {
       await signout();
-      offCallback(currentUser);
       history.push(SIGNIN);
     } catch ({ message }) {
       setError(message);
@@ -45,12 +38,13 @@ function Tasker({
 
   const handleClick = () => {
     setAction('Save');
-    setCurrentTask(initTask);
+    setCurrentTask();
     history.push(TASK);
   };
 
   useEffect(() => {
     readUserData(currentUser).then((data) => setTasks(data));
+    return () => offCallback(currentUser);
   }, []);
 
   return (

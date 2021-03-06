@@ -1,7 +1,7 @@
 import './TaskEditor.scss';
 import PropTypes from 'prop-types';
 
-function TaskEditor({ checked, title, onChange }) {
+function TaskEditor({ checked, title, setChecked, setTitle }) {
   return (
     <div className="task">
       <input
@@ -9,9 +9,16 @@ function TaskEditor({ checked, title, onChange }) {
         type="checkbox"
         name="checkbox"
         checked={checked}
-        onChange={onChange}
+        // eslint-disable-next-line no-shadow
+        onChange={({ target: { checked } }) => setChecked(checked)}
       />
-      <input className="task__text" type="text" value={title} name="title" onChange={onChange} />
+      <input
+        className="task__text"
+        type="text"
+        value={title}
+        name="title"
+        onChange={({ target: { value } }) => setTitle(value)}
+      />
     </div>
   );
 }
@@ -19,7 +26,8 @@ function TaskEditor({ checked, title, onChange }) {
 TaskEditor.propTypes = {
   checked: PropTypes.bool,
   title: PropTypes.string,
-  onChange: PropTypes.func,
+  setChecked: PropTypes.func,
+  setTitle: PropTypes.func,
 };
 
 export default TaskEditor;

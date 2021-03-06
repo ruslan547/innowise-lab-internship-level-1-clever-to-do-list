@@ -18,7 +18,7 @@ function App() {
   const [currentDate, setCurrentDate] = useState(startOfDay(new Date()));
   const [currentUser, setCurrentUser] = useState();
   const [tasks, setTasks] = useState({});
-  const [action, setAction] = useState();
+  const [action, setAction] = useState('Save');
 
   return (
     <div className="wrapper">

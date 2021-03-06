@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './TaskPage.scss';
+import { useState } from 'react';
 import EditTask from './components/TaskEditor/TaskEditor';
 import DateEditor from './components/DateEditor/DateEditor';
 import Actions from './components/Actions/Actions';
@@ -9,29 +10,36 @@ import { pushUserData, updateUserData, writeUserData } from '../../core/services
 
 const { TASKER } = routeConstants;
 
-function TaskPage({ currentTask, setCurrentTask, currentTaskId, tasks, currentUser, action }) {
+function TaskPage({
+  currentDate,
+  currentTask,
+  setCurrentTask,
+  currentTaskId,
+  setCurrentTaskId,
+  tasks,
+  currentUser,
+  action,
+}) {
+  const [checked, setChecked] = useState(currentTask ? currentTask.checked : false);
+  const [title, setTitle] = useState(currentTask ? currentTask.title : '');
+  const [description, setDescription] = useState(currentTask ? currentTask.description : '');
+  const [date, setDate] = useState(currentTask ? currentTask.date : new Date(currentDate));
   const history = useHistory();
   const textContent = "Today's Task";
 
-  const handleChange = ({ target: { name, value, checked } }) => {
-    if (name === 'checkbox') {
-      setCurrentTask({ ...currentTask, checked });
-    } else {
-      setCurrentTask({ ...currentTask, [name]: value });
-    }
-  };
-
   const handleClick = ({ target: { name } }) => {
+    const task = { checked, title, description, date };
     if (name === 'Save') {
-      pushUserData(currentUser, currentTask);
+      pushUserData(currentUser, { ...task });
     } else if (name === 'Update') {
-      updateUserData(currentUser, { [currentTaskId]: currentTask });
+      updateUserData(currentUser, { [currentTaskId]: { ...task } });
     } else if (name === 'delete') {
       delete tasks[currentTaskId];
       writeUserData(currentUser, tasks);
     }
 
     setCurrentTask(null);
+    setCurrentTaskId(null);
     history.push(TASKER);
   };
 
@@ -44,14 +52,14 @@ function TaskPage({ currentTask, setCurrentTask, currentTaskId, tasks, currentUs
             <div className="text_nowrap">{textContent}</div>
           </button>
         </div>
-        <EditTask checked={currentTask.checked} title={currentTask.title} onChange={handleChange} />
+        <EditTask checked={checked} title={title} setChecked={setChecked} setTitle={setTitle} />
         <textarea
           className="task-page__description"
           name="description"
-          value={currentTask.description}
-          onChange={handleChange}
+          value={description}
+          onChange={({ target: { value } }) => setDescription(value)}
         />
-        <DateEditor currentTask={currentTask} onChange={handleChange} />
+        <DateEditor date={date} onChange={setDate} />
       </div>
       <Actions onClick={handleClick} action={action} />
     </div>
@@ -65,6 +73,8 @@ TaskPage.propTypes = {
   currentUser: PropTypes.object,
   currentTaskId: PropTypes.string,
   action: PropTypes.string,
+  currentDate: PropTypes.object,
+  setCurrentTaskId: PropTypes.func,
 };
 
 export default TaskPage;

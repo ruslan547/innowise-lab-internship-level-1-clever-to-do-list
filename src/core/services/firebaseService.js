@@ -24,7 +24,7 @@ export function pushUserData({ uid }, task) {
   database.ref(`users/${uid}`).child('tasks').push(task);
 }
 
-export function updateUserData({ uid }, task) {
+export async function updateUserData({ uid }, task) {
   const [key] = Object.keys(task);
   task[key].date = +task[key].date;
   database.ref(`users/${uid}`).child('tasks').update(task);

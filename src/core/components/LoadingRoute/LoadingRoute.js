@@ -7,7 +7,7 @@ function LoadingRoute({ children, setCurrentUser }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    return auth.onAuthStateChanged(async (user) => {
+    return auth.onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
       }

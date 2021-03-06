@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { isEqual } from 'date-fns';
 import Task from '../Task/Task';
 import routeConstants from '../../../../core/constants/routeConstants';
-import { readUserData, updateUserData } from '../../../../core/services/firebaseService';
+import { updateUserData } from '../../../../core/services/firebaseService';
 
 const { TASK } = routeConstants;
 
@@ -38,11 +38,14 @@ function TaskList({
     clearTimeout(timeoutId.current);
   }, []);
 
-  const handleChange = useCallback(async (taskId, task) => {
-    task.checked = !task.checked;
-    updateUserData(currentUser, { [taskId]: { ...task } });
-    readUserData(currentUser).then((data) => setTasks(data));
-  }, []);
+  const handleChange = useCallback(
+    async (taskId, task) => {
+      task.checked = !task.checked;
+      await updateUserData(currentUser, { [taskId]: { ...task } });
+      setTasks({ ...tasks });
+    },
+    [tasks],
+  );
 
   Object.entries(tasks).forEach(([taskId, task], i) => {
     if (isEqual(task.date, currentDate)) {

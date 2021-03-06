@@ -12,7 +12,7 @@ function DatepickerTable({ date, onChange }) {
 
   const handleClick = useCallback((btnDate) => {
     setCheckedDate(new Date(btnDate));
-    onChange({ target: { name: 'date', value: btnDate } });
+    onChange(btnDate);
   }, []);
 
   const generateNumber = () => {

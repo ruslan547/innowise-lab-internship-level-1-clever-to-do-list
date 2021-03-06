@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import Datepicker from '../Datepicker/Datepicker';
 
-function DateEditor({ currentTask: { date }, onChange }) {
+function DateEditor({ date, onChange }) {
   const [datepickerDisplay, setDatepickerDisplay] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ function DateEditor({ currentTask: { date }, onChange }) {
 }
 
 DateEditor.propTypes = {
-  currentTask: PropTypes.object,
+  date: PropTypes.object,
   onChange: PropTypes.func,
 };
 

@@ -2,6 +2,7 @@ import './Task.scss';
 import PropTypes from 'prop-types';
 
 function Task({ task, taskId, onClick, onDoubleClick, onChange }) {
+  console.log('Task');
   return (
     <button
       type="button"
