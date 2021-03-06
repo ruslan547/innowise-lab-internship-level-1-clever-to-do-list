@@ -1,5 +1,4 @@
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import './TaskPage.scss';
 import { useState } from 'react';
 import EditTask from './components/TaskEditor/TaskEditor';
@@ -7,19 +6,20 @@ import DateEditor from './components/DateEditor/DateEditor';
 import Actions from './components/Actions/Actions';
 import routeConstants from '../../core/constants/routeConstants';
 import { pushUserData, updateUserData, writeUserData } from '../../core/services/firebaseService';
+import { useApp } from '../../core/components/AppProvider/AppProvider';
 
 const { TASKER } = routeConstants;
 
-function TaskPage({
-  currentDate,
-  currentTask,
-  setCurrentTask,
-  currentTaskId,
-  setCurrentTaskId,
-  tasks,
-  currentUser,
-  action,
-}) {
+function TaskPage() {
+  const {
+    currentTask,
+    setCurrentTask,
+    currentTaskId,
+    setCurrentTaskId,
+    currentDate,
+    currentUser,
+    tasks,
+  } = useApp();
   const [checked, setChecked] = useState(currentTask ? currentTask.checked : false);
   const [title, setTitle] = useState(currentTask ? currentTask.title : '');
   const [description, setDescription] = useState(currentTask ? currentTask.description : '');
@@ -59,22 +59,11 @@ function TaskPage({
           value={description}
           onChange={({ target: { value } }) => setDescription(value)}
         />
-        <DateEditor date={date} onChange={setDate} />
+        <DateEditor date={date} setDate={setDate} />
       </div>
-      <Actions onClick={handleClick} action={action} />
+      <Actions onClick={handleClick} />
     </div>
   );
 }
-
-TaskPage.propTypes = {
-  currentTask: PropTypes.object,
-  setCurrentTask: PropTypes.func,
-  tasks: PropTypes.object,
-  currentUser: PropTypes.object,
-  currentTaskId: PropTypes.string,
-  action: PropTypes.string,
-  currentDate: PropTypes.object,
-  setCurrentTaskId: PropTypes.func,
-};
 
 export default TaskPage;

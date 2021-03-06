@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import Datepicker from '../Datepicker/Datepicker';
 
-function DateEditor({ date, onChange }) {
+function DateEditor({ date, setDate }) {
   const [datepickerDisplay, setDatepickerDisplay] = useState(false);
 
   return (
@@ -21,14 +21,14 @@ function DateEditor({ date, onChange }) {
           }}
         />
       </div>
-      {datepickerDisplay ? <Datepicker name="date" data={date} onChange={onChange} /> : null}
+      {datepickerDisplay ? <Datepicker name="date" data={date} onChange={setDate} /> : null}
     </div>
   );
 }
 
 DateEditor.propTypes = {
   date: PropTypes.object,
-  onChange: PropTypes.func,
+  setDate: PropTypes.func,
 };
 
 export default DateEditor;

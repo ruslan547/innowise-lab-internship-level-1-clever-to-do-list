@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable prettier/prettier */
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import './Calendar.scss';
 import { startOfDay, isToday, isEqual, addMonths, eachDayOfInterval, addDays } from 'date-fns';
 import CalendarCard from '../CalendarCard/CalendarCard';
 import enableScroll from './enableScroll';
+import { useApp } from '../../../../core/components/AppProvider/AppProvider';
 
 const INCREMENT = 1;
 
@@ -14,9 +15,11 @@ const createDates = (date) => {
   });
 };
 
-function Calendar({ currentDate, setCurrentDate, tasks }) {
+function Calendar() {
+  const { tasks, currentDate, setCurrentDate } = useApp();
   const initDate = startOfDay(new Date());
-  const [dates, setDates] = useState(createDates(initDate));
+  const [dates, setDates] = useState(useMemo(() => createDates(initDate)), []);
+  console.log('calendar');
 
   const handleClick = useCallback((date) => {
     setCurrentDate(new Date(date));
@@ -90,11 +93,5 @@ function Calendar({ currentDate, setCurrentDate, tasks }) {
 
   return <ul className="calendar">{cards}</ul>;
 }
-
-Calendar.propTypes = {
-  tasks: PropTypes.object,
-  currentDate: PropTypes.object,
-  setCurrentDate: PropTypes.func,
-};
 
 export default Calendar;

@@ -1,5 +1,6 @@
 import './Task.scss';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function Task({ task, taskId, onClick, onDoubleClick, onChange }) {
   console.log('Task');
@@ -29,4 +30,4 @@ Task.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default Task;
+export default React.memo(Task);

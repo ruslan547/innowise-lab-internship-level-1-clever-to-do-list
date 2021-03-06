@@ -47,5 +47,5 @@ export function readUserData(user) {
 }
 
 export function offCallback({ uid }) {
-  database.ref(`users/${uid}`).off();
+  database.ref(`users/${uid}`).off('value');
 }

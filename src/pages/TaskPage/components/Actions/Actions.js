@@ -1,7 +1,9 @@
 import './Actions.scss';
 import PropTypes from 'prop-types';
+import { useApp } from '../../../../core/components/AppProvider/AppProvider';
 
-function Actions({ action, onClick }) {
+function Actions({ onClick }) {
+  const { action } = useApp();
   return (
     <div className="actions">
       <button className="delete-btn btn" type="button" name="delete" onClick={onClick}>
@@ -15,7 +17,6 @@ function Actions({ action, onClick }) {
 }
 
 Actions.propTypes = {
-  action: PropTypes.string,
   onClick: PropTypes.func,
 };
 
