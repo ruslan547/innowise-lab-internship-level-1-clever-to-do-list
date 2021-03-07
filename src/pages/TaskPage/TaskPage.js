@@ -10,6 +10,9 @@ import { pushUserData, updateUserData, writeUserData } from '../../core/services
 import { useApp } from '../../core/components/AppProvider/AppProvider';
 
 const { TASKER } = routeConstants;
+const SAVE_ACTION = 'Save';
+const UPDATE_ACTION = 'Update';
+const DELETE_ACTION = 'delete';
 
 function TaskPage() {
   const {
@@ -30,11 +33,11 @@ function TaskPage() {
 
   const handleClick = ({ target: { name } }) => {
     const task = { checked, title, description, date };
-    if (name === 'Save') {
+    if (name === SAVE_ACTION) {
       pushUserData(currentUser, { ...task });
-    } else if (name === 'Update') {
+    } else if (name === UPDATE_ACTION) {
       updateUserData(currentUser, { [currentTaskId]: { ...task } });
-    } else if (name === 'delete') {
+    } else if (name === DELETE_ACTION) {
       delete tasks[currentTaskId];
       writeUserData(currentUser, tasks);
     }

@@ -1,12 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable prettier/prettier */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './Calendar.scss';
-import { startOfDay, addMonths, eachDayOfInterval, getTime, addDays } from 'date-fns';
+import { startOfDay, addMonths, eachDayOfInterval, addDays } from 'date-fns';
 import CalendarCard from '../CalendarCard/CalendarCard';
 import useLazyLoading from './useLazyLoading';
 
 const INITIAL_SCALE = 0;
 const INCREMENT = 1;
+const TIMEOUT_DELAY = 1200;
 
 const createDates = (date) => {
   return eachDayOfInterval({
@@ -26,39 +28,39 @@ function Calendar() {
 
   const [onScroll, containerRef] = useLazyLoading({
     onIntersection: appendItems,
-    delay: 1200,
+    delay: TIMEOUT_DELAY,
   });
 
-  const handleWheel = useCallback((event) => {
-    const target = document.querySelector('#calendar');
-    const toLeft = event.deltaY < INITIAL_SCALE && target.scrollLeft > INITIAL_SCALE;
-    const hiddenWidth = target.scrollWidth - target.clientWidth;
-    const toRight = event.deltaY > INITIAL_SCALE && target.scrollLeft < hiddenWidth;
+  const handleWheel = (event) => {
+    const { current } = containerRef;
+    const toLeft = event.deltaY < INITIAL_SCALE && current.scrollLeft > INITIAL_SCALE;
+    const hiddenWidth = current.scrollWidth - current.clientWidth;
+    const toRight = event.deltaY > INITIAL_SCALE && current.scrollLeft < hiddenWidth;
 
     if (toLeft || toRight) {
       event.preventDefault();
-      target.scrollLeft += event.deltaY;
+      current.scrollLeft += event.deltaY;
     }
-  }, []);
+  };
 
   useEffect(() => {
-    const target = document.querySelector('#calendar');
-    target.addEventListener('wheel', handleWheel);
+    const { current } = containerRef;
+    current.addEventListener('wheel', handleWheel);
 
-    return () => target.removeEventListener('wheel', handleWheel);
+    return () => current.removeEventListener('wheel', handleWheel);
   }, []);
 
   const cards = useMemo(
     () => dates.map((item) => {
       return (
         <li key={item}>
-          <CalendarCard date={getTime(item)} />
+          <CalendarCard date={item} />
         </li>
       );
     }), [dates]);
 
   return (
-    <ul className="calendar" id="calendar" ref={containerRef} onScroll={onScroll}>
+    <ul className="calendar" ref={containerRef} onScroll={onScroll}>
       {cards}
     </ul>
   );

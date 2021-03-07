@@ -2,7 +2,7 @@ import './CalendarCard.scss';
 import PropTypes from 'prop-types';
 import { format, getDate } from 'date-fns';
 import isEqual from 'date-fns/isEqual';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import isToday from 'date-fns/isToday';
 import { useApp } from '../../../../core/components/AppProvider/AppProvider';
 
@@ -31,15 +31,19 @@ const CalendarCard = ({ date }) => {
   const { tasks, currentDate, setCurrentDate } = useApp();
   console.log('calendar card');
 
-  const dayClass = useMemo(() => createDayClass(date, currentDate), [currentDate]);
-  const isCompletedTask = useMemo(() => checkCompletedTasks(tasks, date), [tasks]);
-  const isPendingTask = useMemo(() => checkPendingTasks(tasks, date), [tasks]);
+  const dayClass = useMemo(() => createDayClass(date, currentDate), [date, currentDate]);
+  const isCompletedTask = useMemo(() => checkCompletedTasks(tasks, date), [tasks, date]);
+  const isPendingTask = useMemo(() => checkPendingTasks(tasks, date), [tasks, date]);
+  const dateWord = useMemo(() => format(date, 'eee'), [date]);
+  const dateNumber = useMemo(() => getDate(date), [date]);
+
+  const handleClick = useCallback(() => setCurrentDate(date), [date, setCurrentDate]);
 
   return (
-    <button type="button" className="card btn" onClick={() => setCurrentDate(date)}>
+    <button type="button" className="card btn" onClick={handleClick}>
       <div className={dayClass}>
-        <span className="card__text">{format(date, 'eee')}</span>
-        <span className="card__number">{getDate(date)}</span>
+        <span className="card__text">{dateWord}</span>
+        <span className="card__number">{dateNumber}</span>
       </div>
       <div className="card__board">
         {isPendingTask ? <div className="card__pending" /> : null}
@@ -50,7 +54,7 @@ const CalendarCard = ({ date }) => {
 };
 
 CalendarCard.propTypes = {
-  date: PropTypes.number,
+  date: PropTypes.object,
 };
 
-export default React.memo(CalendarCard);
+export default CalendarCard;

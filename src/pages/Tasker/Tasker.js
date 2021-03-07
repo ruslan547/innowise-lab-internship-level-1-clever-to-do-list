@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { offUserDate, onUserData, signout } from '../../core/services/firebaseService';
 import Calendar from './components/Calendar/Calendar';
@@ -11,6 +11,7 @@ import { useApp } from '../../core/components/AppProvider/AppProvider';
 import Loader from '../../core/components/Loader/Loader';
 
 const { SIGNIN, TASK } = routeConstants;
+const SAVE_ACTION = 'Save';
 
 function Tasker() {
   const { setAction, currentUser, setTasks } = useApp();
@@ -20,7 +21,7 @@ function Tasker() {
   const history = useHistory();
   console.log('tasker');
 
-  const handleSignout = async () => {
+  const handleSignout = useCallback(async () => {
     setError('');
 
     try {
@@ -29,12 +30,12 @@ function Tasker() {
     } catch ({ message }) {
       setError(message);
     }
-  };
+  }, [history]);
 
-  const handleClick = () => {
-    setAction('Save');
+  const handleClick = useCallback(() => {
+    setAction(SAVE_ACTION);
     history.push(TASK);
-  };
+  }, [history, setAction]);
 
   useEffect(() => {
     onUserData(currentUser)
@@ -44,7 +45,7 @@ function Tasker() {
       });
 
     return () => offUserDate(currentUser);
-  }, []);
+  }, [currentUser, setTasks]);
 
   if (loading) {
     return <Loader />;

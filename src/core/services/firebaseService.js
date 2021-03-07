@@ -30,10 +30,7 @@ export function onUserData(user) {
       .ref(`users/${user.uid}`)
       .child('tasks')
       .on('value', async (snapshot) => {
-        const response = snapshot.val();
-        if (response instanceof Object) {
-          resolve(response);
-        }
+        resolve(snapshot.val() || {});
       });
   });
 }

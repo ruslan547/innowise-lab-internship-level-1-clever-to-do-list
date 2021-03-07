@@ -8,8 +8,10 @@ import { updateUserData } from '../../../../core/services/firebaseService';
 import { useApp } from '../../../../core/components/AppProvider/AppProvider';
 
 const { TASK } = routeConstants;
+const UPDATE_ACTION = 'Update';
 
 function TaskList() {
+  console.log('taskList');
   const {
     setCurrentTask,
     setCurrentTaskId,
@@ -30,13 +32,16 @@ function TaskList() {
     }, delay);
   }, []);
 
-  const handleDoubleClick = useCallback((taskId, task) => {
-    setCurrentTask(task);
-    setCurrentTaskId(taskId);
-    setAction('Update');
-    history.push(TASK);
-    clearTimeout(timeoutId.current);
-  }, []);
+  const handleDoubleClick = useCallback(
+    (taskId, task) => {
+      setCurrentTask(task);
+      setCurrentTaskId(taskId);
+      setAction(UPDATE_ACTION);
+      history.push(TASK);
+      clearTimeout(timeoutId.current);
+    },
+    [history, setAction, setCurrentTask, setCurrentTaskId],
+  );
 
   const handleChange = useCallback(
     async (taskId, task) => {
@@ -44,11 +49,12 @@ function TaskList() {
       await updateUserData(currentUser, { [taskId]: { ...task } });
       setTasks({ ...tasks });
     },
-    [tasks],
+    [tasks, setTasks, currentUser],
   );
 
   // eslint-disable-next-line no-shadow
   const createTaskList = (tasks) => {
+    console.log('create list');
     const taskList = [];
     Object.entries(tasks).forEach(([taskId, task], i) => {
       if (isEqual(task.date, currentDate)) {
@@ -69,23 +75,7 @@ function TaskList() {
     return taskList;
   };
 
-  const taskList = useMemo(() => createTaskList(tasks), [currentDate, tasks]);
-
-  // Object.entries(tasks).forEach(([taskId, task], i) => {
-  //   if (isEqual(task.date, currentDate)) {
-  //     const taskCompanent = (
-  //       <Task
-  //         key={i.toString()}
-  //         task={task}
-  //         taskId={taskId}
-  //         onClick={handleClick}
-  //         onDoubleClick={handleDoubleClick}
-  //         onChange={handleChange}
-  //       />
-  //     );
-  //     taskList.push(taskCompanent);
-  //   }
-  // });
+  const taskList = useMemo(() => createTaskList(tasks), [createTaskList, currentDate, tasks]);
 
   return [
     <div className="task-count" key={22}>

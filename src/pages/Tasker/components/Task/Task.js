@@ -4,6 +4,7 @@ import React from 'react';
 
 function Task({ task, taskId, onClick, onDoubleClick, onChange }) {
   console.log('Task');
+
   return (
     <button
       type="button"

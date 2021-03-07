@@ -1,5 +1,7 @@
 import { useRef, useCallback } from 'react';
 
+const TIMEOUT_DELAY = 1000;
+
 function throttle(func, ms) {
   let isThrottled = false;
   let savedArgs;
@@ -29,7 +31,7 @@ function throttle(func, ms) {
   return wrapper;
 }
 
-const useLazyLoading = ({ onIntersection, delay = 1000 }) => {
+const useLazyLoading = ({ onIntersection, delay = TIMEOUT_DELAY }) => {
   const containerRef = useRef(null);
 
   const onScroll = useCallback(

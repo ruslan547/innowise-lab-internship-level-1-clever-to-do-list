@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { startOfDay } from 'date-fns';
 import Loader from '../Loader/Loader';
 import { auth } from '../../../firebase';
-// import { offUserDate, onUserData } from '../../services/firebaseService';
+
+const ACTION_INIT = 'Save';
 
 const AppContext = React.createContext();
 
@@ -18,7 +19,7 @@ export function AppProvider({ children }) {
   const [currentDate, setCurrentDate] = useState(startOfDay(new Date()));
   const [currentUser, setCurrentUser] = useState();
   const [tasks, setTasks] = useState({});
-  const [action, setAction] = useState('Save');
+  const [action, setAction] = useState(ACTION_INIT);
   console.log('appProvider');
 
   useEffect(() => {
