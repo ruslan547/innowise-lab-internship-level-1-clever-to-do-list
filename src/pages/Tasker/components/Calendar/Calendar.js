@@ -1,20 +1,14 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './Calendar.scss';
-import {
-  startOfDay,
-  addMonths,
-  eachDayOfInterval,
-  // addDays,
-  getTime,
-} from 'date-fns';
+import { startOfDay, addMonths, eachDayOfInterval, getTime, addDays } from 'date-fns';
 import CalendarCard from '../CalendarCard/CalendarCard';
-import enableScroll from './enableScroll';
+import useLazyLoading from './useLazyLoading';
 
+const INITIAL_SCALE = 0;
 const INCREMENT = 1;
 
 const createDates = (date) => {
-  console.log('init date');
   return eachDayOfInterval({
     start: date,
     end: addMonths(date, INCREMENT),
@@ -22,48 +16,52 @@ const createDates = (date) => {
 };
 
 function Calendar() {
-  // const [dates] = useState(() => createDates(startOfDay(new Date())));
-  const dates = useMemo(() => createDates(startOfDay(new Date())), []);
   console.log('calendar');
+  const [dates, setDates] = useState(() => createDates(startOfDay(new Date())));
 
-  const createCards = () => {
-    console.log('createCards');
-    return dates.map((item) => {
-      return (
-        <CalendarCard
-          key={item}
-          date={getTime(item)}
-        />
-      );
-    });
-  };
+  const appendItems = useCallback(() => {
+    const lastDate = dates[dates.length - 1];
+    setDates([...dates, ...createDates(addDays(lastDate, INCREMENT))]);
+  }, [dates, setDates]);
 
-  // const addDates = (data) => {
-  //   return new Promise((resolve) => {
-  //     const target = document.querySelector('.calendar');
-  //     const maxScrollLeft = target.scrollWidth - target.clientWidth;
-  //     if (target.scrollLeft === maxScrollLeft) {
-  //       const lastDate = data[data.length - 1];
-  //       const newDates = createDates(addDays(new Date(lastDate), INCREMENT));
-  //       resolve(newDates);
-  //     }
-  //   });
-  // };
+  const [onScroll, containerRef] = useLazyLoading({
+    onIntersection: appendItems,
+    delay: 1200,
+  });
 
-  const handleWheel = (event) => {
-    const target = document.querySelector('.calendar');
-    enableScroll(event, target);
-    // addDates(dates).then((response) => setDates([...dates, ...response]));
-  };
+  const handleWheel = useCallback((event) => {
+    const target = document.querySelector('#calendar');
+    const toLeft = event.deltaY < INITIAL_SCALE && target.scrollLeft > INITIAL_SCALE;
+    const hiddenWidth = target.scrollWidth - target.clientWidth;
+    const toRight = event.deltaY > INITIAL_SCALE && target.scrollLeft < hiddenWidth;
 
-  useEffect(() => {
-    const target = document.querySelector('.calendar');
-    target.addEventListener('wheel', handleWheel);
+    if (toLeft || toRight) {
+      event.preventDefault();
+      target.scrollLeft += event.deltaY;
+    }
   }, []);
 
-  const cards = useMemo(() => createCards(), []);
+  useEffect(() => {
+    const target = document.querySelector('#calendar');
+    target.addEventListener('wheel', handleWheel);
 
-  return <ul className="calendar">{cards}</ul>;
+    return () => target.removeEventListener('wheel', handleWheel);
+  }, []);
+
+  const cards = useMemo(
+    () => dates.map((item) => {
+      return (
+        <li key={item}>
+          <CalendarCard date={getTime(item)} />
+        </li>
+      );
+    }), [dates]);
+
+  return (
+    <ul className="calendar" id="calendar" ref={containerRef} onScroll={onScroll}>
+      {cards}
+    </ul>
+  );
 }
 
 export default React.memo(Calendar);
