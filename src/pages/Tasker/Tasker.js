@@ -9,9 +9,10 @@ import TaskList from './components/TaskList/TaskList';
 import routeConstants from '../../core/constants/routeConstants';
 import { useApp } from '../../core/components/AppProvider/AppProvider';
 import Loader from '../../core/components/Loader/Loader';
+import actionConstants from '../../core/constants/actionConstants';
 
 const { SIGNIN, TASK } = routeConstants;
-const SAVE_ACTION = 'Save';
+const { SAVE } = actionConstants;
 
 function Tasker() {
   const { setAction, currentUser, setTasks } = useApp();
@@ -33,7 +34,7 @@ function Tasker() {
   }, [history]);
 
   const handleClick = useCallback(() => {
-    setAction(SAVE_ACTION);
+    setAction(SAVE);
     history.push(TASK);
   }, [history, setAction]);
 
@@ -69,4 +70,4 @@ function Tasker() {
   );
 }
 
-export default Tasker;
+export default React.memo(Tasker);

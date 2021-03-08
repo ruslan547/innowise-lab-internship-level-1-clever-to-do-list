@@ -6,7 +6,7 @@ import Signin from './pages/Signin/Signin';
 import Tasker from './pages/Tasker/Tasker';
 import TaskPage from './pages/TaskPage/TaskPage';
 import routerConstants from './core/constants/routeConstants';
-import { AppProvider } from './core/components/AppProvider/AppProvider';
+import AppProvider from './core/components/AppProvider/AppProvider';
 
 const { SIGNIN, REGISTER, TASKER, TASK } = routerConstants;
 

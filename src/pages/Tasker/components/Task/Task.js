@@ -5,9 +5,10 @@ import { useHistory } from 'react-router';
 import { useApp } from '../../../../core/components/AppProvider/AppProvider';
 import { updateUserData } from '../../../../core/services/firebaseService';
 import routeConstants from '../../../../core/constants/routeConstants';
+import actionConstants from '../../../../core/constants/actionConstants';
 
 const { TASK } = routeConstants;
-const UPDATE_ACTION = 'Update';
+const { UPDATE } = actionConstants;
 
 function Task({ task, taskId }) {
   console.log('Task');
@@ -32,7 +33,7 @@ function Task({ task, taskId }) {
   const handleDoubleClick = () => {
     setCurrentTask(task);
     setCurrentTaskId(taskId);
-    setAction(UPDATE_ACTION);
+    setAction(UPDATE);
     history.push(TASK);
     clearTimeout(timeoutId.current);
   };

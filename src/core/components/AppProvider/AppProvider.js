@@ -12,7 +12,7 @@ export function useApp() {
   return useContext(AppContext);
 }
 
-export function AppProvider({ children }) {
+function AppProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [currentTask, setCurrentTask] = useState(null);
   const [currentTaskId, setCurrentTaskId] = useState();
@@ -52,3 +52,5 @@ export function AppProvider({ children }) {
 AppProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export default React.memo(AppProvider);

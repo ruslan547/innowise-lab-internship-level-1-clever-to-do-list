@@ -1,6 +1,6 @@
 import './DatepickerTableButton.scss';
 import PropTypes from 'prop-types';
-import { isToday, isEqual } from 'date-fns';
+import { isToday, isEqual, getDate } from 'date-fns';
 import { useMemo } from 'react';
 
 const createClass = (date, checkedDate) => {
@@ -21,15 +21,15 @@ function DatepickerTableButton({ date, onClick, checkedDate }) {
 
   return (
     <button className={className} type="button" onClick={() => onClick(date)}>
-      {date.getDate()}
+      {getDate(date)}
     </button>
   );
 }
 
 DatepickerTableButton.propTypes = {
-  date: PropTypes.object,
+  date: PropTypes.number,
   onClick: PropTypes.func,
-  checkedDate: PropTypes.object,
+  checkedDate: PropTypes.number,
 };
 
 export default DatepickerTableButton;

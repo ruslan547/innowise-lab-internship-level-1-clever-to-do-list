@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
 import './DatepickerHeader.scss';
-import { format, addMonths } from 'date-fns';
+import { format, addMonths, getTime } from 'date-fns';
+import React from 'react';
 import arrow from '../../../../assets/img/arrow.svg';
 
 function DatepickerHeader({ date, setDate }) {
   console.log('DatepickerHeader');
   const nextMonth = () => {
-    setDate(addMonths(date, 1));
+    setDate(getTime(addMonths(date, 1)));
   };
 
   const previousMonth = () => {
-    setDate(addMonths(date, -1));
+    setDate(getTime(addMonths(date, -1)));
   };
 
   return (
@@ -27,8 +28,8 @@ function DatepickerHeader({ date, setDate }) {
 }
 
 DatepickerHeader.propTypes = {
-  date: PropTypes.object,
+  date: PropTypes.number,
   setDate: PropTypes.func,
 };
 
-export default DatepickerHeader;
+export default React.memo(DatepickerHeader);

@@ -1,12 +1,13 @@
 import './Datepicker.scss';
 import PropTypes from 'prop-types';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import getTime from 'date-fns/getTime';
 import DatepickerHeader from '../DatepickerHeader/DatepickerHeader';
 import DatepickerTable from '../DatepickerTable/DatepickerTable';
 
 function Datepicker({ data, onChange }) {
   console.log('Datepicker');
-  const [date, setDate] = useState(new Date(data));
+  const [date, setDate] = useState(getTime(data));
 
   return (
     <div className="datepicker" id="datepicker">

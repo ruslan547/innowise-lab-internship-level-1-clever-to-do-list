@@ -1,10 +1,11 @@
 import './DateEditor.scss';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import Datepicker from '../Datepicker/Datepicker';
 
 function DateEditor({ date, setDate }) {
+  console.log('DateEditor');
   const [datepickerDisplay, setDatepickerDisplay] = useState(false);
 
   return (
@@ -31,4 +32,4 @@ DateEditor.propTypes = {
   setDate: PropTypes.func,
 };
 
-export default DateEditor;
+export default React.memo(DateEditor);

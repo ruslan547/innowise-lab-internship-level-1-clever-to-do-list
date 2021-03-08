@@ -1,5 +1,5 @@
 import './TaskList.scss';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { isEqual } from 'date-fns';
 import Task from '../Task/Task';
 import { useApp } from '../../../../core/components/AppProvider/AppProvider';
@@ -34,4 +34,4 @@ function TaskList() {
   ];
 }
 
-export default TaskList;
+export default React.memo(TaskList);

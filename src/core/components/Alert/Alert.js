@@ -1,5 +1,6 @@
 import './Alert.scss';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function Alert({ value }) {
   if (value) {
@@ -13,4 +14,4 @@ Alert.propTypes = {
   value: PropTypes.string,
 };
 
-export default Alert;
+export default React.memo(Alert);

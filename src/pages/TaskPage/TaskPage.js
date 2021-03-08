@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import './TaskPage.scss';
-import { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { getTime } from 'date-fns';
 import EditTask from './components/TaskEditor/TaskEditor';
 import DateEditor from './components/DateEditor/DateEditor';
@@ -60,4 +60,4 @@ function TaskPage() {
   );
 }
 
-export default TaskPage;
+export default React.memo(TaskPage);

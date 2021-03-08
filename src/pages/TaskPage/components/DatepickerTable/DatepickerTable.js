@@ -1,7 +1,7 @@
 import './DatepickerTable.scss';
 import PropTypes from 'prop-types';
 import { startOfMonth, isSunday, getWeeksInMonth, addDays, getMonth, getTime } from 'date-fns';
-import { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import DatepickerTableButton from '../DatepickerTableButton/DatepickerTableButton';
 
 const WEEK_DAYS = 7;
@@ -28,7 +28,7 @@ const generateCalendar = (date, checkedDate, handleClick) => {
         week[weekI] = (
           <td key={generateNumber()}>
             <DatepickerTableButton
-              date={new Date(calendarDate)}
+              date={getTime(calendarDate)}
               checkedDate={checkedDate}
               onClick={handleClick}
             />
@@ -44,12 +44,16 @@ const generateCalendar = (date, checkedDate, handleClick) => {
 };
 
 function DatepickerTable({ date, onChange }) {
-  const [checkedDate, setCheckedDate] = useState(new Date(date));
+  console.log('DatepickerTable');
+  const [checkedDate, setCheckedDate] = useState(getTime(date));
 
-  const handleClick = useCallback((btnDate) => {
-    setCheckedDate(new Date(btnDate));
-    onChange(getTime(btnDate));
-  }, []);
+  const handleClick = useCallback(
+    (btnDate) => {
+      setCheckedDate(getTime(btnDate));
+      onChange(getTime(btnDate));
+    },
+    [setCheckedDate, onChange],
+  );
 
   const calendar = useMemo(() => generateCalendar(date, checkedDate, handleClick), [
     date,
@@ -61,7 +65,7 @@ function DatepickerTable({ date, onChange }) {
 }
 
 DatepickerTable.propTypes = {
-  date: PropTypes.object,
+  date: PropTypes.number,
   onChange: PropTypes.func,
 };
 

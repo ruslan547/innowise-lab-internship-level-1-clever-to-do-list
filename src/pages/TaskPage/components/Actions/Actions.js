@@ -4,6 +4,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import { useApp } from '../../../../core/components/AppProvider/AppProvider';
 import routeConstants from '../../../../core/constants/routeConstants';
+import actionConstants from '../../../../core/constants/actionConstants';
 import {
   pushUserData,
   updateUserData,
@@ -11,9 +12,7 @@ import {
 } from '../../../../core/services/firebaseService';
 
 const { TASKER } = routeConstants;
-const SAVE_ACTION = 'Save';
-const UPDATE_ACTION = 'Update';
-const DELETE_ACTION = 'delete';
+const { SAVE, UPDATE, DELETE } = actionConstants;
 
 function Actions({ task }) {
   console.log('Actions');
@@ -21,11 +20,11 @@ function Actions({ task }) {
   const { action, tasks, currentUser, currentTaskId, setCurrentTaskId, setCurrentTask } = useApp();
 
   const handleClick = ({ target: { name } }) => {
-    if (name === SAVE_ACTION) {
+    if (name === SAVE) {
       pushUserData(currentUser, { ...task });
-    } else if (name === UPDATE_ACTION) {
+    } else if (name === UPDATE) {
       updateUserData(currentUser, { [currentTaskId]: { ...task } });
-    } else if (name === DELETE_ACTION) {
+    } else if (name === DELETE) {
       delete tasks[currentTaskId];
       writeUserData(currentUser, tasks);
     }
@@ -37,8 +36,8 @@ function Actions({ task }) {
 
   return (
     <div className="actions">
-      <button className="delete-btn btn" type="button" name="delete" onClick={handleClick}>
-        Delete
+      <button className="delete-btn btn" type="button" name={DELETE} onClick={handleClick}>
+        {DELETE}
       </button>
       <button className="save-btn btn" type="button" name={action} onClick={handleClick}>
         {action}

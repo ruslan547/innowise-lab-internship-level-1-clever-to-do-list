@@ -1,7 +1,8 @@
+import React from 'react';
 import './Loader.scss';
 
 function Loader() {
   return <div className="loading">loading...</div>;
 }
 
-export default Loader;
+export default React.memo(Loader);
