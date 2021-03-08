@@ -11,8 +11,6 @@ import AppProvider from './core/components/AppProvider/AppProvider';
 const { SIGNIN, REGISTER, TASKER, TASK } = routerConstants;
 
 function App() {
-  console.log('app');
-
   return (
     <div className="wrapper">
       <div className="container">

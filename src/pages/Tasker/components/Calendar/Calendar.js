@@ -18,7 +18,6 @@ const createDates = (date) => {
 };
 
 function Calendar() {
-  console.log('calendar');
   const [dates, setDates] = useState(() => createDates(startOfDay(new Date())));
 
   const appendItems = useCallback(() => {
@@ -31,7 +30,7 @@ function Calendar() {
     delay: TIMEOUT_DELAY,
   });
 
-  const handleWheel = (event) => {
+  const handleWheel = useCallback((event) => {
     const { current } = containerRef;
     const toLeft = event.deltaY < INITIAL_SCALE && current.scrollLeft > INITIAL_SCALE;
     const hiddenWidth = current.scrollWidth - current.clientWidth;
@@ -41,14 +40,14 @@ function Calendar() {
       event.preventDefault();
       current.scrollLeft += event.deltaY;
     }
-  };
+  }, [containerRef]);
 
   useEffect(() => {
     const { current } = containerRef;
     current.addEventListener('wheel', handleWheel);
 
     return () => current.removeEventListener('wheel', handleWheel);
-  }, []);
+  }, [containerRef, handleWheel]);
 
   const cards = useMemo(
     () => dates.map((item) => {

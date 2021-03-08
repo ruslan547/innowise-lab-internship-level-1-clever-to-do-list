@@ -9,13 +9,12 @@ import actionConstants from '../../../../core/constants/actionConstants';
 
 const { TASK } = routeConstants;
 const { UPDATE } = actionConstants;
+const DELAY = 200;
 
 function Task({ task, taskId }) {
-  console.log('Task');
   const { setTasks, currentUser, tasks, setCurrentTask, setCurrentTaskId, setAction } = useApp();
   const history = useHistory();
   const timeoutId = useRef();
-  const delay = 200;
 
   const handleChange = async () => {
     task.checked = !task.checked;
@@ -27,7 +26,7 @@ function Task({ task, taskId }) {
     timeoutId.current = setTimeout(() => {
       // eslint-disable-next-line no-useless-return
       return;
-    }, delay);
+    }, DELAY);
   };
 
   const handleDoubleClick = () => {
@@ -39,15 +38,22 @@ function Task({ task, taskId }) {
   };
 
   return (
-    <button type="button" className="task" onClick={handleClick} onDoubleClick={handleDoubleClick}>
-      <input
-        className="task__input"
-        type="checkbox"
-        checked={task.checked}
-        onChange={handleChange}
-      />
-      {task.title}
-    </button>
+    <li>
+      <button
+        type="button"
+        className="task"
+        onClick={handleClick}
+        onDoubleClick={handleDoubleClick}
+      >
+        <input
+          className="task__input"
+          type="checkbox"
+          checked={task.checked}
+          onChange={handleChange}
+        />
+        {task.title}
+      </button>
+    </li>
   );
 }
 

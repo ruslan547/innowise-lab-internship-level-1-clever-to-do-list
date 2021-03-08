@@ -13,7 +13,7 @@ function PrivateRoute({ component: Component }) {
 }
 
 PrivateRoute.propTypes = {
-  component: PropTypes.object,
+  component: PropTypes.func,
 };
 
 export default React.memo(PrivateRoute);

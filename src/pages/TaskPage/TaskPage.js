@@ -1,7 +1,8 @@
 import { useHistory } from 'react-router-dom';
 import './TaskPage.scss';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { getTime } from 'date-fns';
+import scrollIntoView from 'scroll-into-view-if-needed';
 import EditTask from './components/TaskEditor/TaskEditor';
 import DateEditor from './components/DateEditor/DateEditor';
 import Actions from './components/Actions/Actions';
@@ -9,27 +10,28 @@ import routeConstants from '../../core/constants/routeConstants';
 import { useApp } from '../../core/components/AppProvider/AppProvider';
 
 const { TASKER } = routeConstants;
+const DELAY = 500;
 
 function TaskPage() {
-  console.log('TaskPage');
-  const { currentTask, setCurrentTask, setCurrentTaskId, currentDate } = useApp();
+  const { currentTask, setCurrentTask, setCurrentTaskId, currentDate, scrollElemRef } = useApp();
   const [checked, setChecked] = useState(currentTask ? currentTask.checked : false);
   const [title, setTitle] = useState(currentTask ? currentTask.title : '');
   const [description, setDescription] = useState(currentTask ? currentTask.description : '');
   const [date, setDate] = useState(currentTask ? currentTask.date : getTime(currentDate));
   const history = useHistory();
   const textContent = "Today's Task";
-  const task = useMemo(() => ({ checked, title, description, date }), [
-    checked,
-    title,
-    description,
-    date,
-  ]);
+  const task = { checked, title, description, date };
 
   const handleClick = () => {
     setCurrentTask(null);
     setCurrentTaskId(null);
     history.push(TASKER);
+    setTimeout(() => {
+      const { current } = scrollElemRef;
+      if (current) {
+        scrollIntoView(current, { block: 'center', inline: 'center' });
+      }
+    }, DELAY);
   };
 
   return (
@@ -60,4 +62,4 @@ function TaskPage() {
   );
 }
 
-export default React.memo(TaskPage);
+export default TaskPage;

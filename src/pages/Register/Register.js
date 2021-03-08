@@ -1,6 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useState } from 'react';
 import Button from '../../core/components/Button/Button';
 import Form from '../../core/components/Form/Form';
 import './Register.scss';
@@ -17,25 +16,28 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const history = useHistory();
 
-  const handleSubmit = async ({ email, password }, event) => {
-    event.preventDefault();
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
+  const handleSubmit = useCallback(
+    async ({ email, password }, event) => {
+      event.preventDefault();
+      if (password !== confirmPassword) {
+        setError('Passwords do not match');
+        return;
+      }
 
-    try {
-      setError('');
-      setLoading(true);
-      await register(email, password);
-      history.push(TASKER);
-    } catch ({ message }) {
-      setError(message);
-      setLoading(false);
-    }
-  };
+      try {
+        setError('');
+        setLoading(true);
+        await register(email, password);
+        history.push(TASKER);
+      } catch ({ message }) {
+        setError(message);
+        setLoading(false);
+      }
+    },
+    [confirmPassword, history],
+  );
 
-  const handleChange = (event) => setConfirmPassword(event.target.value);
+  const handleChange = useCallback(({ target: { value } }) => setConfirmPassword(value), []);
 
   return (
     <div className="register">
@@ -57,9 +59,5 @@ function Register() {
     </div>
   );
 }
-
-Register.propTypes = {
-  setCurrentUser: PropTypes.func,
-};
 
 export default Register;

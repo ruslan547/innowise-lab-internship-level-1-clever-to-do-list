@@ -5,7 +5,6 @@ import React from 'react';
 import arrow from '../../../../assets/img/arrow.svg';
 
 function DatepickerHeader({ date, setDate }) {
-  console.log('DatepickerHeader');
   const nextMonth = () => {
     setDate(getTime(addMonths(date, 1)));
   };

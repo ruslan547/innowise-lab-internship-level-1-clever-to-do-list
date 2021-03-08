@@ -1,5 +1,6 @@
 import './PasswordInput.scss';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function PasswordInput({ value, placeholder, onChange }) {
   return (
@@ -19,4 +20,4 @@ PasswordInput.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default PasswordInput;
+export default React.memo(PasswordInput);

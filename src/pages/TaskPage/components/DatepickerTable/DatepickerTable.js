@@ -44,7 +44,6 @@ const generateCalendar = (date, checkedDate, handleClick) => {
 };
 
 function DatepickerTable({ date, onChange }) {
-  console.log('DatepickerTable');
   const [checkedDate, setCheckedDate] = useState(getTime(date));
 
   const handleClick = useCallback(
@@ -69,4 +68,4 @@ DatepickerTable.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default DatepickerTable;
+export default React.memo(DatepickerTable);

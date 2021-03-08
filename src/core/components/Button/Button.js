@@ -1,5 +1,6 @@
 import './Button.scss';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function Button({ value, disabled }) {
   return <input className="button" type="submit" value={value} disabled={disabled} />;
@@ -10,4 +11,4 @@ Button.propTypes = {
   disabled: PropTypes.bool,
 };
 
-export default Button;
+export default React.memo(Button);

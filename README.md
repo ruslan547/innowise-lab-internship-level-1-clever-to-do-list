@@ -2,11 +2,15 @@
 
 [Link to task](https://docs.google.com/document/d/1heFuihWrsw14bCpUdr6fla9ysqE6IrsobSMKAOpBiKA/edit)
 
+[Source Code](https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list)
+
+[Demo on gh-pages](https://ruslan547.github.io/innowise-lab-internship-level-1-clever-to-do-list/#/signin)
+
 ## How to run the app
 
 1. Clone the develop branch.
 
-`$ git clone https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list -b develop`
+`$ git clone https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list`
 
 2. Go to the directory
 
@@ -27,14 +31,17 @@ You will now have app running on localhost via port 3000  http://localhost:3000
 
 ## Database snapshot
 
->  - clever-to-do-list-29817-default-rtdb
->     - users
->          - userId
->              - tasks : "[{}, {}, {} ...]"
->          - userId
->              - tasks : "[{}, {}, {} ...]"
->
->          ...
+```
+   clever-to-do-list-29817-default-rtdb
+    └── users
+        └── userId
+            └── tasks
+                └── taskId
+                    ├── checked
+                    ├── date
+                    ├── description
+                    └── title
+```
 
 ## Application stack
 
@@ -49,44 +56,46 @@ You will now have app running on localhost via port 3000  http://localhost:3000
 
 ## Folder structure
 
-* public
-* src
-	* components
-    * Actions
-    * Alert
-    * Button
-    * Calendar
-    * CalendarCard
-    * DateEditor
-    * Datepicker
-    * DatepickerHeader
-    * DatepickerTable
-    * DatepickerTableButton
-    * Form
-    * Loader
-    * LodingRoute
-    * PasswordInput
-    * PrivateRouter
-    * Task
-    * TaskEditor
-    * TaskList
-  * fonts
-  * img
-  * pages
-		* Register
-		* Signin
-		* Tasker
-		* TaskPage
-  * shared
-    * constants
-    * date
-
+```
+public
+src
+├── assets
+│   ├── fonts
+│   └── img
+├── core
+│   ├── components
+│   │   ├── Alert
+│   │   ├── AppProvider
+│   │   ├── Button
+│   │   ├── Form
+│   │   ├── Loader
+│   │   └── PrivateRoute
+│   ├── constants
+│   └── services
+└── pages
+    ├── Register
+    │   └── components
+    │       └── PasswordInput
+    ├── Signin
+    ├── Tasker
+    │   ├── components
+    │   │   ├── Calendar
+    │   │   ├── CalendarCard
+    │   │   ├── Task
+    │   │   └── TaskList
+    └── TaskPage
+        └── components
+           ├── Actions
+           ├── DateEditor
+           ├── Datepicker
+           ├── DatepickerHeader
+           ├── DatepickerTable
+           ├── DatepickerTableButton
+           └── TaskEditor
+```
 
 ## Contribute
 
-[Source Code](https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list)
-
-[Deploy](https://ruslan547.github.io/innowise-lab-internship-level-1-clever-to-do-list/#/signin)
 
 ## How to use it
 

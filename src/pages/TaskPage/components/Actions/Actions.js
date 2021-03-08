@@ -2,6 +2,7 @@ import './Actions.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router';
+import scrollIntoView from 'scroll-into-view-if-needed';
 import { useApp } from '../../../../core/components/AppProvider/AppProvider';
 import routeConstants from '../../../../core/constants/routeConstants';
 import actionConstants from '../../../../core/constants/actionConstants';
@@ -13,11 +14,19 @@ import {
 
 const { TASKER } = routeConstants;
 const { SAVE, UPDATE, DELETE } = actionConstants;
+const DELAY = 500;
 
 function Actions({ task }) {
-  console.log('Actions');
   const history = useHistory();
-  const { action, tasks, currentUser, currentTaskId, setCurrentTaskId, setCurrentTask } = useApp();
+  const {
+    scrollElemRef,
+    action,
+    tasks,
+    currentUser,
+    currentTaskId,
+    setCurrentTaskId,
+    setCurrentTask,
+  } = useApp();
 
   const handleClick = ({ target: { name } }) => {
     if (name === SAVE) {
@@ -32,6 +41,12 @@ function Actions({ task }) {
     setCurrentTask(null);
     setCurrentTaskId(null);
     history.push(TASKER);
+    setTimeout(() => {
+      const { current } = scrollElemRef;
+      if (current) {
+        scrollIntoView(current, { block: 'center', inline: 'center' });
+      }
+    }, DELAY);
   };
 
   return (

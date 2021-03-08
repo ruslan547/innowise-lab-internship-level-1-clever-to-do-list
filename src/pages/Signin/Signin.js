@@ -1,6 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useState } from 'react';
 import 'firebase/auth';
 import Form from '../../core/components/Form/Form';
 import Alert from '../../core/components/Alert/Alert';
@@ -16,19 +15,22 @@ function Signin() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const handleSubmit = async ({ email, password }, event) => {
-    event.preventDefault();
+  const handleSubmit = useCallback(
+    async ({ email, password }, event) => {
+      event.preventDefault();
 
-    try {
-      setError('');
-      setLoading(true);
-      await signin(email, password);
-      history.push(TASKER);
-    } catch ({ message }) {
-      setError(message);
-      setLoading(null);
-    }
-  };
+      try {
+        setError('');
+        setLoading(true);
+        await signin(email, password);
+        history.push(TASKER);
+      } catch ({ message }) {
+        setError(message);
+        setLoading(null);
+      }
+    },
+    [history],
+  );
 
   return (
     <div className="signin">
@@ -46,10 +48,5 @@ function Signin() {
     </div>
   );
 }
-
-Signin.propTypes = {
-  setCurrentUser: PropTypes.func,
-  setTasks: PropTypes.func,
-};
 
 export default Signin;

@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { offUserDate, onUserData, signout } from '../../core/services/firebaseService';
 import Calendar from './components/Calendar/Calendar';
@@ -17,12 +16,10 @@ const { SAVE } = actionConstants;
 function Tasker() {
   const { setAction, currentUser, setTasks } = useApp();
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState('');
   const history = useHistory();
-  console.log('tasker');
 
-  const handleSignout = useCallback(async () => {
+  const handleSignout = async () => {
     setError('');
 
     try {
@@ -31,19 +28,18 @@ function Tasker() {
     } catch ({ message }) {
       setError(message);
     }
-  }, [history]);
+  };
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     setAction(SAVE);
     history.push(TASK);
-  }, [history, setAction]);
+  };
 
   useEffect(() => {
-    onUserData(currentUser)
-      .then((response) => {
-        setTasks(response);
-        setLoading(false);
-      });
+    onUserData(currentUser).then((response) => {
+      setTasks(response);
+      setLoading(false);
+    });
 
     return () => offUserDate(currentUser);
   }, [currentUser, setTasks]);
@@ -70,4 +66,4 @@ function Tasker() {
   );
 }
 
-export default React.memo(Tasker);
+export default Tasker;

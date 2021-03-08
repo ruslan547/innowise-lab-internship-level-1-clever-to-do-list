@@ -4,9 +4,7 @@ import { isEqual } from 'date-fns';
 import Task from '../Task/Task';
 import { useApp } from '../../../../core/components/AppProvider/AppProvider';
 
-// eslint-disable-next-line no-shadow
 const createTaskList = (tasks, currentDate) => {
-  console.log('create list');
   const taskList = [];
   Object.entries(tasks).forEach(([taskId, task], i) => {
     if (isEqual(task.date, currentDate)) {
@@ -19,9 +17,7 @@ const createTaskList = (tasks, currentDate) => {
 };
 
 function TaskList() {
-  console.log('taskList');
   const { tasks, currentDate } = useApp();
-
   const taskList = useMemo(() => createTaskList(tasks, currentDate), [currentDate, tasks]);
 
   return [

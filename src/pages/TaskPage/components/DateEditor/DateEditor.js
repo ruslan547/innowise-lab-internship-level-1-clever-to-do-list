@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 import Datepicker from '../Datepicker/Datepicker';
 
 function DateEditor({ date, setDate }) {
-  console.log('DateEditor');
   const [datepickerDisplay, setDatepickerDisplay] = useState(false);
 
   return (

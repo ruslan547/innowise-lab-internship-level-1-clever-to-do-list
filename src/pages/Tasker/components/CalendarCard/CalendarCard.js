@@ -2,7 +2,7 @@ import './CalendarCard.scss';
 import PropTypes from 'prop-types';
 import { format, getDate } from 'date-fns';
 import isEqual from 'date-fns/isEqual';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import isToday from 'date-fns/isToday';
 import { useApp } from '../../../../core/components/AppProvider/AppProvider';
 
@@ -28,8 +28,7 @@ const createDayClass = (date, currentDate) => {
 };
 
 const CalendarCard = ({ date }) => {
-  const { tasks, currentDate, setCurrentDate } = useApp();
-  console.log('calendar card');
+  const { tasks, currentDate, setCurrentDate, scrollElemRef } = useApp();
 
   const dayClass = useMemo(() => createDayClass(date, currentDate), [date, currentDate]);
   const isCompletedTask = useMemo(() => checkCompletedTasks(tasks, date), [tasks, date]);
@@ -37,10 +36,15 @@ const CalendarCard = ({ date }) => {
   const dateWord = useMemo(() => format(date, 'eee'), [date]);
   const dateNumber = useMemo(() => getDate(date), [date]);
 
-  const handleClick = useCallback(() => setCurrentDate(date), [date, setCurrentDate]);
+  const handleClick = () => setCurrentDate(date);
 
   return (
-    <button type="button" className="card btn" onClick={handleClick}>
+    <button
+      className="card btn"
+      ref={isEqual(currentDate, date) ? scrollElemRef : null}
+      type="button"
+      onClick={handleClick}
+    >
       <div className={dayClass}>
         <span className="card__text">{dateWord}</span>
         <span className="card__number">{dateNumber}</span>
@@ -57,4 +61,4 @@ CalendarCard.propTypes = {
   date: PropTypes.object,
 };
 
-export default CalendarCard;
+export default React.memo(CalendarCard);

@@ -6,7 +6,6 @@ import DatepickerHeader from '../DatepickerHeader/DatepickerHeader';
 import DatepickerTable from '../DatepickerTable/DatepickerTable';
 
 function Datepicker({ data, onChange }) {
-  console.log('Datepicker');
   const [date, setDate] = useState(getTime(data));
 
   return (
@@ -25,7 +24,7 @@ function Datepicker({ data, onChange }) {
           </tr>
         </thead>
 
-        <DatepickerTable date={date} onChange={onChange} />
+        <DatepickerTable date={date} onChange={useCallback(onChange, [onChange])} />
       </table>
     </div>
   );
