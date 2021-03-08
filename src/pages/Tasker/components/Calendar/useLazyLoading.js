@@ -34,6 +34,7 @@ function throttle(func, ms) {
 const useLazyLoading = ({ onIntersection, delay = TIMEOUT_DELAY }) => {
   const containerRef = useRef(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onScroll = useCallback(
     throttle(() => {
       const { scrollLeft, clientWidth, scrollWidth } = containerRef.current;
