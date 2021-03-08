@@ -4,12 +4,13 @@ import { format, addMonths } from 'date-fns';
 import arrow from '../../../../assets/img/arrow.svg';
 
 function DatepickerHeader({ date, setDate }) {
+  console.log('DatepickerHeader');
   const nextMonth = () => {
-    setDate(new Date(addMonths(date, 1)));
+    setDate(addMonths(date, 1));
   };
 
   const previousMonth = () => {
-    setDate(new Date(addMonths(date, -1)));
+    setDate(addMonths(date, -1));
   };
 
   return (

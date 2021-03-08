@@ -1,8 +1,9 @@
 import './DatepickerTableButton.scss';
 import PropTypes from 'prop-types';
 import { isToday, isEqual } from 'date-fns';
+import { useMemo } from 'react';
 
-function DatepickerTableButton({ date, onClick, checkedDate }) {
+const createClass = (date, checkedDate) => {
   let className = 'date-btn';
 
   if (isEqual(date, checkedDate)) {
@@ -10,6 +11,13 @@ function DatepickerTableButton({ date, onClick, checkedDate }) {
   } else if (isToday(date)) {
     className += ' date-btn__today';
   }
+
+  return className;
+};
+
+function DatepickerTableButton({ date, onClick, checkedDate }) {
+  console.log('DatepickerTableButton');
+  const className = useMemo(() => createClass(date, checkedDate), [date, checkedDate]);
 
   return (
     <button className={className} type="button" onClick={() => onClick(date)}>

@@ -1,7 +1,9 @@
 import './TaskEditor.scss';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function TaskEditor({ checked, title, setChecked, setTitle }) {
+  console.log('TaskEditor');
   return (
     <div className="task">
       <input
@@ -30,4 +32,4 @@ TaskEditor.propTypes = {
   setTitle: PropTypes.func,
 };
 
-export default TaskEditor;
+export default React.memo(TaskEditor);

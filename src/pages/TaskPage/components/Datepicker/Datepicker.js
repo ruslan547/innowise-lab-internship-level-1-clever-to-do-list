@@ -1,15 +1,16 @@
 import './Datepicker.scss';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import DatepickerHeader from '../DatepickerHeader/DatepickerHeader';
 import DatepickerTable from '../DatepickerTable/DatepickerTable';
 
 function Datepicker({ data, onChange }) {
+  console.log('Datepicker');
   const [date, setDate] = useState(new Date(data));
 
   return (
     <div className="datepicker" id="datepicker">
-      <DatepickerHeader date={date} setDate={setDate} />
+      <DatepickerHeader date={date} setDate={useCallback(setDate, [setDate])} />
       <table>
         <thead>
           <tr>
