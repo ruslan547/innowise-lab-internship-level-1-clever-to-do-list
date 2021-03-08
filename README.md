@@ -2,8 +2,6 @@
 
 [Link to task](https://docs.google.com/document/d/1heFuihWrsw14bCpUdr6fla9ysqE6IrsobSMKAOpBiKA/edit)
 
-[Source Code](https://github.com/ruslan547/innowise-lab-internship-level-1-clever-to-do-list)
-
 [Demo on gh-pages](https://ruslan547.github.io/innowise-lab-internship-level-1-clever-to-do-list/#/signin)
 
 ## How to run the app
@@ -78,11 +76,11 @@ src
     │       └── PasswordInput
     ├── Signin
     ├── Tasker
-    │   ├── components
-    │   │   ├── Calendar
-    │   │   ├── CalendarCard
-    │   │   ├── Task
-    │   │   └── TaskList
+    │   └── components
+    │       ├── Calendar
+    │       ├── CalendarCard
+    │       ├── Task
+    │       └── TaskList
     └── TaskPage
         └── components
            ├── Actions
@@ -93,9 +91,6 @@ src
            ├── DatepickerTableButton
            └── TaskEditor
 ```
-
-## Contribute
-
 
 ## How to use it
 
